@@ -27,7 +27,7 @@ export default ({ mode }) => {
         scss: {
           silenceDeprecations: ['legacy-js-api'],
           additionalData: `
-            @use "@/assets/styles/index.scss" as *;
+            @use "@/styles/variables.scss" as *;
           `
         }
       }
