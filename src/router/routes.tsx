@@ -11,12 +11,12 @@ import { tokenLoader } from './loader'
 const routes = [
   {
     path: '/login',
-    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/login'))} />
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/login'))} />
   },
   {
     path: '/',
     loader: protectedLoader,
-    element: <LazyImportComponent lazyChildren={lazy(() => import('@/layout'))} />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/layout/index'))} />,
     errorElement: <ErrorBoundary />,
     children: [
       {
@@ -26,26 +26,26 @@ const routes = [
       {
         path: '/user',
         loader: usersLoader,
-        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/user'))} />
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/user'))} />
       },
       {
         path: '/manage',
         loader: tokenLoader,
-        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/manage'))} />
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/manage'))} />
       },
       {
         path: '/file/:id?',
-        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/file'))} />
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/file'))} />
       },
       {
         path: '/info',
-        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/info'))} />
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/info'))} />
       }
     ]
   },
   {
     path: '*',
-    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/notFound'))} />
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/views/notFound'))} />
   }
 ]
 

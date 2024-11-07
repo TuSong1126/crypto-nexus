@@ -1,0 +1,66 @@
+// 文本溢出
+.tool-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 阴影
+.tool-box-shadow {
+  box-shadow: 0 0 12px rgb(0 0 0 / 30%);
+}
+
+// 快捷布局类
+$unit: 1px;
+$maxSize: 36;
+$maxDistance: 50;
+
+// font-size: 10px ~ 36px
+@for $i from 10 through $maxSize {
+  .fs#{$i} {
+    font-size: $unit * $i !important;
+  }
+}
+
+// margin padding: 1px ~ 50px
+@for $i from 1 through $maxDistance {
+  .p#{$i} {
+    padding: $unit * $i;
+  }
+
+  .pt#{$i} {
+    padding-top: $unit * $i;
+  }
+
+  .pr#{$i} {
+    padding-right: $unit * $i;
+  }
+
+  .pb#{$i} {
+    padding-bottom: $unit * $i;
+  }
+
+  .pl#{$i} {
+    padding-left: $unit * $i;
+  }
+
+  .m#{$i} {
+    margin: $unit * $i;
+  }
+
+  .mt#{$i} {
+    margin-top: $unit * $i;
+  }
+
+  .mr#{$i} {
+    margin-right: $unit * $i;
+  }
+
+  .mb#{$i} {
+    margin-bottom: $unit * $i;
+  }
+
+  .ml#{$i} {
+    margin-left: $unit * $i;
+  }
+}
