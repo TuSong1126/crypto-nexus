@@ -19,4 +19,9 @@ dist
 /bin
 pnpm-lock.yaml
 tsconfig.node.json
-/src/_mock
+
+.eslintrc.cjs
+.prettierrc.cjs
+.stylelintrc.cjs
+.commitlint.config.cjs
+
