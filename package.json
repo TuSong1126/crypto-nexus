@@ -43,7 +43,8 @@
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-mock-dev-server": "1.7.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [

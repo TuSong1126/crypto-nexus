@@ -1,35 +1,33 @@
-import axios from 'axios'
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 /*
  * 创建实例
- * 与后端服务通信
  */
-const HttpClient = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL
+const Axios = axios.create({
+  baseURL: import.meta.env.VITE_APP_BASE_API
 })
 
 /**
  * 请求拦截器
- * 功能：配置请求头
  */
-HttpClient.interceptors.request.use(
-  (config) => {
-    const token = '222'
-    config.headers.authorization = 'Bearer ' + token
+Axios.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const accessToken = localStorage.getItem('token') || 'no-token'
+    if (accessToken) {
+      config.headers.Authorization = 'Bearer ' + accessToken
+    }
     return config
   },
   (error) => {
-    console.error('网络错误，请稍后重试')
     return Promise.reject(error)
   }
 )
 
 /**
  * 响应拦截器
- * 功能：处理异常
  */
-HttpClient.interceptors.response.use(
-  (config) => {
+Axios.interceptors.response.use(
+  (config: AxiosResponse) => {
     return config
   },
   (error) => {
@@ -37,4 +35,4 @@ HttpClient.interceptors.response.use(
   }
 )
 
-export default HttpClient
+export default Axios

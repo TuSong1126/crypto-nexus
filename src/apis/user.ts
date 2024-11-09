@@ -1,7 +1,15 @@
-import HttpClient from '../utils/axios'
+import Axios from '@/utils/axios'
 
-import type { ListParams, ListModel } from './model/userModel'
+interface RowItem {
+  id: number
+  fileName: string
+}
 
-export const getList = (params: ListParams) => {
-  return HttpClient.get<ListModel>('/list', { params })
+interface ListModel {
+  code: number
+  data: RowItem[]
+}
+
+export const fetchGetList = () => {
+  return Axios.get<ListModel>('users/me')
 }
