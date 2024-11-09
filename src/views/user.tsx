@@ -1,9 +1,15 @@
 import { useLoaderData, Await, useAsyncValue } from 'react-router-dom'
 
+import { fetchGetList } from '@/apis/user'
+
 import type { User } from '@/router/loader'
 
 export default function User() {
   const { data } = useLoaderData() as { data: Promise<User[]> }
+
+  setTimeout(() => {
+    fetchGetList()
+  }, 1000)
 
   return (
     <Await resolve={data}>
