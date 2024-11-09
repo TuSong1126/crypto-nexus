@@ -1,4 +1,4 @@
-import { Suspense, LazyExoticComponent } from 'react'
+import { LazyExoticComponent, Suspense } from 'react'
 
 const LazyImportComponent = (props: { lazyChildren: LazyExoticComponent<() => JSX.Element> }) => {
   return (

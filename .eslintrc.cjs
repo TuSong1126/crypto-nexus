@@ -22,50 +22,13 @@ module.exports = {
       version: 'detect',
     },
   },
-  ignorePatterns: ['dist', 'node_modules', '.eslintrc.cjs', 'src/router/dev.routerConfig.tsx'],
+  ignorePatterns: ['dist', 'node_modules', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', '@typescript-eslint', 'react-refresh', 'import', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'react-refresh', 'prettier', 'simple-import-sort'],
   rules: {
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    //import导入顺序规则
-    'import/order': [
-      'error',
-      {
-        //按照分组顺序进行排序
-        groups: ['builtin', 'external', 'parent', 'sibling', 'index', 'internal', 'object', 'type'],
-        //通过路径自定义分组
-        pathGroups: [
-          {
-            pattern: 'react*', //对含react的包进行匹配
-            group: 'builtin', //将其定义为builtin模块
-            position: 'before', //定义在builtin模块中的优先级
-          },
-          {
-            pattern: '@/components/**',
-            group: 'parent',
-            position: 'before',
-          },
-          {
-            pattern: '@/utils/**',
-            group: 'parent',
-            position: 'after',
-          },
-          {
-            pattern: '@/apis/**',
-            group: 'parent',
-            position: 'after',
-          },
-        ],
-        //将react包不进行排序，并放在前排，可以保证react包放在第一行
-        pathGroupsExcludedImportTypes: ['react'],
-        'newlines-between': 'always', //每个分组之间换行
-        //根据字母顺序对每个组内的顺序进行排序
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-      },
-    ],
     '@typescript-eslint/no-explicit-any': ['off'], //允许使用any
     '@typescript-eslint/no-this-alias': [
       'error',
@@ -83,5 +46,31 @@ module.exports = {
       },
     ],
     'no-debugger': 'warn', //提交时不允许有debugger
+    'simple-import-sort/imports': [
+      'warn',
+      {
+        groups: [
+          [`^react`, `antd`, 'zustand'],
+          [`^`],
+          [`.*/plugins/.*`, `^@/plugins$`, `.*/store/.*`, `^@/store$`, `.*/utils/.*`, `^@/utils$`, `.*/hooks/.*`, `^@/hooks$`],
+          [`.*\\.tsx$`],
+          [
+            `^@/`,
+            `.*/api/.*`,
+            `^@/api$`,
+            `.*/config/.*`,
+            `^@/config$`,
+            `.*/enums/.*`,
+            `@/enums$`,
+            `.*/assets/.*`,
+            `^@/assets$`,
+            `.*/styles/.*`,
+            `^@/styles$`,
+            `.*/type`,
+            `.*/types`
+          ]
+        ]
+      }
+    ]
   },
 };
