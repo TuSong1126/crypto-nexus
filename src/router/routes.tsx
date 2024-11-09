@@ -1,12 +1,12 @@
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import ErrorBoundary from '@/components/errorBoundary'
-import LazyImportComponent from '@/components/lazyImportComponent'
-
 import { protectedLoader } from './loader'
 import { usersLoader } from './loader'
 import { tokenLoader } from './loader'
+
+import ErrorBoundary from '@/components/errorBoundary'
+import LazyImportComponent from '@/components/lazyImportComponent'
 
 const routes = [
   {
