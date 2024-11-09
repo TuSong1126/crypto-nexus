@@ -2,10 +2,14 @@ import { NavLink, Outlet, useNavigation } from 'react-router-dom'
 
 import styled from 'styled-components'
 
+import ProgressBar from '@/components/progress-bar'
+
 export default function Layout() {
   const navigation = useNavigation()
   return (
     <Wrapper>
+      <ProgressBar />
+
       <div className="header"></div>
       <div className="main">
         <aside>
