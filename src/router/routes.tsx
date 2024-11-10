@@ -35,7 +35,7 @@ const routes = [
   },
   {
     path: '*',
-    Component: lazy(() => import('@/views/NotFound'))
+    Component: lazy(() => import('@/views/notFound'))
   }
 ]
 

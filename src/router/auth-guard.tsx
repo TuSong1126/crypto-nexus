@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const ErrorPage = lazy(() => import('@/views/ErrorPage'))
+const ErrorPage = lazy(() => import('@/views/errorPage'))
 
 export default function AuthGuard({ children }: Props) {
   const router = useRouter()
