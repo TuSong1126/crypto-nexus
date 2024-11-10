@@ -1,10 +1,16 @@
+import { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 
-import router from './router'
-
+import App from '@/App'
 import '@/styles/index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-root.render(<RouterProvider router={router} />)
+root.render(
+  <HelmetProvider>
+    <Suspense>
+      <App />
+    </Suspense>
+  </HelmetProvider>
+)

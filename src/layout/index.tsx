@@ -1,49 +1,44 @@
-import { NavLink, Outlet, useNavigation } from 'react-router-dom'
+import { Suspense } from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import ProgressBar from '@/components/progress-bar'
+import { CircleLoading } from '@/components/basic/circle-loading'
+import ProgressBar from '@/components/basic/progress-bar'
 
 export default function Layout() {
-  const navigation = useNavigation()
   return (
-    <Wrapper>
+    <StyleWrapper>
       <ProgressBar />
 
       <div className="header"></div>
       <div className="main">
         <aside>
           <div className="menu_item">
-            <NavLink to="/user" end>
-              user
+            <NavLink to="/home" end>
+              home
             </NavLink>
           </div>
           <div className="menu_item">
-            <NavLink to="/manage" end>
-              manage
-            </NavLink>
-          </div>
-          <div className="menu_item">
-            <NavLink to="/file/123" end>
-              file
-            </NavLink>
-          </div>
-          <div className="menu_item">
-            <NavLink to="/info" end>
-              info
+            <NavLink to="/test" end>
+              test
             </NavLink>
           </div>
         </aside>
         <section>
-          {navigation.state === 'loading' && <div>数据加载中</div>}
-          <Outlet />
+          <Suspense fallback={<CircleLoading />}>
+            <Outlet />
+          </Suspense>
         </section>
       </div>
-    </Wrapper>
+    </StyleWrapper>
   )
 }
 
-const Wrapper = styled.div`
+const StyleWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+
   .header {
     height: 60px;
     border: 1px solid;

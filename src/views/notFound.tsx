@@ -1,3 +1,3 @@
 export default function NotFound() {
-  return <div>404</div>
+  return <div>页面不存在，去首页</div>
 }

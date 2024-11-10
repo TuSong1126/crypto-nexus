@@ -9,5 +9,10 @@ export default function File() {
     when: ({ currentLocation, nextLocation }) => value !== '' && currentLocation.pathname !== nextLocation.pathname
   })
 
-  return <input onChange={(v) => setValue(v.target.value)} />
+  return (
+    <>
+      <div>test</div>
+      <input onChange={(v) => setValue(v.target.value)} />
+    </>
+  )
 }
