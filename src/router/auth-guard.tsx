@@ -1,7 +1,7 @@
 import { lazy, useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { useRouter } from '@/hooks/Basic/useRouter'
+import { useRouter } from '@/hooks/basic/useRouter'
 
 type Props = {
   children: React.ReactNode
