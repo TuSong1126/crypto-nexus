@@ -5,7 +5,7 @@ import { App as AntdApp, ConfigProvider as AntdConfigProvider } from 'antd'
 
 import { MotionLazy } from '@/components/Basic/animate/motion-lazy'
 import Router from '@/router/index'
-import Logo from '@/assets/images/home.png'
+import Logo from '@/assets/svg/logo.svg'
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
           <AntdApp>
             <MotionLazy>
               <Helmet>
-                <title>Accompany</title>
-                <link rel="icon" href={Logo} />
+                <title>Wooden House</title>
+                <link rel="svg" href={Logo} />
               </Helmet>
 
               <Router />
