@@ -1,15 +1,5 @@
-import Axios from '@/utils/axios'
-
-interface RowItem {
-  id: number
-  fileName: string
-}
-
-interface ListModel {
-  code: number
-  data: RowItem[]
-}
+import { httpGet } from '@/utils/axios'
 
 export const fetchGetList = () => {
-  return Axios.get<ListModel>('users/me')
+  return httpGet({ url: 'users/me' })
 }
