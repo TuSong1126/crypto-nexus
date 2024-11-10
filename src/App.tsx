@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { HelmetProvider } from 'react-helmet-async'
 import { App as AntdApp, ConfigProvider as AntdConfigProvider } from 'antd'
 
-import { MotionLazy } from '@/components/Basic/animate/motion-lazy'
+import { MotionLazy } from '@/components/basic/animate/motion-lazy'
 import Router from '@/router/index'
 import Logo from '@/assets/svg/logo.svg'
 
