@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 
-import { usePathname } from '@/hooks/use-pathname'
-import { useThemeToken } from '@/hooks/use-theme-token'
+import { usePathname } from '@/hooks/Basic/usePathname'
+import { useThemeToken } from '@/hooks/business/useThemetoken'
 
 export default function ProgressBar() {
   const pathname = usePathname()

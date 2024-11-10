@@ -3,8 +3,8 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { CircleLoading } from '@/components/basic/circle-loading'
-import ProgressBar from '@/components/basic/progress-bar'
+import { CircleLoading } from '@/components/Basic/circle-loading'
+import ProgressBar from '@/components/Basic/progress-bar'
 
 export default function Layout() {
   return (
