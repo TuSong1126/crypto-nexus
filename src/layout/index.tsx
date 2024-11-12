@@ -20,8 +20,23 @@ export default function Layout() {
             </NavLink>
           </div>
           <div className="menu_item">
-            <NavLink to="/test" end>
-              test
+            <NavLink to="/treeHole" end>
+              treeHole
+            </NavLink>
+          </div>
+          <div className="menu_item">
+            <NavLink to="/article" end>
+              article
+            </NavLink>
+          </div>
+          <div className="menu_item">
+            <NavLink to="/timeAxis" end>
+              timeAxis
+            </NavLink>
+          </div>
+          <div className="menu_item">
+            <NavLink to="/postOffice" end>
+              postOffice
             </NavLink>
           </div>
         </aside>
