@@ -6,7 +6,7 @@ import { CircleLoading } from '@/components/basic/circle-loading'
 export default function TimeAxisPage() {
   return (
     <>
-      <div>timeAxis</div>
+      <div>postOffice</div>
       <br />
       <Suspense fallback={<CircleLoading />}>
         <Outlet />

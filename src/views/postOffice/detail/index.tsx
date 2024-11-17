@@ -1,7 +1,7 @@
-export default function TimeAxisDetailPage() {
+export default function PostOfficeDetailPage() {
   return (
     <>
-      <div>timeAxis-detail</div>
+      <div>postOffice-detail</div>
     </>
   )
 }

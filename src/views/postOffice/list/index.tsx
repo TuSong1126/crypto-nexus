@@ -1,7 +1,7 @@
-export default function TimeAxisListPage() {
+export default function PostOfficeListPage() {
   return (
     <>
-      <div>timeAxis-list</div>
+      <div>postOffice-list</div>
     </>
   )
 }
