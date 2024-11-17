@@ -2,3 +2,17 @@
 declare interface Window {
   eventBus: unknown
 }
+
+// 路由
+declare interface RouteType {
+  path?: string
+  Component?: React.LazyExoticComponent<() => JSX.Element>
+  index?: boolean
+  element?: JSX.Element
+  meta?: {
+    title: string
+    permissionKey: string
+    icon: string
+  }
+  children?: RouteType[] | null
+}

@@ -2,11 +2,11 @@ import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
 // 对应的tab：公开信、我的信件、写信
-const postOfficeRoutes = [
+const postOfficeRoutes: RouteType[] = [
   {
     path: 'postOffice',
     Component: lazy(() => import('@/views/postOffice/index')),
-    meta: { label: '邮局', icon: '' },
+    meta: { title: '邮局', permissionKey: '', icon: '' },
     children: [
       {
         index: true,
@@ -14,11 +14,13 @@ const postOfficeRoutes = [
       },
       {
         path: 'list',
-        Component: lazy(() => import('@/views/postOffice/list/index'))
+        Component: lazy(() => import('@/views/postOffice/list/index')),
+        meta: { title: '列表', permissionKey: 'postOffice/list', icon: '' }
       },
       {
         path: 'detail',
-        Component: lazy(() => import('@/views/postOffice/detail/index'))
+        Component: lazy(() => import('@/views/postOffice/detail/index')),
+        meta: { title: '详情', permissionKey: 'postOffice/detail', icon: '' }
       }
     ]
   }

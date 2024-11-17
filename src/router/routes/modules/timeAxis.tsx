@@ -2,11 +2,11 @@ import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
 // 对应的tab：TODO、时间卷轴
-const timeAxisRoutes = [
+const timeAxisRoutes: RouteType[] = [
   {
     path: 'timeAxis',
     Component: lazy(() => import('@/views/timeAxis/index')),
-    meta: { label: '时光轴', icon: '' },
+    meta: { title: '时光轴', permissionKey: '', icon: '' },
     children: [
       {
         index: true,
@@ -14,11 +14,13 @@ const timeAxisRoutes = [
       },
       {
         path: 'list',
-        Component: lazy(() => import('@/views/timeAxis/list/index'))
+        Component: lazy(() => import('@/views/timeAxis/list/index')),
+        meta: { title: '列表', permissionKey: 'timeAxis/list', icon: '' }
       },
       {
         path: 'detail',
-        Component: lazy(() => import('@/views/timeAxis/detail/index'))
+        Component: lazy(() => import('@/views/timeAxis/detail/index')),
+        meta: { title: '详情', permissionKey: 'timeAxis/detail', icon: '' }
       }
     ]
   }
