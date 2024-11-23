@@ -6,7 +6,7 @@ import useUserInfoStore from '@/store/userInfo'
 import { fetchLogin, fetchPermission } from '@/apis/auth'
 
 const Login = () => {
-  const useUserInfo = useUserInfoStore()
+  const userInfoStore = useUserInfoStore()
   const navigation = useNavigate()
 
   const login = async () => {
@@ -16,11 +16,11 @@ const Login = () => {
     if (code === 200) {
       const { token, userInfo } = data
       localStorage.setItem('token', token)
-      useUserInfo.actions.updateToken(token)
-      useUserInfo.actions.updateUserInfo(userInfo)
+      userInfoStore.updateToken(token)
+      userInfoStore.updateUserInfo(userInfo)
 
       const { data: data2 } = await fetchPermission()
-      useUserInfo.actions.updatePermission({
+      userInfoStore.updatePermission({
         btns: data2.btns,
         routes: data2.routes
       })
