@@ -49,10 +49,7 @@ const useUserInfoStore = create<UserState>()(
   )
 )
 
-// 当前用户的路由权限
+// 当前用户的路由权限---(目前仅路由权限过滤处使用，因为直接使用：userInfoStore.permssion.routes有问题)
 export const useUserRoutesPermission = () => useUserInfoStore((state) => state.permssion.routes)
-
-// 当前用户的按钮权限
-export const useUserBtnsPermission = () => useUserInfoStore((state) => state.permssion.btns)
 
 export default useUserInfoStore
