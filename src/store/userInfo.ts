@@ -14,31 +14,28 @@ interface UserState {
   token: string
   userInfo: UserInfo
   permssion: Permission
-  actions: {
-    updateToken: (params: string) => void
-    updateUserInfo: (parmas: UserInfo) => void
-    updatePermission: (params: Permission) => void
-  }
+  updateToken: (params: string) => void
+  updateUserInfo: (parmas: UserInfo) => void
+  updatePermission: (params: Permission) => void
 }
 
 const useUserInfoStore = create<UserState>()(
   persist(
     (set) => ({
       token: '',
+      updateToken: (token) => set({ token }),
+
       userInfo: {
         name: '',
         sex: ''
       },
+      updateUserInfo: (userInfo) => set({ userInfo }),
+
       permssion: {
         btns: [],
         routes: []
       },
-
-      actions: {
-        updateToken: (token) => set({ token }),
-        updateUserInfo: (userInfo) => set({ userInfo }),
-        updatePermission: (permssion) => set({ permssion })
-      }
+      updatePermission: (permssion) => set({ permssion })
     }),
     {
       name: 'USER_STORE',
