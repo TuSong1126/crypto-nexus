@@ -6,7 +6,7 @@ const treeHoleRoutes: RouteType[] = [
   {
     path: 'treeHole',
     Component: lazy(() => import('@/views/treeHole/index')),
-    meta: { title: '树洞', permissionKey: '', icon: '' },
+    meta: { title: '树洞', permissionKey: 'treeHole', icon: '' },
     children: [
       {
         index: true,

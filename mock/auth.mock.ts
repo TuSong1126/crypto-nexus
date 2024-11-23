@@ -34,12 +34,16 @@ export default defineMock([
           'btn:treeHole/detail/edit'
         ],
         routes: [
+          'route:article',
           'route:article/list',
           'route:article/detail',
+          'route:postOffice',
           'route:postOffice/list',
           'route:postOffice/detail',
+          'route:timeAxis',
           'route:timeAxis/list',
           'route:timeAxis/detail',
+          'route:treeHole',
           'route:treeHole/list',
           'route:treeHole/detail'
         ]

@@ -6,7 +6,7 @@ const timeAxisRoutes: RouteType[] = [
   {
     path: 'timeAxis',
     Component: lazy(() => import('@/views/timeAxis/index')),
-    meta: { title: '时光轴', permissionKey: '', icon: '' },
+    meta: { title: '时光轴', permissionKey: 'timeAxis', icon: '' },
     children: [
       {
         index: true,
