@@ -6,7 +6,7 @@ const articleRoutes: RouteType[] = [
   {
     path: 'article',
     Component: lazy(() => import('@/views/article/index')),
-    meta: { title: '妙笔', permissionKey: '', icon: '' },
+    meta: { title: '妙笔', permissionKey: 'article', icon: '' },
     children: [
       {
         index: true,

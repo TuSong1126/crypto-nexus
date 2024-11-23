@@ -6,7 +6,7 @@ const postOfficeRoutes: RouteType[] = [
   {
     path: 'postOffice',
     Component: lazy(() => import('@/views/postOffice/index')),
-    meta: { title: '邮局', permissionKey: '', icon: '' },
+    meta: { title: '邮局', permissionKey: 'postOffice', icon: '' },
     children: [
       {
         index: true,
