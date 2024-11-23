@@ -42,7 +42,7 @@ const useUserInfoStore = create<UserState>()(
     }),
     {
       name: 'USER_STORE',
-      storage: createJSONStorage(() => sessionStorage)
+      storage: createJSONStorage(() => localStorage)
       // 仅存部分字段信息
       // partialize: (state) => ({
       //   userToken: state.token,

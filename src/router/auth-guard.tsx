@@ -12,7 +12,7 @@ const ErrorPage = lazy(() => import('@/views/errorPage'))
 export default function AuthGuard({ children }: Props) {
   const router = useRouter()
 
-  const accessToken = sessionStorage.getItem('token')
+  const accessToken = localStorage.getItem('token')
   console.log('accessToken:', accessToken)
 
   const check = useCallback(() => {

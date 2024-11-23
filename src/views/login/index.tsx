@@ -15,7 +15,7 @@ const Login = () => {
 
     if (code === 200) {
       const { token, userInfo } = data
-      sessionStorage.setItem('token', token)
+      localStorage.setItem('token', token)
       useUserInfo.actions.updateToken(token)
       useUserInfo.actions.updateUserInfo(userInfo)
 
