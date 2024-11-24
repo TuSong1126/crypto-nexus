@@ -2,17 +2,17 @@ import { useMemo } from 'react'
 
 import businessRoutes from './routes'
 
-import { useUserRoutesPermission } from '@/store/userInfo'
+import useUserInfoStore from '@/store/userInfo'
 
 type dealDataType = (data: RouteType[]) => RouteType[]
 
 // 进行权限过滤所有的业务路由
 export default function usePermissionRoutes(): RouteType[] {
-  const routesPermission = useUserRoutesPermission()
+  const { permssion } = useUserInfoStore()
 
   return useMemo(() => {
     const filterFunc = (data: RouteType[]) =>
-      data?.filter((i) => routesPermission.includes('route:' + i.meta?.permissionKey)) || []
+      data?.filter((i) => permssion.routes.includes('route:' + i.meta?.permissionKey)) || []
 
     const dealDataFunc: dealDataType = (data: RouteType[]) => {
       return filterFunc(data)?.map((item) => ({
@@ -23,5 +23,5 @@ export default function usePermissionRoutes(): RouteType[] {
     const filterRoutes = dealDataFunc(businessRoutes)
 
     return filterRoutes
-  }, [routesPermission])
+  }, [permssion.routes])
 }

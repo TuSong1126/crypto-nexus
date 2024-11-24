@@ -47,5 +47,6 @@ export default function Router() {
 
   const router = createHashRouter([...BasicRoutes, MainRoutes] as unknown as RouteObject[])
 
-  return <RouterProvider router={router} />
+  // key：解决登录后：跳转地址改变，但是页面不刷新问题
+  return <RouterProvider router={router} key={Math.random()} />
 }
