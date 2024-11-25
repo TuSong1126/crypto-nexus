@@ -1,3 +1,15 @@
+import { Button } from 'antd'
+
 export default function Home() {
-  return <div>home</div>
+  const logout = () => {
+    console.log('退出')
+  }
+
+  return (
+    <>
+      <Button type="primary" onClick={logout}>
+        退出
+      </Button>
+    </>
+  )
 }
