@@ -15,14 +15,13 @@ const Login = () => {
 
     if (code === 200) {
       const { token, userInfo } = data
-      localStorage.setItem('token', token)
       userInfoStore.updateToken(token)
       userInfoStore.updateUserInfo(userInfo)
 
-      const { data: data2 } = await fetchPermission()
+      const { data: perm } = await fetchPermission()
       userInfoStore.updatePermission({
-        btns: data2.btns,
-        routes: data2.routes
+        btns: perm.btns,
+        routes: perm.routes
       })
 
       navigation('/home')

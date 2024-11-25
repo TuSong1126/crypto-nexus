@@ -23,7 +23,10 @@ const useUserInfoStore = create<UserState>()(
   persist(
     (set) => ({
       token: '',
-      updateToken: (token) => set({ token }),
+      updateToken: (token) => {
+        set({ token })
+        localStorage.setItem('token', token)
+      },
 
       userInfo: {
         name: '',
