@@ -23,21 +23,20 @@ const useUserInfoStore = create<UserState>()(
   persist(
     (set) => ({
       token: '',
-      updateToken: (token) => {
-        set({ token })
-        localStorage.setItem('token', token)
-      },
-
       userInfo: {
         name: '',
         sex: ''
       },
-      updateUserInfo: (userInfo) => set({ userInfo }),
-
       permssion: {
         btns: [],
         routes: []
       },
+
+      updateToken: (token) => {
+        set({ token })
+        localStorage.setItem('token', token)
+      },
+      updateUserInfo: (userInfo) => set({ userInfo }),
       updatePermission: (permssion) => set({ permssion })
     }),
     {
