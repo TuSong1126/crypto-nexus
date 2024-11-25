@@ -3,6 +3,10 @@ declare interface Window {
   eventBus: unknown
 }
 
+declare interface Any {
+  [key as string]: any
+}
+
 // 路由
 declare interface RouteType {
   path?: string

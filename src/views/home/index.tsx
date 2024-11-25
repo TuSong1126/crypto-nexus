@@ -1,8 +1,13 @@
 import { Button } from 'antd'
 
+import useUserInfoStore from '@/store/userInfo'
+
 export default function Home() {
+  const userInfoStore = useUserInfoStore()
+
   const logout = () => {
-    console.log('退出')
+    localStorage.removeItem('token')
+    userInfoStore.updateToken('')
   }
 
   return (
