@@ -1,6 +1,11 @@
+import { message } from 'antd'
+
 import 'nprogress/nprogress.css'
-import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios'
 import NProgress from 'nprogress'
+
+import { ResultStatusEnum } from '@/enums'
+import { ResultType } from '@/types'
 
 /*
  * 创建实例
@@ -29,29 +34,30 @@ Axios.interceptors.request.use(
  * 响应拦截器
  */
 Axios.interceptors.response.use(
-  (config: AxiosResponse) => {
-    return config
+  (res: AxiosResponse<ResultType>) => {
+    // 业务请求成功
+    if (res.data?.code === ResultStatusEnum.SUCCESS) {
+      return res
+    }
+
+    // 业务请求错误
+    return Promise.reject(res)
   },
-  (error) => {
+  (error: AxiosError<ResultType>) => {
     return Promise.reject(error)
   }
 )
 
-interface ResType {
-  code: number
-  data?: any
-  msg?: string
-}
-
-function request(method: Method, config: AxiosRequestConfig): Promise<ResType> {
-  return new Promise((resolve, reject) => {
+function request(method: Method, config: AxiosRequestConfig): Promise<ResultType> {
+  return new Promise((resolve) => {
     NProgress.start()
     Axios.request({ ...config, method })
       .then((res) => {
         resolve(res.data)
       })
       .catch((err) => {
-        reject(err.data)
+        message.error(err.data.msg)
+        // reject(err.data)
       })
       .finally(() => {
         NProgress.done()
@@ -59,18 +65,18 @@ function request(method: Method, config: AxiosRequestConfig): Promise<ResType> {
   })
 }
 
-export function httpGet(config: AxiosRequestConfig): Promise<ResType> {
+export function httpGet(config: AxiosRequestConfig): Promise<ResultType> {
   return request('GET', config)
 }
 
-export function httpPost(config: AxiosRequestConfig): Promise<ResType> {
+export function httpPost(config: AxiosRequestConfig): Promise<ResultType> {
   return request('POST', config)
 }
 
-export function httpDelete(config: AxiosRequestConfig): Promise<ResType> {
+export function httpDelete(config: AxiosRequestConfig): Promise<ResultType> {
   return request('DELETE', config)
 }
 
-export function httpPut(config: AxiosRequestConfig): Promise<ResType> {
+export function httpPut(config: AxiosRequestConfig): Promise<ResultType> {
   return request('PUT', config)
 }

@@ -1,0 +1,114 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  min-width: 1400px;
+  height: 100vh;
+  min-height: 900px;
+  padding-left: 48%;
+  // background-image: linear-gradient(
+  //   to left top,
+  //   #d16ba5,
+  //   #c777b9,
+  //   #ba83ca,
+  //   #aa8fd8,
+  //   #9a9ae1,
+  //   #8aa7ec,
+  //   #79b3f4,
+  //   #69bff8,
+  //   #52cffe,
+  //   #41dfff,
+  //   #46eefa,
+  //   #5ffbf1
+  // );
+
+  background: url('@/assets/images/bgc1.png') no-repeat;
+  background-size: 100% 100%;
+
+  .form {
+    display: flex;
+    width: 800px;
+    height: 560px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 25px 45px rgb(0 0 0 / 10%);
+    animation: fadeIn 2s linear;
+
+    .left {
+      width: 520px;
+      height: 560px;
+      overflow: hidden;
+
+      video {
+        width: 580px;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 280px;
+      height: 560px;
+      background: rgb(255 255 255 / 90%);
+
+      .right-con {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+
+        h2 {
+          padding-bottom: 10px;
+          color: #70b4e3;
+          font-weight: 400;
+          font-size: 28px;
+        }
+
+        h3 {
+          padding-top: 20px;
+          color: #70b4e3;
+          font-weight: 400;
+          font-size: 16px;
+        }
+
+        .text {
+          width: 100%;
+          height: 45px;
+          color: #366ae6;
+          font-size: 16px;
+          background-color: rgb(0 0 0 / 0%);
+          border: none;
+          border-bottom: 1px solid #70b4e3;
+          outline: none;
+        }
+
+        .btn {
+          width: 100%;
+          height: 40px;
+          margin-top: 50px;
+          color: #fff;
+          font-size: 16px;
+          background-image: linear-gradient(120deg, #76daec 0%, #c5a8de 100%);
+          border: none;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+
+        .btn:hover {
+          box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    20% {
+      opacity: 0;
+    }
+  }
+}

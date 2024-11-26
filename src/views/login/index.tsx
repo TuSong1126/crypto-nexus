@@ -1,38 +1,73 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from 'antd'
+import { message } from 'antd'
+
+import './index.scss'
 
 import useUserInfoStore from '@/store/userInfo'
 
 import { fetchLogin, fetchPermission } from '@/apis/auth'
+import Video from '@/assets/video/video.mp4'
 
-const Login = () => {
+const { VITE_APP_HOMEPAGE } = import.meta.env
+
+const Login: React.FC = () => {
   const userInfoStore = useUserInfoStore()
   const navigation = useNavigate()
 
-  const login = async () => {
-    const params = { username: 'admin', password: '123456' }
-    const { code, data } = await fetchLogin(params)
+  const [username, setUsername] = useState('admin')
+  const [password, setPassword] = useState('123456')
 
-    if (code === 200) {
-      const { token, userInfo } = data
-      userInfoStore.updateToken(token)
-      userInfoStore.updateUserInfo(userInfo)
-
-      const { data: perm } = await fetchPermission()
-      userInfoStore.updatePermission({
-        btns: perm.btns,
-        routes: perm.routes
-      })
-
-      navigation('/home')
+  const handleLogin = async () => {
+    if (!username || !password) {
+      message.error('请输入正确的账号和密码！')
+      return
     }
+
+    const { data } = await fetchLogin({ username, password })
+
+    const { token, userInfo } = data
+    userInfoStore.updateToken(token)
+    userInfoStore.updateUserInfo(userInfo)
+
+    const { data: perm } = await fetchPermission()
+    userInfoStore.updatePermission({
+      btns: perm.btns,
+      routes: perm.routes
+    })
+
+    navigation(VITE_APP_HOMEPAGE, { replace: true })
   }
 
   return (
-    <div>
-      <Button type="primary" onClick={login}>
-        登录
-      </Button>
+    <div className="login-container">
+      <div className="form">
+        <div className="left">
+          <video src={Video} muted loop autoPlay />
+        </div>
+
+        <div className="right">
+          <div className="right-con">
+            <h2>Wooden House</h2>
+
+            <form>
+              <h3>账号</h3>
+              <input className="text" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+              <h3>密码</h3>
+              <input
+                className="text"
+                type="password"
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </form>
+
+            <input className="btn" type="submit" value="登录" onClick={handleLogin} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
