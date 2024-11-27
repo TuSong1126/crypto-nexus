@@ -11,7 +11,7 @@ import Video from '@/assets/video/video.mp4'
 
 const { VITE_APP_HOMEPAGE } = import.meta.env
 
-const Login: React.FC = () => {
+const Login = () => {
   const userInfoStore = useUserInfoStore()
   const navigation = useNavigate()
 
