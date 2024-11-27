@@ -25,7 +25,6 @@ const Login: React.FC = () => {
     }
 
     const { data } = await fetchLogin({ username, password })
-
     const { token, userInfo } = data
     userInfoStore.updateToken(token)
     userInfoStore.updateUserInfo(userInfo)
@@ -40,7 +39,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="login-container">
+    <div className="login-wrapper">
       <div className="form">
         <div className="left">
           <video src={Video} muted loop autoPlay />
