@@ -34,6 +34,7 @@ export default defineMock([
           'btn:treeHole/detail/edit'
         ],
         routes: [
+          'route:home',
           'route:article',
           'route:article/list',
           'route:article/detail',

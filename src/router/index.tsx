@@ -34,15 +34,7 @@ export default function Router() {
         <Layout />
       </AuthGuard>
     ),
-    children: [
-      { index: true, element: <Navigate to={HOMEPAGE} replace /> },
-      {
-        path: 'home',
-        Component: lazy(() => import('@/views/home')),
-        meta: { title: '首页', permissionKey: '', icon: '' }
-      },
-      ...permissionRoutes
-    ]
+    children: [{ index: true, element: <Navigate to={HOMEPAGE} replace /> }, ...permissionRoutes]
   }
 
   const router = createHashRouter([...BasicRoutes, MainRoutes] as unknown as RouteObject[])
