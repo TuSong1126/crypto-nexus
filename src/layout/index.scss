@@ -1,0 +1,69 @@
+.app-layout-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('@/assets/images/bgc.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 68px;
+    padding: 0 64px;
+    color: #fff;
+
+    .logo {
+      width: 100px;
+      height: 42px;
+      line-height: 42px;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      margin: 0 135px;
+      font-size: 18px;
+
+      .item {
+        height: 42px;
+        margin-right: 48px;
+        color: rgb(255 255 255 / 50%);
+        line-height: 42px;
+        cursor: pointer;
+      }
+
+      .active {
+        position: relative;
+        color: #fff;
+
+        &::after {
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 42px;
+          height: 2px;
+          background-color: #fff;
+          transform: translateX(-50%);
+          content: '';
+        }
+      }
+    }
+
+    .other {
+      width: 200px;
+      text-align: right;
+    }
+  }
+
+  .main-content-wrapper {
+    width: 100%;
+    height: calc(100% - 68px);
+    margin: 0 auto;
+    padding: 24px 300px;
+    overflow: auto;
+  }
+}
