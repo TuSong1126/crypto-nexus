@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios'
 import NProgress from 'nprogress'
 
-import { ResultStatusEnum } from '@/enums'
+import { ConstEnum, ResultStatusEnum } from '@/enums'
 import { ResultType } from '@/types'
 
 /*
@@ -19,7 +19,7 @@ const Axios = axios.create({
  */
 Axios.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const accessToken = localStorage.getItem('token') || 'no-token'
+    const accessToken = localStorage.getItem(ConstEnum.TOKEN)
     if (accessToken) {
       config.headers.Authorization = 'Bearer ' + accessToken
     }
