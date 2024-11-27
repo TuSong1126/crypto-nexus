@@ -1,23 +1,24 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import styled from 'styled-components'
+
+import { useRouter } from '@/hooks/basic/useRouter'
 
 import { ConstEnum } from '@/enums'
 
 export default function NotFound() {
-  const navigation = useNavigate()
+  const router = useRouter()
 
   // 如果是因为没有token导致，则直接去到登录页
   useEffect(() => {
     const accessToken = localStorage.getItem(ConstEnum.TOKEN)
     if (!accessToken) {
-      navigation('/login')
+      router.push('/login')
       return
     }
-  }, [navigation])
+  }, [router])
 
-  const goToHome = () => navigation('/home')
+  const goToHome = () => router.push('/home')
 
   return (
     <StyleWrapper>

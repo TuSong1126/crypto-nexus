@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 
 import './index.scss'
 
 import useUserInfoStore from '@/store/userInfo'
+import { useRouter } from '@/hooks/basic/useRouter'
 
 import { fetchLogin, fetchPermission } from '@/apis/auth'
 import Video from '@/assets/video/video.mp4'
@@ -13,7 +13,7 @@ const { VITE_APP_HOMEPAGE } = import.meta.env
 
 const Login = () => {
   const userInfoStore = useUserInfoStore()
-  const navigation = useNavigate()
+  const router = useRouter()
 
   const [username, setUsername] = useState('admin')
   const [password, setPassword] = useState('123456')
@@ -35,7 +35,7 @@ const Login = () => {
       routes: perm.routes
     })
 
-    navigation(VITE_APP_HOMEPAGE, { replace: true })
+    router.replace(VITE_APP_HOMEPAGE)
   }
 
   return (
