@@ -3,6 +3,8 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { useRouter } from '@/hooks/basic/useRouter'
 
+import { ConstEnum } from '@/enums'
+
 type Props = {
   children: React.ReactNode
 }
@@ -12,8 +14,7 @@ const ErrorPage = lazy(() => import('@/views/errorPage'))
 export default function AuthGuard({ children }: Props) {
   const router = useRouter()
 
-  const accessToken = localStorage.getItem('token')
-  console.log('accessToken:', accessToken)
+  const accessToken = localStorage.getItem(ConstEnum.TOKEN)
 
   const check = useCallback(() => {
     if (!accessToken) {

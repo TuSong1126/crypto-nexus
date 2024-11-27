@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
+import { ConstEnum } from '@/enums'
+
 interface UserInfo {
   name: string
   sex: string
@@ -34,7 +36,7 @@ const useUserInfoStore = create<UserState>()(
 
       updateToken: (token) => {
         set({ token })
-        localStorage.setItem('token', token)
+        localStorage.setItem(ConstEnum.TOKEN, token)
       },
       updateUserInfo: (userInfo) => set({ userInfo }),
       updatePermission: (permssion) => set({ permssion })
