@@ -3,7 +3,7 @@ import { defineMock } from './base'
 export default defineMock([
   {
     url: 'auth/login',
-    method: ['GET'],
+    method: ['POST'],
     body: {
       code: 200,
       data: {
@@ -15,6 +15,15 @@ export default defineMock([
         }
       },
       msg: '登录'
+    }
+  },
+  {
+    url: 'auth/register',
+    method: ['POST'],
+    body: {
+      code: 200,
+      data: {},
+      msg: '注册成功'
     }
   },
   {
