@@ -6,7 +6,7 @@ import './index.scss'
 import useUserInfoStore from '@/store/userInfo'
 import { useRouter } from '@/hooks/basic/useRouter'
 
-import { fetchLogin, fetchPermission } from '@/apis/auth'
+import { fetchLogin, fetchPermission, fetchRegister } from '@/apis/auth'
 import Video from '@/assets/video/video.mp4'
 
 const { VITE_APP_HOMEPAGE } = import.meta.env
@@ -38,6 +38,16 @@ const Login = () => {
     router.replace(VITE_APP_HOMEPAGE)
   }
 
+  const handleRegister = async () => {
+    if (!username || !password) {
+      message.error('请输入正确的账号和密码！')
+      return
+    }
+
+    const { msg } = await fetchRegister({ username, password })
+    message.success(msg)
+  }
+
   return (
     <div className="login-wrapper">
       <div className="form">
@@ -63,7 +73,10 @@ const Login = () => {
               />
             </form>
 
-            <input className="btn" type="submit" value="登录" onClick={handleLogin} />
+            <div className="btn-area">
+              <input className="btn" type="submit" value="登录" onClick={handleLogin} />
+              <input className="btn" type="submit" value="注册" onClick={handleRegister} />
+            </div>
           </div>
         </div>
       </div>
