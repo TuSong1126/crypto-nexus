@@ -1,6 +1,8 @@
 .app-layout-wrapper {
   width: 100vw;
+  min-width: 1200px;
   height: 100vh;
+  overflow: auto;
   background-image: url('@/assets/images/bgc.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -25,7 +27,7 @@
       display: flex;
       flex: 1;
       min-width: 0;
-      margin: 0 135px;
+      padding: 0 135px;
       font-size: 18px;
 
       .item {
