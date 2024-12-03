@@ -55,7 +55,10 @@ export default defineMock([
           'route:timeAxis/detail',
           'route:treeHole',
           'route:treeHole/list',
-          'route:treeHole/detail'
+          'route:treeHole/detail',
+          'route:about',
+          'route:about/product',
+          'route:about/me'
         ]
       },
       msg: '获取权限'

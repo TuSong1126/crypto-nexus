@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 
+import aboutRoutes from './modules/about'
 import articleRoutes from './modules/article'
 import postOfficeRoutes from './modules/postOffice'
 import timeAxisRoutes from './modules/timeAxis'
@@ -14,7 +15,8 @@ const businessRoutes = [
   ...treeHoleRoutes,
   ...articleRoutes,
   ...timeAxisRoutes,
-  ...postOfficeRoutes
+  ...postOfficeRoutes,
+  ...aboutRoutes
 ] as RouteType[]
 
 export default businessRoutes
