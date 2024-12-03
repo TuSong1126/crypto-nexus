@@ -7,14 +7,18 @@ import { CircleLoading } from '@/components/basic/circle-loading'
 import businessRoutes from '@/router/routes/index'
 
 const { VITE_APP_HOMEPAGE } = import.meta.env
+
 export default function Layout() {
+  // 首页不在菜单中展示(注意斜杠)
+  const menuList = businessRoutes.filter((i) => !VITE_APP_HOMEPAGE.includes(i.meta?.permissionKey))
+
   return (
     <div className="app-layout-wrapper">
       <div className="header-wrapper tool-box-shadow">
         <div className="logo">LOGO</div>
 
         <div className="menu">
-          {businessRoutes.map((item) => (
+          {menuList.map((item) => (
             <NavLink to={item.path || VITE_APP_HOMEPAGE} className="item" key={item.path}>
               {item.meta?.title}
             </NavLink>
