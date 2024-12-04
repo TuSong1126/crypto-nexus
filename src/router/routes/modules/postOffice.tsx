@@ -1,5 +1,4 @@
 import { lazy } from 'react'
-import { Navigate } from 'react-router-dom'
 
 // 对应的tab：公开信、我的信件、写信
 const postOfficeRoutes: RouteType[] = [
@@ -8,10 +7,6 @@ const postOfficeRoutes: RouteType[] = [
     Component: lazy(() => import('@/views/postOffice/index')),
     meta: { title: '邮局', permissionKey: 'postOffice', icon: '' },
     children: [
-      {
-        index: true,
-        element: <Navigate to="list" replace />
-      },
       {
         path: 'list',
         Component: lazy(() => import('@/views/postOffice/list/index')),

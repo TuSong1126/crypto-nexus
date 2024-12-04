@@ -9,7 +9,7 @@ declare interface Any {
 
 // 路由
 declare interface RouteType {
-  path?: string
+  path: string
   Component?: React.LazyExoticComponent<() => JSX.Element>
   index?: boolean
   element?: JSX.Element
