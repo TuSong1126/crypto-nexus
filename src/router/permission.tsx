@@ -37,10 +37,7 @@ export default function usePermissionRoutes(): RouteType[] {
       })
     }
 
-    // 目前仅需过滤第一层
-    const filterRoutes = dealDataFunc(businessRoutes).filter(
-      (i) => i.children?.length || VITE_APP_HOMEPAGE.includes(i.path)
-    )
+    const filterRoutes = dealDataFunc(businessRoutes)
 
     return filterRoutes
   }, [permssion.routes])
