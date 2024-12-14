@@ -57,7 +57,7 @@ const Login = () => {
 
         <div className="right">
           <div className="right-con">
-            <h2>PasserBy</h2>
+            <h2>Inn</h2>
 
             <form>
               <h3>账号</h3>
