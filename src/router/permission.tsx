@@ -6,7 +6,6 @@ import businessRoutes from './routes'
 import useUserInfoStore from '@/store/userInfo'
 
 type dealDataType = (data: RouteType[]) => RouteType[]
-const { VITE_APP_HOMEPAGE } = import.meta.env
 
 // 进行权限过滤所有的业务路由
 export default function usePermissionRoutes(): RouteType[] {
