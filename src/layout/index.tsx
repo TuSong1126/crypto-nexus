@@ -2,13 +2,14 @@ import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
 import './index.scss'
+import classNames from 'classnames'
 
 import { useRouter } from '@/hooks/basic/useRouter'
 
 import { CircleLoading } from '@/components/basic/circle-loading'
 import businessRoutes from '@/router/routes/index'
 
-const { VITE_APP_HOMEPAGE } = import.meta.env
+const { VITE_APP_HOMEPAGE, VITE_STYLE_MODE } = import.meta.env
 
 export default function Layout() {
   // 首页不在菜单中展示(注意斜杠)
@@ -16,7 +17,7 @@ export default function Layout() {
   const router = useRouter()
 
   return (
-    <div className="app-layout-wrapper">
+    <div className={classNames('app-layout-wrapper', { 'style-mode': VITE_STYLE_MODE === 'true' })}>
       <div className="header-wrapper tool-box-shadow">
         <div className="logo" onClick={() => router.push(VITE_APP_HOMEPAGE)}>
           LOGO
