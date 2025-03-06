@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import businessRoutes from './routes'
-
 import useUserInfoStore from '@/store/userInfo'
+
+import businessRoutes from './routes'
 
 type dealDataType = (data: RouteType[]) => RouteType[]
 

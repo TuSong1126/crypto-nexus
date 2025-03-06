@@ -1,11 +1,10 @@
+import { Button } from 'antd'
 import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Button } from 'antd'
-
-import useUserInfoStore from '@/store/userInfo'
 
 import { CircleLoading } from '@/components/basic/circle-loading'
 import { ConstEnum } from '@/enums'
+import useUserInfoStore from '@/store/userInfo'
 
 export default function AboutPage() {
   const userInfoStore = useUserInfoStore()
