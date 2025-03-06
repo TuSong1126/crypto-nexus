@@ -1,5 +1,6 @@
-import { varContainer } from './variants/container'
 import { m, MotionProps } from 'framer-motion'
+
+import { varContainer } from './variants/container'
 
 interface Props extends MotionProps {
   className?: string

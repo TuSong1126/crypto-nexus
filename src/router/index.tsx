@@ -1,10 +1,10 @@
 import { lazy } from 'react'
 import { createHashRouter, Navigate, RouteObject, RouterProvider } from 'react-router-dom'
 
-import usePermissionRoutes from './permission'
-
 import Layout from '@/layout/index'
 import AuthGuard from '@/router/auth-guard'
+
+import usePermissionRoutes from './permission'
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env
 

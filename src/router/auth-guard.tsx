@@ -1,9 +1,8 @@
 import { lazy, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { useRouter } from '@/hooks/basic/useRouter'
-
 import { ConstEnum } from '@/enums'
+import { useRouter } from '@/hooks/basic/useRouter'
 
 type Props = {
   children: React.ReactNode

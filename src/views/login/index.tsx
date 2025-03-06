@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import { message } from 'antd'
-
 import './index.scss'
 
-import useUserInfoStore from '@/store/userInfo'
-import { useRouter } from '@/hooks/basic/useRouter'
+import { message } from 'antd'
+import { useState } from 'react'
 
 import { fetchLogin, fetchPermission, fetchRegister } from '@/apis/auth'
 import Video from '@/assets/video/video.mp4'
+import { useRouter } from '@/hooks/basic/useRouter'
+import useUserInfoStore from '@/store/userInfo'
 
 const { VITE_APP_HOMEPAGE } = import.meta.env
 

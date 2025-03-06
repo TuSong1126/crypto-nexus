@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
-
 import styled from 'styled-components'
 
-import { useRouter } from '@/hooks/basic/useRouter'
-
 import { ConstEnum } from '@/enums'
+import { useRouter } from '@/hooks/basic/useRouter'
 
 export default function NotFound() {
   const router = useRouter()

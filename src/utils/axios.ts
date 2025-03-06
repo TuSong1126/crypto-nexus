@@ -1,6 +1,6 @@
-import { message } from 'antd'
-
 import 'nprogress/nprogress.css'
+
+import { message } from 'antd'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios'
 import NProgress from 'nprogress'
 

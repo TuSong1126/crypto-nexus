@@ -1,12 +1,11 @@
+import './index.scss'
+
+import classNames from 'classnames'
 import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
-import './index.scss'
-import classNames from 'classnames'
-
-import { useRouter } from '@/hooks/basic/useRouter'
-
 import { CircleLoading } from '@/components/basic/circle-loading'
+import { useRouter } from '@/hooks/basic/useRouter'
 import businessRoutes from '@/router/routes/index'
 
 const { VITE_APP_HOMEPAGE, VITE_STYLE_MODE } = import.meta.env

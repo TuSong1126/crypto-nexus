@@ -1,5 +1,4 @@
 import { Spin } from 'antd'
-
 import styled from 'styled-components'
 
 export function CircleLoading() {
