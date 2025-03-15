@@ -639,7 +639,7 @@ export default function Home() {
                     }}
                     trailColor="rgba(255, 255, 255, 0.1)"
                     style={{ marginTop: 8 }}
-                    strokeWidth={8}
+                    size={8}
                   />
 
                   <div className="project-stats">
@@ -695,7 +695,7 @@ export default function Home() {
                   strokeColor="#a29bfe"
                   trailColor="rgba(255, 255, 255, 0.2)"
                   showInfo={false}
-                  strokeWidth={8}
+                  size={8}
                 />
               </div>
 
@@ -714,7 +714,7 @@ export default function Home() {
                   strokeColor="#fd79a8"
                   trailColor="rgba(255, 255, 255, 0.2)"
                   showInfo={false}
-                  strokeWidth={8}
+                  size={8}
                 />
               </div>
 
@@ -733,7 +733,7 @@ export default function Home() {
                   strokeColor="#00cec9"
                   trailColor="rgba(255, 255, 255, 0.2)"
                   showInfo={false}
-                  strokeWidth={8}
+                  size={8}
                 />
               </div>
             </Web3Card>
