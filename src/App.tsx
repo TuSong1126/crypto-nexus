@@ -15,7 +15,7 @@ function App() {
           <AntdApp>
             <MotionLazy>
               <Helmet>
-                <title>Inn</title>
+                <title>Web3 World</title>
                 <link rel="svg" href={Logo} />
               </Helmet>
 
