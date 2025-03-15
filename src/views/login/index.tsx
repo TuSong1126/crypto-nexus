@@ -1,10 +1,14 @@
 import './index.scss'
 
+import { Icon } from '@iconify/react'
 import { message } from 'antd'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import { fetchLogin, fetchPermission, fetchRegister } from '@/apis/auth'
-import Video from '@/assets/video/video.mp4'
+import MetaMaskIcon from '@/assets/svg/logo.svg'
+import ParticleBackground from '@/components/web3/ParticleBackground'
+import Web3Button from '@/components/web3/Web3Button'
 import { useRouter } from '@/hooks/basic/useRouter'
 import useUserInfoStore from '@/store/userInfo'
 
@@ -16,6 +20,9 @@ const Login = () => {
 
   const [username, setUsername] = useState('admin')
   const [password, setPassword] = useState('123456')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const [isRegistering, setIsRegistering] = useState(false)
+  const [activeTab, setActiveTab] = useState('login') // login or register
 
   const handleLogin = async () => {
     if (!username || !password) {
@@ -23,18 +30,26 @@ const Login = () => {
       return
     }
 
-    const { data } = await fetchLogin({ username, password })
-    const { token, userInfo } = data
-    userInfoStore.updateToken(token)
-    userInfoStore.updateUserInfo(userInfo)
+    setIsLoggingIn(true)
+    try {
+      const { data } = await fetchLogin({ username, password })
+      const { token, userInfo } = data
+      userInfoStore.updateToken(token)
+      userInfoStore.updateUserInfo(userInfo)
 
-    const { data: perm } = await fetchPermission()
-    userInfoStore.updatePermission({
-      btns: perm.btns,
-      routes: perm.routes
-    })
+      const { data: perm } = await fetchPermission()
+      userInfoStore.updatePermission({
+        btns: perm.btns,
+        routes: perm.routes
+      })
 
-    router.replace(VITE_APP_HOMEPAGE)
+      message.success('登录成功，欢迎回来！')
+      router.replace(VITE_APP_HOMEPAGE)
+    } catch (error) {
+      message.error('登录失败，请检查账号和密码')
+    } finally {
+      setIsLoggingIn(false)
+    }
   }
 
   const handleRegister = async () => {
@@ -43,42 +58,135 @@ const Login = () => {
       return
     }
 
-    const { msg } = await fetchRegister({ username, password })
-    message.success(msg)
+    setIsRegistering(true)
+    try {
+      const { msg } = await fetchRegister({ username, password })
+      message.success(msg)
+      setActiveTab('login')
+    } catch (error) {
+      message.error('注册失败，请稍后再试')
+    } finally {
+      setIsRegistering(false)
+    }
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: 'spring', stiffness: 300, damping: 24 }
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (activeTab === 'login') {
+        handleLogin()
+      } else {
+        handleRegister()
+      }
+    }
   }
 
   return (
-    <div className="login-wrapper">
-      <div className="form">
-        <div className="left">
-          <video src={Video} muted loop autoPlay />
-        </div>
+    <div className="web3-login-wrapper">
+      <ParticleBackground color="#6c5ce7" />
 
-        <div className="right">
-          <div className="right-con">
-            <h2>Inn</h2>
+      <motion.div className="web3-login-container" variants={containerVariants} initial="hidden" animate="visible">
+        <motion.div className="web3-login-logo" variants={itemVariants}>
+          <Icon icon="fluent-emoji:rocket" width={48} height={48} />
+          <h1 className="gradient-text">Web3 World</h1>
+        </motion.div>
 
-            <form>
-              <h3>账号</h3>
-              <input className="text" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <motion.div className="web3-login-tabs" variants={itemVariants}>
+          <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
+            登录
+          </div>
+          <div className={`tab ${activeTab === 'register' ? 'active' : ''}`} onClick={() => setActiveTab('register')}>
+            注册
+          </div>
+        </motion.div>
 
-              <h3>密码</h3>
+        <motion.div className="web3-login-form" variants={itemVariants}>
+          <div className="form-group">
+            <label htmlFor="username">账号</label>
+            <div className="input-wrapper">
+              <Icon icon="mdi:account" className="input-icon" />
               <input
-                className="text"
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="请输入账号"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">密码</label>
+            <div className="input-wrapper">
+              <Icon icon="mdi:lock" className="input-icon" />
+              <input
+                id="password"
                 type="password"
                 autoComplete="off"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="请输入密码"
               />
-            </form>
-
-            <div className="btn-area">
-              <input className="btn" type="submit" value="登录" onClick={handleLogin} />
-              <input className="btn" type="submit" value="注册" onClick={handleRegister} />
             </div>
           </div>
-        </div>
-      </div>
+
+          {activeTab === 'login' ? (
+            <Web3Button onClick={handleLogin} isLoading={isLoggingIn} fullWidth size="large" gradient>
+              登录
+            </Web3Button>
+          ) : (
+            <Web3Button
+              onClick={handleRegister}
+              isLoading={isRegistering}
+              fullWidth
+              size="large"
+              variant="secondary"
+              gradient
+            >
+              注册
+            </Web3Button>
+          )}
+
+          <div className="web3-login-divider">
+            <span>或者</span>
+          </div>
+
+          <motion.div
+            className="web3-metamask-button"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => message.info('MetaMask连接功能尚未实现')}
+          >
+            <img src={MetaMaskIcon} alt="MetaMask" width={24} height={24} />
+            <span>使用 MetaMask 连接</span>
+          </motion.div>
+        </motion.div>
+
+        <motion.p className="web3-login-footer" variants={itemVariants}>
+          © 2023 Web3 World. All rights reserved.
+        </motion.p>
+      </motion.div>
     </div>
   )
 }

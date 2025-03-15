@@ -1,0 +1,248 @@
+@import './variables.scss';
+@import './animations.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  background: $bg-dark;
+  color: $text-primary;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 全局滚动条样式
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Web3风格按钮
+.web3-btn {
+  @include web3-button;
+}
+
+// Web3风格卡片
+.web3-card {
+  @include glassmorphism;
+  border-radius: $border-radius-medium;
+  padding: 20px;
+  margin-bottom: 20px;
+  @include web3-card-hover;
+}
+
+// 渐变边框卡片
+.gradient-border-card {
+  @include glassmorphism;
+  @include gradient-border;
+  border-radius: $border-radius-medium;
+  padding: 20px;
+  margin-bottom: 20px;
+  @include web3-card-hover;
+}
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(45deg, $primary-color, $secondary-color);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+// 霓虹文字
+.neon-text {
+  color: $text-primary;
+  animation: neonText 2s infinite;
+}
+
+// 容器
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// 粒子背景
+.particles-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: particleAnimation 15s infinite linear;
+  }
+}
+
+// Ant Design 样式覆盖
+.ant-btn {
+  border-radius: $border-radius-medium;
+}
+
+.ant-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-medium;
+
+  .ant-card-head {
+    border-bottom: 1px solid $border-color;
+
+    .ant-card-head-title {
+      color: $text-primary;
+    }
+  }
+
+  .ant-card-body {
+    color: $text-secondary;
+  }
+}
+
+.ant-input,
+.ant-input-password {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid $border-color;
+  border-radius: $border-radius-medium;
+  color: $text-primary;
+
+  &:hover,
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+}
+
+.ant-select {
+  .ant-select-selector {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid $border-color !important;
+    border-radius: $border-radius-medium !important;
+    color: $text-primary !important;
+  }
+
+  &:hover,
+  &.ant-select-focused {
+    .ant-select-selector {
+      border-color: $primary-color !important;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2) !important;
+    }
+  }
+}
+
+// 常用工具类
+.text-primary {
+  color: $text-primary;
+}
+.text-secondary {
+  color: $text-secondary;
+}
+.text-tertiary {
+  color: $text-tertiary;
+}
+
+.bg-primary {
+  background-color: $primary-color;
+}
+.bg-secondary {
+  background-color: $secondary-color;
+}
+.bg-dark {
+  background-color: $bg-dark;
+}
+
+.m-0 {
+  margin: 0;
+}
+.mb-1 {
+  margin-bottom: 8px;
+}
+.mb-2 {
+  margin-bottom: 16px;
+}
+.mb-3 {
+  margin-bottom: 24px;
+}
+.mb-4 {
+  margin-bottom: 32px;
+}
+
+.p-0 {
+  padding: 0;
+}
+.p-1 {
+  padding: 8px;
+}
+.p-2 {
+  padding: 16px;
+}
+.p-3 {
+  padding: 24px;
+}
+.p-4 {
+  padding: 32px;
+}
+
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-1 {
+  flex: 1;
+}
