@@ -98,24 +98,76 @@
   display: flex;
   flex-direction: column;
   position: relative;
+
+  // 浮动装饰元素
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+  }
+
+  .orb-1 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, rgba($primary-color, 0.3), rgba($accent-color-1, 0.2));
+    top: -150px;
+    left: -100px;
+  }
+
+  .orb-2 {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, rgba($secondary-color, 0.3), rgba($accent-color-2, 0.2));
+    bottom: -100px;
+    right: -100px;
+  }
 }
 
 .web3-header-wrapper {
   width: 100%;
-  height: 70px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
   @include glassmorphism;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
   z-index: 10;
   border-bottom: 1px solid $border-color;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($primary-color, 0.5),
+      rgba($secondary-color, 0.5),
+      transparent
+    );
+  }
 
   .logo {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
+
+    .logo-icon {
+      filter: drop-shadow(0 0 8px rgba($primary-color, 0.7));
+      transition: filter 0.3s ease;
+
+      &:hover {
+        filter: drop-shadow(0 0 12px rgba($primary-color, 0.9));
+      }
+    }
 
     .logo-text {
       margin-left: 12px;
@@ -125,6 +177,17 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba($secondary-color, 0.7), transparent);
+      }
     }
   }
 
@@ -144,6 +207,13 @@
       transition: all $transition-fast ease;
       border-radius: $border-radius-medium;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+
+      .menu-icon {
+        margin-right: 8px;
+        font-size: 20px;
+      }
 
       .menu-text {
         position: relative;
@@ -157,15 +227,19 @@
         height: 2px;
         background: linear-gradient(90deg, $primary-color, $secondary-color);
         z-index: 1;
+        box-shadow: 0 0 10px rgba($primary-color, 0.7);
       }
 
       &:hover {
         color: $text-primary;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
       }
 
       &.active {
         color: $text-primary;
         font-weight: 600;
+        background: rgba($primary-color, 0.1);
 
         &::after {
           content: '';
@@ -175,6 +249,7 @@
           width: 100%;
           height: 2px;
           background: linear-gradient(90deg, $primary-color, $secondary-color);
+          box-shadow: 0 0 8px rgba($primary-color, 0.8);
         }
       }
     }
@@ -195,12 +270,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        background: rgba($primary-color, 0.1);
+        background: rgba($primary-color, 0.15);
         margin-right: 10px;
         color: $primary-color;
+        border: 1px solid rgba($primary-color, 0.3);
+        box-shadow: 0 0 10px rgba($primary-color, 0.3);
+        transition: all 0.3s ease;
+
+        &:hover {
+          box-shadow: 0 0 15px rgba($primary-color, 0.5);
+        }
       }
 
       .user-name {
@@ -229,6 +311,7 @@
         transform: translateY(10px);
         pointer-events: none;
         transition: all $transition-medium ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 
         &::before {
           content: '';
@@ -252,10 +335,11 @@
 
           svg {
             margin-right: 12px;
+            color: $primary-color;
           }
 
           &:hover {
-            background: rgba($primary-color, 0.1);
+            background: rgba($primary-color, 0.15);
             color: $text-primary;
           }
         }
@@ -277,16 +361,18 @@
         margin-left: 8px;
         cursor: pointer;
         transition: all $transition-fast ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
 
         &:hover {
           color: $text-primary;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba($primary-color, 0.15);
+          box-shadow: 0 0 15px rgba($primary-color, 0.3);
         }
 
         .badge {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: -2px;
+          right: -2px;
           width: 18px;
           height: 18px;
           background: $accent-color-1;
@@ -297,6 +383,7 @@
           align-items: center;
           justify-content: center;
           font-weight: 600;
+          box-shadow: 0 0 5px rgba($accent-color-1, 0.5);
         }
       }
     }
@@ -310,4 +397,24 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($primary-color, 0.2);
+    border-radius: 8px;
+
+    &:hover {
+      background: rgba($primary-color, 0.3);
+    }
+  }
 }

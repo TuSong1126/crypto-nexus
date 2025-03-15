@@ -69,6 +69,19 @@ export default function Layout() {
     }
   }
 
+  const headerVariants = {
+    initial: { opacity: 0, y: -20 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        when: 'beforeChildren',
+        staggerChildren: 0.1
+      }
+    }
+  }
+
   const handleLogout = () => {
     // 清除用户信息和token
     useUserInfoStore.getState().resetUserInfo()
@@ -77,26 +90,50 @@ export default function Layout() {
 
   return (
     <div className={classNames('web3-layout-wrapper', { 'style-mode': VITE_STYLE_MODE === 'true' })}>
-      <ParticleBackground count={50} connectParticles={true} opacity={0.5} color="#6c5ce7" />
+      <ParticleBackground count={100} connectParticles={true} opacity={0.5} color="#6c5ce7" speed={0.3} />
 
-      <div className="web3-header-wrapper">
+      <motion.div
+        className="floating-orb orb-1"
+        animate={{
+          y: ['-5%', '5%'],
+          x: ['-2%', '2%']
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }}
+      />
+
+      <motion.div
+        className="floating-orb orb-2"
+        animate={{
+          y: ['5%', '-5%'],
+          x: ['2%', '-2%']
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }}
+      />
+
+      <motion.div className="web3-header-wrapper" variants={headerVariants} initial="initial" animate="animate">
         <motion.div
           className="logo"
           onClick={() => router.push(VITE_APP_HOMEPAGE)}
           variants={logoVariants}
-          initial="initial"
-          animate="animate"
           whileHover="whileHover"
         >
-          <Icon icon="fluent-emoji:rocket" width={28} height={28} />
+          <Icon icon="fluent-emoji:rocket" width={32} height={32} className="logo-icon" />
           <span className="logo-text">Web3 World</span>
         </motion.div>
 
         <motion.div
           className="menu"
           variants={menuVariants}
-          initial="initial"
-          animate="animate"
           onMouseEnter={() => setIsMenuHovered(true)}
           onMouseLeave={() => setIsMenuHovered(false)}
         >
@@ -106,6 +143,7 @@ export default function Layout() {
                 to={item.path || VITE_APP_HOMEPAGE}
                 className={({ isActive }) => classNames('menu-item', { active: isActive })}
               >
+                {item.meta?.icon && <Icon icon={item.meta.icon} className="menu-icon" />}
                 <span className="menu-text">{item.meta?.title}</span>
                 {isMenuHovered && (
                   <motion.span
@@ -122,41 +160,53 @@ export default function Layout() {
 
         <div className="right-section">
           <div className="user-info">
-            <div className="avatar">
+            <motion.div className="avatar" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Icon icon="ph:user-circle-fill" width={36} height={36} />
-            </div>
+            </motion.div>
             <div className="user-dropdown">
               <div className="user-name">{userInfo?.nickname || userInfo?.name || '用户'}</div>
 
               <div className="dropdown-menu">
-                <div className="dropdown-item">
+                <motion.div className="dropdown-item" whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}>
                   <Icon icon="ph:user-gear" width={18} height={18} />
                   <span>个人设置</span>
-                </div>
-                <div className="dropdown-item">
+                </motion.div>
+                <motion.div className="dropdown-item" whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}>
                   <Icon icon="ph:wallet" width={18} height={18} />
                   <span>我的钱包</span>
-                </div>
-                <div className="dropdown-item" onClick={handleLogout}>
+                </motion.div>
+                <motion.div
+                  className="dropdown-item"
+                  onClick={handleLogout}
+                  whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+                >
                   <Icon icon="ph:sign-out" width={18} height={18} />
                   <span>退出登录</span>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
 
           <div className="toolbar">
-            <motion.div className="toolbar-item" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              className="toolbar-item"
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Icon icon="ph:bell" width={22} height={22} />
               <span className="badge">3</span>
             </motion.div>
 
-            <motion.div className="toolbar-item" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              className="toolbar-item"
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Icon icon="ph:gear-six" width={22} height={22} />
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="web3-main-content-wrapper">
         <Suspense fallback={<CircleLoading />}>
