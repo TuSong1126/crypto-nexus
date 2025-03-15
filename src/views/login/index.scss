@@ -188,6 +188,7 @@
     position: relative;
     overflow: hidden;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $border-radius-large;
 
     // 背景装饰
     &::before {
