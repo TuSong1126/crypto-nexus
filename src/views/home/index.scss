@@ -1,0 +1,188 @@
+@import '@/styles/variables.scss';
+@import '@/styles/animations.scss';
+
+.web3-home-container {
+  position: relative;
+
+  // 首页浮动装饰元素
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .home-orb-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($accent-color-1, 0.1));
+    top: 5%;
+    right: 5%;
+  }
+
+  .home-orb-2 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, rgba($secondary-color, 0.2), rgba($accent-color-2, 0.1));
+    bottom: 10%;
+    left: 5%;
+  }
+}
+
+// 卡片容器
+.web3-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($primary-color, 0.7),
+      rgba($secondary-color, 0.7),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// 统计卡片
+.stats-card {
+  display: flex;
+  flex-direction: column;
+
+  .stats-value {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .stats-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: $text-secondary;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+// 交易列表
+.transactions-list {
+  .transaction-item {
+    transition: all 0.3s ease;
+    border-radius: $border-radius-medium;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(5px);
+    }
+  }
+}
+
+// 进度条样式
+.ant-progress {
+  &.web3-progress {
+    .ant-progress-inner {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .ant-progress-bg {
+      box-shadow: 0 0 10px rgba($primary-color, 0.5);
+    }
+  }
+}
+
+// 项目卡片
+.project-card {
+  border-radius: $border-radius-medium;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba($primary-color, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-info {
+      .project-title {
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 4px;
+      }
+
+      .project-category {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+// 科技风格按钮
+.tech-button {
+  background: rgba($primary-color, 0.15);
+  border: 1px solid rgba($primary-color, 0.3);
+  border-radius: $border-radius-medium;
+  color: $primary-color;
+  font-weight: 600;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba($primary-color, 0.25);
+    box-shadow: 0 5px 15px rgba($primary-color, 0.2);
+  }
+
+  .icon {
+    margin-right: 8px;
+  }
+}
