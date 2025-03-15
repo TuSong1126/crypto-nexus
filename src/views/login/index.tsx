@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import { fetchLogin, fetchPermission, fetchRegister } from '@/apis/auth'
-import MetaMaskIcon from '@/assets/svg/logo.svg'
+import Web3Logo from '@/assets/svg/logo.svg'
 import ParticleBackground from '@/components/web3/ParticleBackground'
 import Web3Button from '@/components/web3/Web3Button'
 import { useRouter } from '@/hooks/basic/useRouter'
@@ -146,26 +146,22 @@ const Login = () => {
           <div className="web3-decoration bottom"></div>
 
           <motion.div className="web3-illustration" variants={itemVariants} whileHover={{ scale: 1.05, rotate: 5 }}>
-            <Icon icon="tabler:3d-cube-sphere" width={240} height={240} />
+            <img src={Web3Logo} alt="Web3" width={240} height={240} />
           </motion.div>
 
           <motion.h2 className="web3-tagline" variants={itemVariants}>
-            Web3 世界的未来入口
+            Web3 World
           </motion.h2>
 
           <motion.p className="web3-description" variants={itemVariants}>
-            连接区块链技术，探索去中心化应用，释放数字资产的无限潜力。 安全可靠的身份验证，开启您的Web3之旅。
+            连接区块链技术，释放数字资产的无限潜力;
+          </motion.p>
+          <motion.p className="web3-description" variants={itemVariants}>
+            探索未来世界，开启无限可能。
           </motion.p>
         </motion.div>
 
         <motion.div className="web3-login-right">
-          <motion.div className="web3-login-logo" variants={itemVariants}>
-            <h1 className="gradient-text">Web3 World</h1>
-            <motion.p className="welcome-text" variants={itemVariants}>
-              探索未来世界，连接无限可能
-            </motion.p>
-          </motion.div>
-
           <motion.div className="web3-login-tabs" variants={itemVariants}>
             <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
               登录
@@ -225,10 +221,10 @@ const Login = () => {
               className="web3-metamask-button"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => message.info('MetaMask连接功能尚未实现')}
+              onClick={() => message.info('区块链钱包连接功能尚未实现')}
             >
-              <img src={MetaMaskIcon} alt="Web3" width={32} height={32} />
-              <span>使用 Web3 钱包连接</span>
+              <img src={Web3Logo} alt="Web3" width={36} height={36} />
+              <span>连接区块链钱包</span>
             </motion.div>
           </motion.div>
 
