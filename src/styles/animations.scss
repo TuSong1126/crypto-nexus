@@ -1,0 +1,197 @@
+@import './variables.scss';
+
+// 渐入动画
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// 上升渐入动画
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 闪光效果
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba($primary-color, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba($primary-color, 0.8),
+      0 0 30px rgba($secondary-color, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba($primary-color, 0.5);
+  }
+}
+
+// 脉冲效果
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 霓虹文字效果
+@keyframes neonText {
+  0% {
+    text-shadow:
+      0 0 5px rgba($primary-color, 0.8),
+      0 0 10px rgba($primary-color, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba($primary-color, 0.8),
+      0 0 30px rgba($secondary-color, 0.7);
+  }
+  100% {
+    text-shadow:
+      0 0 5px rgba($primary-color, 0.8),
+      0 0 10px rgba($primary-color, 0.5);
+  }
+}
+
+// 背景闪烁
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// 浮动效果
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// 加载中旋转
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 粒子效果
+@keyframes particleAnimation {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, -100px, 0);
+    opacity: 0;
+  }
+}
+
+// 模糊渐入
+@keyframes blurIn {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+// Web3 卡片悬停效果
+@mixin web3-card-hover {
+  transition: all $transition-medium ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $border-glow;
+  }
+}
+
+// 玻璃拟态效果
+@mixin glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// 渐变边框
+@mixin gradient-border {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+// 3D按钮效果
+@mixin web3-button {
+  position: relative;
+  color: $text-primary;
+  background: linear-gradient(45deg, $primary-dark, $primary-color);
+  border: none;
+  border-radius: $border-radius-medium;
+  padding: 10px 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all $transition-fast ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 7px 14px rgba(0, 0, 0, 0.3),
+      0 0 10px rgba($primary-color, 0.5);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+}

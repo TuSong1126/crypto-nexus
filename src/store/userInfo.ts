@@ -6,6 +6,8 @@ import { ConstEnum } from '@/enums'
 interface UserInfo {
   name: string
   sex: string
+  nickname?: string
+  avatar?: string
 }
 interface Permission {
   btns: string[]
@@ -19,27 +21,38 @@ interface UserState {
   updateToken: (params: string) => void
   updateUserInfo: (parmas: UserInfo) => void
   updatePermission: (params: Permission) => void
+  resetUserInfo: () => void
+}
+
+const initialState = {
+  token: '',
+  userInfo: {
+    name: '',
+    sex: '',
+    nickname: '',
+    avatar: ''
+  },
+  permssion: {
+    btns: [],
+    routes: []
+  }
 }
 
 const useUserInfoStore = create<UserState>()(
   persist(
     (set) => ({
-      token: '',
-      userInfo: {
-        name: '',
-        sex: ''
-      },
-      permssion: {
-        btns: [],
-        routes: []
-      },
+      ...initialState,
 
       updateToken: (token) => {
         set({ token })
         localStorage.setItem(ConstEnum.TOKEN, token)
       },
       updateUserInfo: (userInfo) => set({ userInfo }),
-      updatePermission: (permssion) => set({ permssion })
+      updatePermission: (permssion) => set({ permssion }),
+      resetUserInfo: () => {
+        set(initialState)
+        localStorage.removeItem(ConstEnum.TOKEN)
+      }
     }),
     {
       name: 'USER_STORE',

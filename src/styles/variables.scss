@@ -1,5 +1,48 @@
-// 主题颜色
-$primaryColor: #1890ff;
+// Web3主题样式变量
 
-//边框圆角
-$borderRadius: 6px;
+// 主色调
+$primary-color: #6c5ce7;
+$primary-light: #a29bfe;
+$primary-dark: #4834d4;
+
+// 辅助色
+$secondary-color: #00cec9;
+$secondary-light: #81ecec;
+$secondary-dark: #00b5ad;
+
+// 亮点色
+$accent-color-1: #fd79a8;
+$accent-color-2: #fdcb6e;
+$accent-color-3: #00b894;
+
+// 背景色
+$bg-dark: #0f0e13;
+$bg-gradient-1: linear-gradient(to right, #0f0e13, #202030, #0f0e13);
+$bg-gradient-2: linear-gradient(to right, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
+$bg-card: rgba(255, 255, 255, 0.05);
+$bg-glass: rgba(255, 255, 255, 0.1);
+
+// 边框
+$border-color: rgba(255, 255, 255, 0.2);
+$border-glow: 0 0 10px rgba(108, 92, 231, 0.5);
+
+// 文字颜色
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$text-tertiary: rgba(255, 255, 255, 0.5);
+
+// 阴影
+$shadow-small: 0 4px 12px rgba(0, 0, 0, 0.5);
+$shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.5);
+$shadow-large: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+// 动画时间
+$transition-fast: 0.2s;
+$transition-medium: 0.3s;
+$transition-slow: 0.5s;
+
+// 圆角
+$border-radius-small: 4px;
+$border-radius-medium: 8px;
+$border-radius-large: 16px;
+$border-radius-full: 9999px;
