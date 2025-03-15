@@ -129,43 +129,136 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: $bg-dark;
+  position: relative;
 
-  &::before {
-    content: '';
+  // 浮动装饰元素
+  .floating-orb {
     position: absolute;
-    width: 300px;
-    height: 300px;
     border-radius: 50%;
-    background: $primary-color;
-    filter: blur(200px);
-    opacity: 0.3;
-    top: -100px;
-    left: -100px;
-    z-index: -1;
+    filter: blur(80px);
+    z-index: 0;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: $secondary-color;
-    filter: blur(200px);
-    opacity: 0.3;
+  .orb-1 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, rgba($primary-color, 0.3), rgba($accent-color-1, 0.2));
+    top: -100px;
+    left: -100px;
+  }
+
+  .orb-2 {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, rgba($secondary-color, 0.3), rgba($accent-color-2, 0.2));
     bottom: -100px;
     right: -100px;
-    z-index: -1;
   }
 }
 
 .web3-login-container {
-  width: 500px;
-  padding: 40px;
+  width: 900px;
+  display: flex;
+  padding: 0;
   @include glassmorphism;
   border-radius: $border-radius-large;
   @include gradient-border;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 15px 50px rgba(0, 0, 0, 0.4),
+      0 0 15px rgba($primary-color, 0.3);
+  }
+
+  // 左侧展示区域
+  .web3-login-left {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+    // 背景装饰
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba($secondary-color, 0.1));
+      z-index: -1;
+    }
+
+    .web3-illustration {
+      width: 80%;
+      max-width: 300px;
+      margin-bottom: 30px;
+      animation: float 6s ease-in-out infinite;
+
+      svg {
+        color: #6c5ce7;
+      }
+    }
+
+    .web3-tagline {
+      text-align: center;
+      color: $text-primary;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #6c5ce7, #00cec9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .web3-description {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 90%;
+    }
+
+    // 添加一些Web3风格的装饰元素
+    .web3-decoration {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba($accent-color-1, 0.1) 0%, rgba($accent-color-1, 0) 70%);
+      z-index: -1;
+
+      &.top {
+        top: -100px;
+        left: -100px;
+      }
+
+      &.bottom {
+        bottom: -100px;
+        right: -100px;
+      }
+    }
+  }
+
+  // 右侧表单区域
+  .web3-login-right {
+    width: 400px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .web3-login-logo {
@@ -176,8 +269,22 @@
 
   h1 {
     margin-top: 16px;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
+  }
+
+  .gradient-text {
+    background: linear-gradient(45deg, #6c5ce7, #00cec9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .welcome-text {
+    margin-top: 12px;
+    color: $text-secondary;
+    font-size: 16px;
+    text-align: center;
   }
 }
 
@@ -187,6 +294,7 @@
   border-radius: $border-radius-medium;
   background: rgba(255, 255, 255, 0.05);
   padding: 4px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 
   .tab {
     flex: 1;
@@ -198,11 +306,11 @@
     transition: all $transition-fast ease;
 
     &:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     &.active {
-      background: linear-gradient(45deg, $primary-color, $secondary-color);
+      background: linear-gradient(45deg, #6c5ce7, #00cec9);
       color: white;
       box-shadow: $shadow-small;
     }
@@ -217,7 +325,8 @@
       display: block;
       margin-bottom: 8px;
       font-size: 14px;
-      color: $text-secondary;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
     }
 
     .input-wrapper {
@@ -228,7 +337,7 @@
         left: 12px;
         top: 50%;
         transform: translateY(-50%);
-        color: $text-tertiary;
+        color: #6c5ce7;
         font-size: 20px;
       }
 
@@ -236,15 +345,16 @@
         width: 100%;
         padding: 14px 14px 14px 42px;
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid $border-color;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: $border-radius-medium;
         color: $text-primary;
         transition: all $transition-fast ease;
+        backdrop-filter: blur(5px);
 
         &:focus {
           outline: none;
-          border-color: $primary-color;
-          box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+          border-color: #6c5ce7;
+          box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
         }
 
         &::placeholder {
@@ -256,24 +366,20 @@
 }
 
 .web3-login-divider {
-  position: relative;
-  text-align: center;
+  display: flex;
+  align-items: center;
   margin: 24px 0;
 
-  &::before {
+  &::before,
+  &::after {
     content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
+    flex: 1;
     height: 1px;
     background: $border-color;
   }
 
   span {
-    position: relative;
     padding: 0 12px;
-    background: rgba(15, 14, 19, 0.8);
     color: $text-tertiary;
     font-size: 14px;
   }
@@ -283,27 +389,76 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid $border-color;
+  gap: 12px;
+  padding: 16px;
   border-radius: $border-radius-medium;
-  color: $text-primary;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(108, 92, 231, 0.3);
   cursor: pointer;
+  color: $text-primary;
+  font-weight: 500;
   transition: all $transition-fast ease;
+  position: relative;
+  overflow: hidden;
+
+  /* 添加背景渐变 */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(108, 92, 231, 0.05), rgba(0, 206, 201, 0.05));
+    z-index: -1;
+  }
 
   img {
-    margin-right: 12px;
+    filter: drop-shadow(0 0 8px rgba(108, 92, 231, 0.8));
+    transition: all 0.3s ease;
+  }
+
+  span {
+    background: linear-gradient(45deg, #6c5ce7, #00cec9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
   }
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow:
+      0 8px 20px rgba(108, 92, 231, 0.3),
+      0 0 15px rgba(0, 206, 201, 0.2);
+
+    img {
+      transform: rotate(10deg) scale(1.1);
+      filter: drop-shadow(0 0 12px rgba(108, 92, 231, 1));
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 }
 
 .web3-login-footer {
   margin-top: 30px;
   text-align: center;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 14px;
-  color: $text-tertiary;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

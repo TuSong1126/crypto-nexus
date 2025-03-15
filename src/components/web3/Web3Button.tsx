@@ -127,11 +127,11 @@ const StyledButton = styled.button<Omit<Web3ButtonProps, 'icon' | 'children'>>`
       default: // primary
         return css`
           color: #fff;
-          background: linear-gradient(45deg, #4834d4, #6c5ce7);
+          background: linear-gradient(45deg, #6c5ce7, #00cec9);
           border: none;
 
           &:hover:not(:disabled) {
-            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            background: linear-gradient(45deg, #8a7bff, #00fff7);
             transform: translateY(-2px);
             box-shadow:
               0 7px 14px rgba(0, 0, 0, 0.3),
