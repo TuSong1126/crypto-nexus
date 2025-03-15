@@ -102,90 +102,140 @@ const Login = () => {
 
   return (
     <div className="web3-login-wrapper">
-      <ParticleBackground color="#6c5ce7" />
+      <ParticleBackground
+        color="#6c5ce7"
+        count={150}
+        connectParticles={true}
+        opacity={0.7}
+        minSize={1}
+        maxSize={4}
+        speed={0.3}
+      />
+
+      <motion.div
+        className="floating-orb orb-1"
+        animate={{
+          y: ['-10%', '10%'],
+          x: ['-5%', '5%']
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }}
+      />
+
+      <motion.div
+        className="floating-orb orb-2"
+        animate={{
+          y: ['10%', '-10%'],
+          x: ['5%', '-5%']
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }}
+      />
 
       <motion.div className="web3-login-container" variants={containerVariants} initial="hidden" animate="visible">
-        <motion.div className="web3-login-logo" variants={itemVariants}>
-          <Icon icon="fluent-emoji:rocket" width={48} height={48} />
-          <h1 className="gradient-text">Web3 World</h1>
-        </motion.div>
+        <motion.div className="web3-login-left" variants={itemVariants}>
+          <div className="web3-decoration top"></div>
+          <div className="web3-decoration bottom"></div>
 
-        <motion.div className="web3-login-tabs" variants={itemVariants}>
-          <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
-            登录
-          </div>
-          <div className={`tab ${activeTab === 'register' ? 'active' : ''}`} onClick={() => setActiveTab('register')}>
-            注册
-          </div>
-        </motion.div>
-
-        <motion.div className="web3-login-form" variants={itemVariants}>
-          <div className="form-group">
-            <label htmlFor="username">账号</label>
-            <div className="input-wrapper">
-              <Icon icon="mdi:account" className="input-icon" />
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="请输入账号"
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">密码</label>
-            <div className="input-wrapper">
-              <Icon icon="mdi:lock" className="input-icon" />
-              <input
-                id="password"
-                type="password"
-                autoComplete="off"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="请输入密码"
-              />
-            </div>
-          </div>
-
-          {activeTab === 'login' ? (
-            <Web3Button onClick={handleLogin} isLoading={isLoggingIn} fullWidth size="large" gradient>
-              登录
-            </Web3Button>
-          ) : (
-            <Web3Button
-              onClick={handleRegister}
-              isLoading={isRegistering}
-              fullWidth
-              size="large"
-              variant="secondary"
-              gradient
-            >
-              注册
-            </Web3Button>
-          )}
-
-          <div className="web3-login-divider">
-            <span>或者</span>
-          </div>
-
-          <motion.div
-            className="web3-metamask-button"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => message.info('MetaMask连接功能尚未实现')}
-          >
-            <img src={MetaMaskIcon} alt="MetaMask" width={24} height={24} />
-            <span>使用 MetaMask 连接</span>
+          <motion.div className="web3-illustration" variants={itemVariants} whileHover={{ scale: 1.05, rotate: 5 }}>
+            <Icon icon="tabler:3d-cube-sphere" width={240} height={240} />
           </motion.div>
+
+          <motion.h2 className="web3-tagline" variants={itemVariants}>
+            Web3 世界的未来入口
+          </motion.h2>
+
+          <motion.p className="web3-description" variants={itemVariants}>
+            连接区块链技术，探索去中心化应用，释放数字资产的无限潜力。 安全可靠的身份验证，开启您的Web3之旅。
+          </motion.p>
         </motion.div>
 
-        <motion.p className="web3-login-footer" variants={itemVariants}>
-          © 2023 Web3 World. All rights reserved.
-        </motion.p>
+        <motion.div className="web3-login-right">
+          <motion.div className="web3-login-logo" variants={itemVariants}>
+            <h1 className="gradient-text">Web3 World</h1>
+            <motion.p className="welcome-text" variants={itemVariants}>
+              探索未来世界，连接无限可能
+            </motion.p>
+          </motion.div>
+
+          <motion.div className="web3-login-tabs" variants={itemVariants}>
+            <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
+              登录
+            </div>
+            <div className={`tab ${activeTab === 'register' ? 'active' : ''}`} onClick={() => setActiveTab('register')}>
+              注册
+            </div>
+          </motion.div>
+
+          <motion.div className="web3-login-form" variants={itemVariants}>
+            <div className="form-group">
+              <label htmlFor="username">账号</label>
+              <div className="input-wrapper">
+                <Icon icon="mdi:account" className="input-icon" />
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="请输入账号"
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">密码</label>
+              <div className="input-wrapper">
+                <Icon icon="mdi:lock" className="input-icon" />
+                <input
+                  id="password"
+                  type="password"
+                  autoComplete="off"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="请输入密码"
+                />
+              </div>
+            </div>
+
+            {activeTab === 'login' ? (
+              <Web3Button onClick={handleLogin} isLoading={isLoggingIn} fullWidth size="large" gradient glow>
+                登录
+              </Web3Button>
+            ) : (
+              <Web3Button onClick={handleRegister} isLoading={isRegistering} fullWidth size="large" gradient>
+                注册
+              </Web3Button>
+            )}
+
+            <div className="web3-login-divider">
+              <span>或者</span>
+            </div>
+
+            <motion.div
+              className="web3-metamask-button"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => message.info('MetaMask连接功能尚未实现')}
+            >
+              <img src={MetaMaskIcon} alt="Web3" width={32} height={32} />
+              <span>使用 Web3 钱包连接</span>
+            </motion.div>
+          </motion.div>
+
+          <motion.p className="web3-login-footer" variants={itemVariants}>
+            © 2025 Web3 World. All rights reserved.
+          </motion.p>
+        </motion.div>
       </motion.div>
     </div>
   )
