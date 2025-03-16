@@ -35,8 +35,7 @@
   },
   "include": [
     "mock/**/*.ts",
-    "src",
-    "vite.config.ts"
+    "src"
   ], //需要检测的文件
   "references": [
     {
