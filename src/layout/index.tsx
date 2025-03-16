@@ -215,14 +215,15 @@ export default function Layout() {
           <span className="logo-text">Web3 World</span>
         </motion.div>
 
-        <motion.div
-          className="menu"
-          variants={menuVariants}
-          onMouseEnter={() => setIsMenuHovered(true)}
-          onMouseLeave={() => setIsMenuHovered(false)}
-        >
+        <motion.div className="menu" variants={menuVariants}>
           {menuList.map((item) => (
-            <motion.div key={item.path} variants={menuItemVariants} whileHover={{ scale: 1.05 }}>
+            <motion.div
+              onMouseEnter={() => setIsMenuHovered(true)}
+              onMouseLeave={() => setIsMenuHovered(false)}
+              key={item.path}
+              variants={menuItemVariants}
+              whileHover={{ scale: 1.05 }}
+            >
               <NavLink
                 to={item.path || VITE_APP_HOMEPAGE}
                 className={({ isActive }) => classNames('menu-item', { active: isActive })}
