@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
+import Button from '@/components/common/Button'
 import { useRouter } from '@/hooks/basic/useRouter'
 
 export default function ErrorPage() {
@@ -22,72 +23,80 @@ export default function ErrorPage() {
         <div className="error-title">系统错误</div>
         <p className="error-message">很抱歉，系统遇到了一些问题</p>
         <div className="buttons-container">
-          <button className="action-button refresh" onClick={refreshPage}>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" className="refresh-icon">
-              <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-            </svg>
+          <Button variant="ghost" onClick={refreshPage} icon={<RefreshIcon />}>
             刷新页面
-          </button>
-          <button className="action-button home" onClick={goToHome}>
+          </Button>
+          <Button variant="primary" onClick={goToHome}>
             返回首页
-          </button>
+          </Button>
         </div>
       </div>
     </StyleWrapper>
   )
 }
 
+const RefreshIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+  </svg>
+)
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+`
+
 const StyleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f8f9fa;
+  background-color: #0f0e13;
+  background-image: radial-gradient(circle at 10% 10%, #1a1a2e 0%, #0f0e13 70%);
 
   .container {
     text-align: center;
     padding: 2.5rem;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     max-width: 550px;
     width: 90%;
   }
 
   .error-icon {
     margin-bottom: 1.5rem;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
+    animation: ${pulse} 2s infinite;
   }
 
   .error-code {
     font-size: 4rem;
     font-weight: 800;
-    color: #f44336;
+    background: linear-gradient(135deg, #f44336, #ff7675);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 0.5rem;
-    opacity: 0.8;
   }
 
   .error-title {
     font-size: 2rem;
     font-weight: 600;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 1rem;
   }
 
   .error-message {
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem;
     font-size: 1.1rem;
     line-height: 1.5;
@@ -100,43 +109,6 @@ const StyleWrapper = styled.div`
 
     @media (max-width: 480px) {
       flex-direction: column;
-    }
-  }
-
-  .action-button {
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-
-    &.refresh {
-      background-color: #fff;
-      color: #333;
-      border: 1px solid #ddd;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-
-      .refresh-icon {
-        margin-right: 0.5rem;
-      }
-    }
-
-    &.home {
-      background-color: #f44336;
-      color: white;
-
-      &:hover {
-        background-color: #d32f2f;
-        box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
-      }
     }
   }
 `

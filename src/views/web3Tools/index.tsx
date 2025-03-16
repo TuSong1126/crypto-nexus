@@ -1,99 +1,192 @@
+import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useRouter } from '@/hooks/basic/useRouter'
-
-const Web3Tools = () => {
-  const router = useRouter()
+const Web3Tools = (): JSX.Element => {
+  const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value)
+  // 常用工具数据
+  const commonTools = [
+    {
+      id: 'wallet',
+      name: '钱包管理',
+      icon: 'mdi:wallet-outline',
+      description: '管理您的加密资产钱包，追踪余额和交易记录',
+      path: '/web3Tools/wallet'
+    },
+    {
+      id: 'explorer',
+      name: '区块浏览器',
+      icon: 'mdi:cube-outline',
+      description: '浏览和搜索区块链上的交易、地址和智能合约数据',
+      path: '/web3Tools/explorer'
+    },
+    {
+      id: 'swap',
+      name: 'Token交换',
+      icon: 'mdi:swap-horizontal',
+      description: '在不同的区块链上进行代币交换',
+      path: '/web3Tools/swap'
+    },
+    {
+      id: 'nft',
+      name: 'NFT工具',
+      icon: 'mdi:image-outline',
+      description: '浏览、铸造和管理您的NFT收藏品',
+      path: '/web3Tools/nft'
+    }
+  ]
+
+  // 所有工具数据
+  const allTools = [
+    {
+      category: '资产管理',
+      tools: [
+        { id: 'portfolio', name: '资产组合', icon: 'mdi:chart-pie', path: '/web3Tools/portfolio' },
+        { id: 'staking', name: '质押管理', icon: 'mdi:lock-outline', path: '/web3Tools/staking' },
+        { id: 'lending', name: '借贷管理', icon: 'mdi:bank-outline', path: '/web3Tools/lending' }
+      ]
+    },
+    {
+      category: '交易工具',
+      tools: [
+        { id: 'dex', name: '去中心化交易', icon: 'mdi:arrow-decision', path: '/web3Tools/dex' },
+        { id: 'bridge', name: '跨链桥', icon: 'mdi:bridge', path: '/web3Tools/bridge' },
+        { id: 'gas', name: 'Gas优化器', icon: 'mdi:gas-station', path: '/web3Tools/gas' }
+      ]
+    },
+    {
+      category: '开发工具',
+      tools: [
+        { id: 'contract', name: '合约交互', icon: 'mdi:file-document-outline', path: '/web3Tools/contract' },
+        { id: 'abi', name: 'ABI解析器', icon: 'mdi:code-json', path: '/web3Tools/abi' },
+        { id: 'events', name: '事件监听', icon: 'mdi:bell-outline', path: '/web3Tools/events' }
+      ]
+    },
+    {
+      category: '实用工具',
+      tools: [
+        { id: 'converter', name: '单位转换', icon: 'mdi:calculator', path: '/web3Tools/converter' },
+        { id: 'signature', name: '消息签名', icon: 'mdi:signature', path: '/web3Tools/signature' },
+        { id: 'ens', name: 'ENS查询', icon: 'mdi:domain', path: '/web3Tools/ens' }
+      ]
+    }
+  ]
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    // 实际应用中这里会过滤工具列表
+    console.log('搜索工具:', searchQuery)
   }
 
   const navigateTo = (path: string) => {
-    router.push(`/web3Tools/${path}`)
+    navigate(path)
   }
 
   return (
     <StyleWrapper>
-      <div className="header">
-        <div className="title-container">
-          <h1>Web3工具箱</h1>
-          <p className="subtitle">专业区块链工具集，帮助您更好地管理Web3资产</p>
+      <div className="web3-tools">
+        <div className="tools-header">
+          <div className="header-content">
+            <h2>Web3 工具集</h2>
+            <p className="header-description">全方位的Web3工具，帮助您更有效地管理和使用区块链</p>
+          </div>
+
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="search-input-container">
+              <Icon icon="mdi:magnify" className="search-icon" />
+              <input
+                type="text"
+                placeholder="搜索Web3工具..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            <button type="submit" className="search-button">
+              搜索
+            </button>
+          </form>
         </div>
-        <div className="search-box">
-          <svg viewBox="0 0 24 24" className="search-icon">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-          </svg>
-          <input
-            type="text"
-            placeholder="搜索工具..."
-            value={searchQuery}
-            onChange={handleSearch}
-            className="search-input"
-          />
+
+        <div className="common-tools-section">
+          <h3 className="section-heading">常用工具</h3>
+          <div className="common-tools-grid">
+            {commonTools.map((tool) => (
+              <div key={tool.id} className="tool-card" onClick={() => navigateTo(tool.path)}>
+                <div className="tool-icon">
+                  <Icon icon={tool.icon} />
+                </div>
+                <div className="tool-info">
+                  <div className="tool-name">{tool.name}</div>
+                  <div className="tool-description">{tool.description}</div>
+                </div>
+                <div className="tool-arrow">
+                  <Icon icon="mdi:chevron-right" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="all-tools-section">
+          <h3 className="section-heading">所有工具</h3>
+          <div className="tools-categories">
+            {allTools.map((category, index) => (
+              <div key={index} className="tool-category">
+                <h4 className="category-name">{category.category}</h4>
+                <div className="category-tools">
+                  {category.tools.map((tool) => (
+                    <div key={tool.id} className="tool-item" onClick={() => navigateTo(tool.path)}>
+                      <div className="tool-item-icon">
+                        <Icon icon={tool.icon} />
+                      </div>
+                      <div className="tool-item-name">{tool.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="additional-resources">
+          <h3 className="section-heading">学习资源</h3>
+          <div className="resources-grid">
+            <div className="resource-card">
+              <div className="resource-icon">
+                <Icon icon="mdi:book-open-page-variant" />
+              </div>
+              <div className="resource-content">
+                <h4>Web3基础指南</h4>
+                <p>了解区块链和Web3的基本概念和应用</p>
+              </div>
+            </div>
+            <div className="resource-card">
+              <div className="resource-icon">
+                <Icon icon="mdi:video-outline" />
+              </div>
+              <div className="resource-content">
+                <h4>视频教程</h4>
+                <p>观看详细的Web3工具使用教程和实操演示</p>
+              </div>
+            </div>
+            <div className="resource-card">
+              <div className="resource-icon">
+                <Icon icon="mdi:frequently-asked-questions" />
+              </div>
+              <div className="resource-content">
+                <h4>常见问题</h4>
+                <p>查找常见问题的解答和疑难解决方法</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="tools-section">
-        <h2 className="section-title">常用工具</h2>
-        <div className="tools-grid">
-          <div className="tool-card" onClick={() => navigateTo('wallet')}>
-            <div className="tool-icon wallet">
-              <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
-              </svg>
-            </div>
-            <h3 className="tool-name">钱包管理</h3>
-            <p className="tool-description">连接和管理您的加密钱包</p>
-            <span className="tool-action">打开 →</span>
-          </div>
-
-          <div className="tool-card" onClick={() => navigateTo('explorer')}>
-            <div className="tool-icon explorer">
-              <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-              </svg>
-            </div>
-            <h3 className="tool-name">区块浏览器</h3>
-            <p className="tool-description">查询区块链交易和地址信息</p>
-            <span className="tool-action">打开 →</span>
-          </div>
-
-          <div className="tool-card">
-            <div className="tool-icon gas">
-              <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
-              </svg>
-            </div>
-            <h3 className="tool-name">GAS费估算</h3>
-            <p className="tool-description">查看实时GAS费用并优化交易</p>
-            <span className="tool-action">打开 →</span>
-          </div>
-
-          <div className="tool-card">
-            <div className="tool-icon converter">
-              <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
-              </svg>
-            </div>
-            <h3 className="tool-name">代币转换器</h3>
-            <p className="tool-description">各类加密货币之间的价值换算</p>
-            <span className="tool-action">打开 →</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="tools-nav">
-        <button className="nav-button active">所有工具</button>
-        <button className="nav-button">钱包</button>
-        <button className="nav-button">区块浏览器</button>
-        <button className="nav-button">交易工具</button>
-      </div>
-
-      <div className="content">
+      <div className="tool-content">
         <Outlet />
       </div>
     </StyleWrapper>
@@ -101,242 +194,301 @@ const Web3Tools = () => {
 }
 
 const StyleWrapper = styled.div`
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2.5rem;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+  .web3-tools {
+    padding: 20px 0;
   }
 
-  .title-container {
-    flex: 1;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-    position: relative;
-    display: inline-block;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 60px;
-      height: 4px;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
-      border-radius: 2px;
-    }
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-    color: #64748b;
-    max-width: 500px;
-    line-height: 1.5;
-    margin-top: 1rem;
-  }
-
-  .search-box {
-    display: flex;
-    align-items: center;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 0.75rem 1.25rem;
-    width: 300px;
-    transition: all 0.3s;
-
-    &:focus-within {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    @media (max-width: 768px) {
-      margin-top: 1.5rem;
-      width: 100%;
-    }
-
-    .search-icon {
-      width: 20px;
-      height: 20px;
-      fill: #94a3b8;
-      margin-right: 0.75rem;
-    }
-
-    .search-input {
-      border: none;
-      background: transparent;
-      font-size: 1rem;
-      color: #334155;
-      width: 100%;
-
-      &:focus {
-        outline: none;
-      }
-
-      &::placeholder {
-        color: #94a3b8;
-      }
-    }
-  }
-
-  .tools-section {
-    margin-bottom: 2.5rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    color: #334155;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .tool-card {
-    background-color: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s;
-    cursor: pointer;
-    border: 1px solid #f1f5f9;
+  .tools-header {
+    margin-bottom: 32px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-      border-color: #e2e8f0;
+    @media (min-width: 992px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      .tool-action {
-        color: #3b82f6;
+    .header-content {
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #4f46e5, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header-description {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 600px;
       }
     }
-  }
 
-  .tool-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-
-    svg {
-      fill: white;
-    }
-
-    &.wallet {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    }
-
-    &.explorer {
-      background: linear-gradient(135deg, #10b981, #34d399);
-    }
-
-    &.gas {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-    }
-
-    &.converter {
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-    }
-  }
-
-  .tool-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-  }
-
-  .tool-description {
-    font-size: 0.9rem;
-    color: #64748b;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-    flex-grow: 1;
-  }
-
-  .tool-action {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    font-weight: 500;
-    transition: color 0.2s;
-    align-self: flex-end;
-  }
-
-  .tools-nav {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 0.5rem;
-
-    @media (max-width: 768px) {
-      margin-top: 1.5rem;
+    .search-form {
+      display: flex;
       width: 100%;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-    }
-  }
+      max-width: 500px;
 
-  .nav-button {
-    background-color: transparent;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
+      .search-input-container {
+        flex: 1;
+        position: relative;
 
-    &.active {
-      color: #3b82f6;
-      font-weight: 500;
+        .search-icon {
+          position: absolute;
+          left: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 1.2rem;
+        }
 
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 10%;
-        width: 80%;
-        height: 3px;
-        background-color: #3b82f6;
-        border-radius: 3px;
+        .search-input {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px 0 0 8px;
+          padding: 12px 16px 12px 42px;
+          color: white;
+          font-size: 1rem;
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+          }
+
+          &:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+
+      .search-button {
+        background: linear-gradient(135deg, #4f46e5, #a855f7);
+        color: white;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        padding: 0 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: linear-gradient(135deg, #4338ca, #9333ea);
+        }
       }
     }
+  }
 
-    &:hover:not(.active) {
-      background-color: #f8fafc;
-      color: #334155;
+  .section-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 16px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(to bottom, #4f46e5, #a855f7);
+      border-radius: 4px;
     }
   }
 
-  .content {
-    min-height: 500px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    padding: 2rem;
+  .common-tools-section {
+    margin-bottom: 40px;
+
+    .common-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .tool-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(79, 70, 229, 0.1);
+        border-radius: 12px;
+        font-size: 1.8rem;
+        color: #a855f7;
+      }
+
+      .tool-info {
+        flex: 1;
+
+        .tool-name {
+          font-weight: 600;
+          font-size: 1.1rem;
+          margin-bottom: 6px;
+          color: white;
+        }
+
+        .tool-description {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.6);
+          line-height: 1.4;
+        }
+      }
+
+      .tool-arrow {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 1.2rem;
+        transition: all 0.2s ease;
+      }
+
+      &:hover .tool-arrow {
+        color: #a855f7;
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  .all-tools-section {
+    margin-bottom: 40px;
+
+    .tools-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .tool-category {
+      .category-name {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .category-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tool-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tool-item-icon {
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 8px;
+          font-size: 1.2rem;
+          color: #a855f7;
+        }
+
+        .tool-item-name {
+          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+  }
+
+  .additional-resources {
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .resource-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .resource-icon {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(168, 85, 247, 0.1);
+        border-radius: 10px;
+        font-size: 1.5rem;
+        color: #a855f7;
+        flex-shrink: 0;
+      }
+
+      .resource-content {
+        h4 {
+          font-size: 1.05rem;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: white;
+        }
+
+        p {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.6);
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  .tool-content {
+    margin-top: 20px;
+    min-height: 300px;
   }
 `
 
