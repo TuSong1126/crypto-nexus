@@ -27,7 +27,7 @@ const Canvas = styled.canvas`
   height: 100%;
 `
 
-const ParticleBackground: React.FC<ParticleProps> = ({
+const ParticleBackground = ({
   count = 100,
   color = '#6c5ce7',
   minSize = 1,
@@ -35,7 +35,7 @@ const ParticleBackground: React.FC<ParticleProps> = ({
   speed = 0.5,
   connectParticles = true,
   opacity = 0.8
-}) => {
+}: ParticleProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>(0)
 

@@ -4,7 +4,7 @@ declare interface Window {
 }
 
 declare interface Any {
-  [key as string]: any
+  [key: string]: any
 }
 
 // 路由

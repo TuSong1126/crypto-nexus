@@ -201,7 +201,7 @@ const LoadingSpinner = styled.div`
   animation: ${rotate} 1s linear infinite;
 `
 
-const Web3Button: React.FC<Web3ButtonProps> = ({
+const Web3Button = ({
   variant = 'primary',
   size = 'medium',
   icon,
@@ -211,7 +211,7 @@ const Web3Button: React.FC<Web3ButtonProps> = ({
   gradient = true,
   children,
   ...props
-}) => {
+}: Web3ButtonProps) => {
   return (
     <StyledButton
       variant={variant}
