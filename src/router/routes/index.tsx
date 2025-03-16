@@ -12,11 +12,11 @@ const businessRoutes = [
     Component: lazy(() => import('@/views/home')),
     meta: { title: '首页', permissionKey: 'home', icon: '' }
   },
-  ...web3AssetsRoutes,
+  ...web3ToolsRoutes,
   ...nftMarketRoutes,
   ...defiRoutes,
-  ...daoRoutes,
-  ...web3ToolsRoutes
+  ...web3AssetsRoutes,
+  ...daoRoutes
 ] as RouteType[]
 
 export default businessRoutes
