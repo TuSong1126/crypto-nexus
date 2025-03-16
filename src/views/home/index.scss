@@ -186,3 +186,119 @@
     margin-right: 8px;
   }
 }
+
+// 活动列表样式
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .activity-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: var(--border-radius-medium, 12px);
+    background-color: var(--card-bg-color, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: var(--card-hover-bg-color, rgba(255, 255, 255, 0.08));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.12));
+    }
+
+    .activity-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      font-size: 18px;
+
+      &.send {
+        background-color: var(--error-bg-color, rgba(239, 68, 68, 0.1));
+        color: var(--error-color, #ef4444);
+      }
+
+      &.receive {
+        background-color: var(--success-bg-color, rgba(16, 185, 129, 0.1));
+        color: var(--success-color, #10b981);
+      }
+
+      &.stake {
+        background-color: var(--primary-light-color, rgba(59, 130, 246, 0.1));
+        color: var(--primary-color, #3b82f6);
+      }
+
+      &.swap {
+        background-color: var(--warning-bg-color, rgba(245, 158, 11, 0.1));
+        color: var(--warning-color, #f59e0b);
+      }
+    }
+
+    .activity-details {
+      flex: 1;
+
+      .activity-title {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 4px;
+        color: var(--heading-color, #111827);
+      }
+
+      .activity-address {
+        font-size: 13px;
+        color: var(--text-secondary-color, #6b7280);
+      }
+    }
+
+    .activity-amount {
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+
+      &.positive {
+        background-color: var(--success-bg-color, rgba(16, 185, 129, 0.1));
+        color: var(--success-color, #10b981);
+      }
+
+      &.negative {
+        background-color: var(--error-bg-color, rgba(239, 68, 68, 0.1));
+        color: var(--error-color, #ef4444);
+      }
+
+      &.neutral {
+        background-color: var(--neutral-bg-color, rgba(107, 114, 128, 0.1));
+        color: var(--neutral-color, #6b7280);
+      }
+    }
+  }
+}
+
+// 适配深色模式
+@media (prefers-color-scheme: dark) {
+  .activities-list {
+    .activity-item {
+      background-color: var(--card-bg-color-dark, rgba(30, 41, 59, 0.5));
+      border-color: var(--border-color-dark, rgba(55, 65, 81, 0.5));
+
+      &:hover {
+        background-color: var(--card-hover-bg-color-dark, rgba(30, 41, 59, 0.7));
+      }
+
+      .activity-details {
+        .activity-title {
+          color: var(--heading-color-dark, #f3f4f6);
+        }
+
+        .activity-address {
+          color: var(--text-secondary-color-dark, #9ca3af);
+        }
+      }
+    }
+  }
+}

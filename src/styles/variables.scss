@@ -46,3 +46,91 @@ $border-radius-small: 4px;
 $border-radius-medium: 8px;
 $border-radius-large: 16px;
 $border-radius-full: 9999px;
+
+// 系统主题适配CSS变量
+:root {
+  // 颜色
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --accent-color-1: #{$accent-color-1};
+  --accent-color-2: #{$accent-color-2};
+
+  // 文本颜色
+  --text-color: #333;
+  --text-secondary-color: #6b7280;
+  --text-tertiary-color: #9ca3af;
+  --heading-color: #111827;
+
+  // 背景颜色
+  --bg-color: #f7f9fc;
+  --card-bg-color: #ffffff;
+  --card-alt-bg-color: #f9fafb;
+  --card-hover-bg-color: #f3f4f6;
+  --table-header-bg: #f9fafb;
+
+  // 状态颜色
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --neutral-color: #6b7280;
+
+  // 背景色变体
+  --success-bg-color: rgba(16, 185, 129, 0.1);
+  --error-bg-color: rgba(239, 68, 68, 0.1);
+  --warning-bg-color: rgba(245, 158, 11, 0.1);
+  --neutral-bg-color: rgba(107, 114, 128, 0.1);
+  --primary-light-color: rgba(59, 130, 246, 0.1);
+
+  // 边框和阴影
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  // 特殊颜色
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --hover-bg-color: rgba(59, 130, 246, 0.05);
+
+  // 币种专用颜色
+  --eth-color: #3b82f6;
+  --eth-bg-color: rgba(59, 130, 246, 0.1);
+  --btc-color: #f59e0b;
+  --btc-bg-color: rgba(245, 158, 11, 0.1);
+  --usdt-color: #10b981;
+  --usdt-bg-color: rgba(16, 185, 129, 0.1);
+
+  // 尺寸相关
+  --border-radius-small: #{$border-radius-small};
+  --border-radius-medium: #{$border-radius-medium};
+  --border-radius-large: #{$border-radius-large};
+}
+
+// 深色模式变量
+@media (prefers-color-scheme: dark) {
+  :root {
+    // 文本颜色 - 深色模式
+    --text-color: #e5e7eb;
+    --text-secondary-color: #9ca3af;
+    --text-tertiary-color: #6b7280;
+    --heading-color: #f3f4f6;
+
+    // 背景颜色 - 深色模式
+    --bg-color: #{$bg-dark};
+    --card-bg-color: rgba(30, 41, 59, 0.8);
+    --card-alt-bg-color: rgba(30, 41, 59, 0.6);
+    --card-hover-bg-color: rgba(30, 41, 59, 0.95);
+    --table-header-bg: rgba(17, 24, 39, 0.8);
+
+    // 边框和阴影 - 深色模式
+    --border-color: rgba(75, 85, 99, 0.5);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+
+    // 背景色变体 - 深色模式 (稍微调亮一点以在暗色背景下更明显)
+    --success-bg-color: rgba(16, 185, 129, 0.15);
+    --error-bg-color: rgba(239, 68, 68, 0.15);
+    --warning-bg-color: rgba(245, 158, 11, 0.15);
+    --neutral-bg-color: rgba(107, 114, 128, 0.15);
+    --primary-light-color: rgba(59, 130, 246, 0.15);
+
+    // 特殊颜色适配
+    --hover-bg-color: rgba(59, 130, 246, 0.1);
+  }
+}
