@@ -1,5 +1,11 @@
+import { Icon } from '@iconify/react'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
+
+import ActionCard from '@/components/common/ActionCard'
+import Button from '@/components/common/Button'
+import PageLayout from '@/components/common/PageLayout'
+import StatsCard from '@/components/common/StatsCard'
 
 const Dao = () => {
   // 示例数据
@@ -35,526 +41,282 @@ const Dao = () => {
   }
 
   return (
-    <StyleWrapper>
-      <div className="header">
-        <div className="title-section">
-          <h1>DAO 社区治理</h1>
-          <p className="description">去中心化自治组织，参与社区治理与决策</p>
-        </div>
-        <div className="stats-section">
-          <div className="stat-card">
-            <span className="stat-value">12</span>
-            <span className="stat-label">活跃提案</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">342</span>
-            <span className="stat-label">社区成员</span>
-          </div>
-          <div className="stat-card highlight">
-            <span className="stat-value">62.8%</span>
-            <span className="stat-label">参与率</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="quick-actions">
-        <button className="action-button primary">
-          <svg viewBox="0 0 24 24" width="18" height="18" className="action-icon">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-          </svg>
+    <PageLayout
+      title="DAO 社区治理"
+      subtitle="去中心化自治组织，参与社区治理与决策"
+      actionButton={
+        <Button variant="primary" size="medium" icon={<Icon icon="mdi:plus" />}>
           创建提案
-        </button>
-        <button className="action-button">
-          <svg viewBox="0 0 24 24" width="18" height="18" className="action-icon">
-            <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8 15c0-1.66 1.34-3 3-3 .35 0 .69.07 1 .18V6h5v2h-3v7.03c-.02 1.64-1.35 2.97-3 2.97-1.66 0-3-1.34-3-3z" />
-          </svg>
-          管理投票权
-        </button>
-        <button className="action-button">
-          <svg viewBox="0 0 24 24" width="18" height="18" className="action-icon">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-          </svg>
-          查看文档
-        </button>
-      </div>
-
-      <div className="navigation">
-        <button className="nav-item active">提案</button>
-        <button className="nav-item">投票</button>
-        <button className="nav-item">治理代币</button>
-        <button className="nav-item">社区</button>
-      </div>
-
-      <div className="proposals-preview">
-        <div className="section-header">
-          <h2 className="section-title">活跃提案</h2>
-          <button className="view-all-button">查看全部</button>
+        </Button>
+      }
+    >
+      <StyleWrapper>
+        <div className="stats-row">
+          <StatsCard title="活跃提案" value="12" icon={<Icon icon="mdi:file-document-outline" />} variant="gradient" />
+          <StatsCard
+            title="社区成员"
+            value="342"
+            trend={{ type: 'up', value: '14人' }}
+            icon={<Icon icon="mdi:account-group" />}
+          />
+          <StatsCard
+            title="治理代币"
+            value="158.5k"
+            trend={{ type: 'up', value: '2.4%' }}
+            icon={<Icon icon="mdi:ticket-percent" />}
+          />
         </div>
 
-        <div className="proposals-grid">
-          {proposals.map((proposal) => (
-            <div className="proposal-card" key={proposal.id}>
-              <div className="proposal-header">
-                <div className="proposal-status active">活跃</div>
-                <div className="proposal-time-left">{getTimeLeft(proposal.endTime)}</div>
-              </div>
-              <h3 className="proposal-title">{proposal.title}</h3>
-
-              <div className="vote-progress">
-                <div className="progress-bar">
-                  <div className="progress-yes" style={{ width: `${proposal.votes.yes}%` }}></div>
-                  <div className="progress-no" style={{ width: `${proposal.votes.no}%` }}></div>
-                  <div className="progress-abstain" style={{ width: `${proposal.votes.abstain}%` }}></div>
+        <div className="section">
+          <h2 className="section-title">热门提案</h2>
+          <div className="proposals-list">
+            {proposals.map((proposal) => (
+              <div className="proposal-card" key={proposal.id}>
+                <div className="proposal-header">
+                  <div className="proposal-badge active">进行中</div>
+                  <div className="proposal-time-left">{getTimeLeft(proposal.endTime)}</div>
                 </div>
-                <div className="vote-legend">
-                  <div className="legend-item">
-                    <span className="color-dot yes"></span>
-                    <span className="legend-label">赞成 {proposal.votes.yes}%</span>
+
+                <h3 className="proposal-title">{proposal.title}</h3>
+
+                <div className="vote-bars">
+                  <div className="vote-bar-container">
+                    <div className="vote-label">
+                      <span>赞成</span>
+                      <span>{proposal.votes.yes}%</span>
+                    </div>
+                    <div className="vote-bar-bg">
+                      <div className="vote-bar vote-yes" style={{ width: `${proposal.votes.yes}%` }}></div>
+                    </div>
                   </div>
-                  <div className="legend-item">
-                    <span className="color-dot no"></span>
-                    <span className="legend-label">反对 {proposal.votes.no}%</span>
+
+                  <div className="vote-bar-container">
+                    <div className="vote-label">
+                      <span>反对</span>
+                      <span>{proposal.votes.no}%</span>
+                    </div>
+                    <div className="vote-bar-bg">
+                      <div className="vote-bar vote-no" style={{ width: `${proposal.votes.no}%` }}></div>
+                    </div>
                   </div>
-                  <div className="legend-item">
-                    <span className="color-dot abstain"></span>
-                    <span className="legend-label">弃权 {proposal.votes.abstain}%</span>
+
+                  <div className="vote-bar-container">
+                    <div className="vote-label">
+                      <span>弃权</span>
+                      <span>{proposal.votes.abstain}%</span>
+                    </div>
+                    <div className="vote-bar-bg">
+                      <div className="vote-bar vote-abstain" style={{ width: `${proposal.votes.abstain}%` }}></div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="proposal-actions">
-                <button className="vote-button">投票</button>
-                <button className="details-button">详情</button>
+                <div className="proposal-actions">
+                  <Button variant="primary" size="small">
+                    投票
+                  </Button>
+                  <Button variant="outline" size="small">
+                    查看详情
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
-
-          <div className="proposal-card new-proposal">
-            <div className="plus-icon">+</div>
-            <h3 className="new-proposal-title">创建新提案</h3>
-            <p className="new-proposal-desc">分享您的想法，参与社区治理</p>
-            <button className="create-button">创建提案</button>
+            ))}
           </div>
         </div>
-      </div>
 
-      <div className="content">
-        <Outlet />
-      </div>
-    </StyleWrapper>
+        <div className="section">
+          <h2 className="section-title">参与治理</h2>
+          <div className="governance-actions">
+            <ActionCard
+              title="投票委托"
+              description="将您的投票权委托给社区代表"
+              icon={<Icon icon="mdi:account-check" />}
+              variant="primary"
+            >
+              <Button variant="primary" fullWidth>
+                委托投票
+              </Button>
+            </ActionCard>
+
+            <ActionCard
+              title="讨论区"
+              description="参与提案讨论，分享您的想法"
+              icon={<Icon icon="mdi:forum" />}
+              variant="secondary"
+            >
+              <Button variant="secondary" fullWidth>
+                前往讨论区
+              </Button>
+            </ActionCard>
+
+            <ActionCard title="治理统计" description="查看历史提案和投票统计数据" icon={<Icon icon="mdi:chart-box" />}>
+              <Button variant="outline" fullWidth>
+                查看统计
+              </Button>
+            </ActionCard>
+          </div>
+        </div>
+
+        <div className="content-outlet">
+          <Outlet />
+        </div>
+      </StyleWrapper>
+    </PageLayout>
   )
 }
 
 const StyleWrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
 
     @media (max-width: 768px) {
-      flex-direction: column;
-      align-items: flex-start;
+      grid-template-columns: 1fr;
     }
   }
 
-  .title-section {
-    h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(90deg, #6366f1, #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-
-    .description {
-      font-size: 1.1rem;
-      color: #64748b;
-      max-width: 450px;
-    }
-  }
-
-  .stats-section {
-    display: flex;
-    gap: 1.5rem;
-
-    @media (max-width: 768px) {
-      margin-top: 1.5rem;
-      width: 100%;
-    }
-  }
-
-  .stat-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f8fafc;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    min-width: 120px;
-    border: 1px solid #e2e8f0;
-    transition:
-      transform 0.3s,
-      box-shadow 0.3s;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    &.highlight {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      border: none;
-
-      .stat-value,
-      .stat-label {
-        color: white;
-      }
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #334155;
-    }
-
-    .stat-label {
-      font-size: 0.875rem;
-      color: #64748b;
-      margin-top: 0.25rem;
-    }
-  }
-
-  .quick-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .action-button {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid #e2e8f0;
-    color: #334155;
-    transition: all 0.2s;
-    font-weight: 500;
-
-    .action-icon {
-      margin-right: 0.5rem;
-      fill: currentColor;
-    }
-
-    &:hover {
-      background-color: #f8fafc;
-      border-color: #cbd5e1;
-    }
-
-    &.primary {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: white;
-      border: none;
-
-      &:hover {
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-      }
-    }
-  }
-
-  .navigation {
-    display: flex;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #e2e8f0;
-    overflow-x: auto;
-    padding-bottom: 1px;
-
-    &::-webkit-scrollbar {
-      height: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #cbd5e1;
-      border-radius: 3px;
-    }
-
-    .nav-item {
-      padding: 1rem 1.5rem;
-      background: none;
-      border: none;
-      font-size: 1rem;
-      color: #64748b;
-      cursor: pointer;
-      position: relative;
-      white-space: nowrap;
-
-      &.active {
-        color: #6366f1;
-        font-weight: 600;
-
-        &:after {
-          content: '';
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background-color: #6366f1;
-        }
-      }
-
-      &:hover:not(.active) {
-        color: #334155;
-      }
-    }
-  }
-
-  .proposals-preview {
-    margin-bottom: 2rem;
-  }
-
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+  .section {
+    margin-bottom: 36px;
   }
 
   .section-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #334155;
-  }
+    margin-bottom: 20px;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
 
-  .view-all-button {
-    font-size: 0.9rem;
-    color: #6366f1;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-
-    &:hover {
-      text-decoration: underline;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #6c5ce7, #00cec9);
+      border-radius: 2px;
     }
   }
 
-  .proposals-grid {
+  .proposals-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
   }
 
   .proposal-card {
-    background-color: white;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
-    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 24px;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    &.new-proposal {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed #cbd5e1;
-      background-color: #f8fafc;
-      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
   }
 
   .proposal-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
-  .proposal-status {
+  .proposal-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
 
     &.active {
-      background-color: rgba(16, 185, 129, 0.1);
-      color: #10b981;
+      background-color: rgba(0, 184, 148, 0.1);
+      color: #00b894;
+    }
+
+    &.completed {
+      background-color: rgba(116, 185, 255, 0.1);
+      color: #74b9ff;
+    }
+
+    &.rejected {
+      background-color: rgba(255, 118, 117, 0.1);
+      color: #ff7675;
     }
   }
 
   .proposal-time-left {
-    font-size: 0.8rem;
-    color: #64748b;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .proposal-title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
     line-height: 1.4;
   }
 
-  .vote-progress {
-    margin-bottom: 1.5rem;
+  .vote-bars {
+    margin-bottom: 24px;
   }
 
-  .progress-bar {
-    height: 8px;
-    background-color: #f1f5f9;
-    border-radius: 4px;
-    display: flex;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
+  .vote-bar-container {
+    margin-bottom: 12px;
   }
 
-  .progress-yes {
-    height: 100%;
-    background-color: #10b981;
-  }
-
-  .progress-no {
-    height: 100%;
-    background-color: #ef4444;
-  }
-
-  .progress-abstain {
-    height: 100%;
-    background-color: #94a3b8;
-  }
-
-  .vote-legend {
+  .vote-label {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
   }
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-  }
-
-  .color-dot {
-    width: 8px;
+  .vote-bar-bg {
     height: 8px;
-    border-radius: 50%;
-    margin-right: 0.35rem;
-
-    &.yes {
-      background-color: #10b981;
-    }
-
-    &.no {
-      background-color: #ef4444;
-    }
-
-    &.abstain {
-      background-color: #94a3b8;
-    }
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
   }
 
-  .legend-label {
-    color: #64748b;
+  .vote-bar {
+    height: 100%;
+    border-radius: 4px;
+
+    &.vote-yes {
+      background: linear-gradient(90deg, #00b894, #00cec9);
+    }
+
+    &.vote-no {
+      background: linear-gradient(90deg, #ff7675, #d63031);
+    }
+
+    &.vote-abstain {
+      background: linear-gradient(90deg, #fdcb6e, #e17055);
+    }
   }
 
   .proposal-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 12px;
   }
 
-  .vote-button,
-  .details-button {
-    flex: 1;
-    padding: 0.65rem 0;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+  .governance-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 
-  .vote-button {
-    background-color: #6366f1;
-    color: white;
-    border: none;
-
-    &:hover {
-      background-color: #4f46e5;
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
     }
-  }
-
-  .details-button {
-    background-color: white;
-    color: #6366f1;
-    border: 1px solid #6366f1;
-
-    &:hover {
-      background-color: #f5f3ff;
-    }
-  }
-
-  .plus-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgba(99, 102, 241, 0.1);
-    color: #6366f1;
-    font-size: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .new-proposal-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-  }
-
-  .new-proposal-desc {
-    font-size: 0.9rem;
-    color: #64748b;
-    margin-bottom: 1.5rem;
-  }
-
-  .create-button {
-    background-color: transparent;
-    color: #6366f1;
-    border: 1px solid #6366f1;
-    padding: 0.65rem 1.25rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover {
-      background-color: #6366f1;
-      color: white;
-    }
-  }
-
-  .content {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 2rem;
-    min-height: 400px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 `
 
