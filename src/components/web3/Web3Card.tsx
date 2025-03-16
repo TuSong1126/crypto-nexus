@@ -36,7 +36,15 @@ const glow = keyframes`
   }
 `
 
-const CardContainer = styled.div<Omit<Web3CardProps, 'children' | 'title' | 'subtitle' | 'icon'>>`
+// 使用$前缀来标记样式属性，避免它们传递到DOM
+interface CardContainerProps {
+  $variant?: 'default' | 'gradient' | 'glass' | 'outline'
+  $hover?: boolean
+  $animate?: boolean
+  $glow?: boolean
+}
+
+const CardContainer = styled.div<CardContainerProps>`
   position: relative;
   border-radius: 16px;
   padding: 24px;
@@ -44,7 +52,7 @@ const CardContainer = styled.div<Omit<Web3CardProps, 'children' | 'title' | 'sub
   overflow: hidden;
 
   ${(props) =>
-    props.hover &&
+    props.$hover &&
     css`
       &:hover {
         transform: translateY(-5px);
@@ -53,19 +61,19 @@ const CardContainer = styled.div<Omit<Web3CardProps, 'children' | 'title' | 'sub
     `}
 
   ${(props) =>
-    props.animate &&
+    props.$animate &&
     css`
       animation: ${float} 4s ease-in-out infinite;
     `}
   
   ${(props) =>
-    props.glow &&
+    props.$glow &&
     css`
       animation: ${glow} 2s infinite;
     `}
   
   ${(props) => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case 'gradient':
         return css`
           background: linear-gradient(135deg, rgba(108, 92, 231, 0.8), rgba(0, 206, 201, 0.8));
@@ -163,7 +171,7 @@ const CardContent = styled.div`
   position: relative;
 `
 
-const Web3Card: React.FC<Web3CardProps> = ({
+const Web3Card = ({
   variant = 'default',
   hover = true,
   animate = false,
@@ -173,9 +181,9 @@ const Web3Card: React.FC<Web3CardProps> = ({
   icon,
   children,
   ...props
-}) => {
+}: Web3CardProps) => {
   return (
-    <CardContainer variant={variant} hover={hover} animate={animate} glow={glow} {...props}>
+    <CardContainer $variant={variant} $hover={hover} $animate={animate} $glow={glow} {...props}>
       {(title || icon) && (
         <CardHeader>
           {icon && <IconWrapper>{icon}</IconWrapper>}
