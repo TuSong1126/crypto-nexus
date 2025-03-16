@@ -480,4 +480,28 @@
       background: rgba($primary-color, 0.3);
     }
   }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba($primary-color, 0.2);
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba($primary-color, 0.3);
+    border: 1px solid rgba($primary-color, 0.3);
+    @include glassmorphism;
+    transition: all $transition-fast ease;
+
+    &:hover {
+      box-shadow: 0 0 20px rgba($primary-color, 0.5);
+    }
+  }
 }

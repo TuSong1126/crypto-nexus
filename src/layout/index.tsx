@@ -20,8 +20,11 @@ export default function Layout() {
   const router = useRouter()
   const [isMenuHovered, setIsMenuHovered] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isFullScreen, setIsFullScreen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
   const userInfo = useUserInfoStore((state) => state.userInfo)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   // 点击外部区域关闭下拉菜单
   useEffect(() => {
@@ -34,6 +37,23 @@ export default function Layout() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  // 监听滚动显示/隐藏回到顶部按钮
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current) {
+        setShowBackToTop(contentRef.current.scrollTop > 300)
+      }
+    }
+
+    const contentElement = contentRef.current
+    if (contentElement) {
+      contentElement.addEventListener('scroll', handleScroll)
+      return () => {
+        contentElement.removeEventListener('scroll', handleScroll)
+      }
     }
   }, [])
 
@@ -106,6 +126,51 @@ export default function Layout() {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
+  }
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement
+        .requestFullscreen()
+        .then(() => {
+          setIsFullScreen(true)
+        })
+        .catch((err) => {
+          console.error(`全屏切换错误: ${err.message}`)
+        })
+    } else {
+      if (document.exitFullscreen) {
+        document
+          .exitFullscreen()
+          .then(() => {
+            setIsFullScreen(false)
+          })
+          .catch((err) => {
+            console.error(`退出全屏错误: ${err.message}`)
+          })
+      }
+    }
+  }
+
+  // 检测全屏状态变化
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullScreenChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange)
+    }
+  }, [])
+
+  const scrollToTop = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 
   return (
@@ -188,6 +253,15 @@ export default function Layout() {
               <Icon icon="ph:bell" width={22} height={22} />
               <span className="badge">3</span>
             </motion.div>
+
+            <motion.div
+              className="toolbar-item"
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleFullScreen}
+            >
+              <Icon icon={isFullScreen ? 'ph:arrows-in' : 'ph:arrows-out'} width={22} height={22} />
+            </motion.div>
           </div>
 
           <div className="user-info">
@@ -259,10 +333,25 @@ export default function Layout() {
         </div>
       </motion.div>
 
-      <div className="web3-main-content-wrapper">
+      <div className="web3-main-content-wrapper" ref={contentRef}>
         <Suspense fallback={<CircleLoading />}>
           <Outlet />
         </Suspense>
+
+        {showBackToTop && (
+          <motion.div
+            className="back-to-top"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(108, 92, 231, 0.3)' }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Icon icon="ph:arrow-up" width={24} height={24} />
+          </motion.div>
+        )}
       </div>
     </div>
   )
