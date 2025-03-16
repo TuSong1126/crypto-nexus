@@ -212,7 +212,6 @@ export default function Layout() {
           variants={logoVariants}
           whileHover="whileHover"
         >
-          <Icon icon="fluent-emoji:rocket" width={32} height={32} className="logo-icon" />
           <span className="logo-text">Web3 World</span>
         </motion.div>
 
