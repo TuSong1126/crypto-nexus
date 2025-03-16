@@ -33,15 +33,6 @@ export default defineMock([
       code: 200,
       data: {
         btns: [
-          'btn:article/list/edit',
-          'btn:article/detail/edit',
-          'btn:postOffice/list/edit',
-          'btn:postOffice/detail/edit',
-          'btn:timeAxis/list/edit',
-          'btn:timeAxis/detail/edit',
-          'btn:treeHole/list/edit',
-          'btn:treeHole/detail/edit',
-
           // Web3资产按钮权限
           'btn:web3Assets/list/view',
           'btn:web3Assets/list/transfer',
@@ -68,23 +59,6 @@ export default defineMock([
           'btn:web3Tools/explorer/search'
         ],
         routes: [
-          'route:home',
-          'route:article',
-          'route:article/list',
-          'route:article/detail',
-          'route:postOffice',
-          'route:postOffice/list',
-          'route:postOffice/detail',
-          'route:timeAxis',
-          'route:timeAxis/list',
-          'route:timeAxis/detail',
-          'route:treeHole',
-          'route:treeHole/list',
-          'route:treeHole/detail',
-          'route:about',
-          'route:about/product',
-          'route:about/me',
-
           // Web3资产路由权限
           'route:web3Assets',
           'route:web3Assets/list',
