@@ -18,7 +18,6 @@ export default function Layout() {
   // 首页不在菜单中展示(注意斜杠)
   const menuList = businessRoutes.filter((i) => !VITE_APP_HOMEPAGE.includes(i.meta?.permissionKey))
   const router = useRouter()
-  const [isMenuHovered, setIsMenuHovered] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
@@ -218,8 +217,8 @@ export default function Layout() {
         <motion.div className="menu" variants={menuVariants}>
           {menuList.map((item) => (
             <motion.div
-              onMouseEnter={() => setIsMenuHovered(true)}
-              onMouseLeave={() => setIsMenuHovered(false)}
+              onMouseEnter={() => (item.active = true)}
+              onMouseLeave={() => (item.active = false)}
               key={item.path}
               variants={menuItemVariants}
               whileHover={{ scale: 1.05 }}
@@ -230,7 +229,7 @@ export default function Layout() {
               >
                 {item.meta?.icon && <Icon icon={item.meta.icon} className="menu-icon" />}
                 <span className="menu-text">{item.meta?.title}</span>
-                {isMenuHovered && (
+                {item.active && (
                   <motion.span
                     className="menu-hover-effect"
                     initial={{ width: 0 }}
