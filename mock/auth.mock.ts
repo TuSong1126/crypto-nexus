@@ -40,7 +40,32 @@ export default defineMock([
           'btn:timeAxis/list/edit',
           'btn:timeAxis/detail/edit',
           'btn:treeHole/list/edit',
-          'btn:treeHole/detail/edit'
+          'btn:treeHole/detail/edit',
+
+          // Web3资产按钮权限
+          'btn:web3Assets/list/view',
+          'btn:web3Assets/list/transfer',
+          'btn:web3Assets/detail/view',
+
+          // NFT市场按钮权限
+          'btn:nftMarket/marketplace/buy',
+          'btn:nftMarket/marketplace/sell',
+          'btn:nftMarket/collection/view',
+
+          // DeFi按钮权限
+          'btn:defi/swap/execute',
+          'btn:defi/pool/add',
+          'btn:defi/pool/remove',
+
+          // DAO按钮权限
+          'btn:dao/proposals/create',
+          'btn:dao/proposals/view',
+          'btn:dao/voting/vote',
+
+          // Web3工具按钮权限
+          'btn:web3Tools/wallet/connect',
+          'btn:web3Tools/wallet/disconnect',
+          'btn:web3Tools/explorer/search'
         ],
         routes: [
           'route:home',
@@ -58,7 +83,32 @@ export default defineMock([
           'route:treeHole/detail',
           'route:about',
           'route:about/product',
-          'route:about/me'
+          'route:about/me',
+
+          // Web3资产路由权限
+          'route:web3Assets',
+          'route:web3Assets/list',
+          'route:web3Assets/detail',
+
+          // NFT市场路由权限
+          'route:nftMarket',
+          'route:nftMarket/marketplace',
+          'route:nftMarket/collection',
+
+          // DeFi路由权限
+          'route:defi',
+          'route:defi/swap',
+          'route:defi/pool',
+
+          // DAO路由权限
+          'route:dao',
+          'route:dao/proposals',
+          'route:dao/voting',
+
+          // Web3工具路由权限
+          'route:web3Tools',
+          'route:web3Tools/wallet',
+          'route:web3Tools/explorer'
         ]
       },
       msg: '获取权限'
