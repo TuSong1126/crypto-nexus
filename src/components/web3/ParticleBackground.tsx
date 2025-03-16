@@ -11,7 +11,12 @@ interface ParticleProps {
   opacity?: number
 }
 
-const ParticleContainer = styled.div`
+// 使用$前缀来标记样式属性，避免它们传递到DOM
+interface ParticleContainerProps {
+  $connectParticles?: boolean
+}
+
+const ParticleContainer = styled.div<ParticleContainerProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -161,7 +166,7 @@ const ParticleBackground = ({
   }, [count, color, minSize, maxSize, speed, connectParticles, opacity])
 
   return (
-    <ParticleContainer>
+    <ParticleContainer $connectParticles={connectParticles}>
       <Canvas ref={canvasRef} />
     </ParticleContainer>
   )

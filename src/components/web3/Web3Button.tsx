@@ -33,7 +33,16 @@ const rotate = keyframes`
   }
 `
 
-const StyledButton = styled.button<Omit<Web3ButtonProps, 'icon' | 'children'>>`
+// 使用$前缀来标记样式属性，避免它们传递到DOM
+interface StyledButtonProps {
+  $variant?: 'primary' | 'secondary' | 'outlined' | 'ghost'
+  $size?: 'small' | 'medium' | 'large'
+  $fullWidth?: boolean
+  $glow?: boolean
+  $gradient?: boolean
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -47,13 +56,13 @@ const StyledButton = styled.button<Omit<Web3ButtonProps, 'icon' | 'children'>>`
   overflow: hidden;
 
   ${(props) =>
-    props.fullWidth &&
+    props.$fullWidth &&
     css`
       width: 100%;
     `}
 
   ${(props) => {
-    switch (props.size) {
+    switch (props.$size) {
       case 'small':
         return css`
           padding: 8px 16px;
@@ -73,7 +82,7 @@ const StyledButton = styled.button<Omit<Web3ButtonProps, 'icon' | 'children'>>`
   }}
   
   ${(props) => {
-    switch (props.variant) {
+    switch (props.$variant) {
       case 'secondary':
         return css`
           color: #fff;
@@ -152,13 +161,13 @@ const StyledButton = styled.button<Omit<Web3ButtonProps, 'icon' | 'children'>>`
   }
 
   ${(props) =>
-    props.glow &&
+    props.$glow &&
     css`
       animation: ${glow} 2s infinite;
     `}
 
   ${(props) =>
-    props.gradient &&
+    props.$gradient &&
     css`
       background-size: 200% 200%;
       background-position: 0% 0%;
@@ -214,11 +223,11 @@ const Web3Button = ({
 }: Web3ButtonProps) => {
   return (
     <StyledButton
-      variant={variant}
-      size={size}
-      fullWidth={fullWidth}
-      glow={glow}
-      gradient={gradient}
+      $variant={variant}
+      $size={size}
+      $fullWidth={fullWidth}
+      $glow={glow}
+      $gradient={gradient}
       disabled={isLoading || props.disabled}
       {...props}
     >
