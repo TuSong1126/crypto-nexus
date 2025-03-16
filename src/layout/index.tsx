@@ -3,7 +3,7 @@ import './index.scss'
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
 import { motion } from 'framer-motion'
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
 import { CircleLoading } from '@/components/basic/circle-loading'
@@ -19,7 +19,23 @@ export default function Layout() {
   const menuList = businessRoutes.filter((i) => !VITE_APP_HOMEPAGE.includes(i.meta?.permissionKey))
   const router = useRouter()
   const [isMenuHovered, setIsMenuHovered] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const userInfo = useUserInfoStore((state) => state.userInfo)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // 点击外部区域关闭下拉菜单
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const menuVariants = {
     initial: {
@@ -86,6 +102,10 @@ export default function Layout() {
     // 清除用户信息和token
     useUserInfoStore.getState().resetUserInfo()
     router.push('/login')
+  }
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen)
   }
 
   return (
@@ -159,34 +179,6 @@ export default function Layout() {
         </motion.div>
 
         <div className="right-section">
-          <div className="user-info">
-            <motion.div className="avatar" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <Icon icon="ph:user-circle-fill" width={36} height={36} />
-            </motion.div>
-            <div className="user-dropdown">
-              <div className="user-name">{userInfo?.nickname || userInfo?.name || '用户'}</div>
-
-              <div className="dropdown-menu">
-                <motion.div className="dropdown-item" whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}>
-                  <Icon icon="ph:user-gear" width={18} height={18} />
-                  <span>个人设置</span>
-                </motion.div>
-                <motion.div className="dropdown-item" whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}>
-                  <Icon icon="ph:wallet" width={18} height={18} />
-                  <span>我的钱包</span>
-                </motion.div>
-                <motion.div
-                  className="dropdown-item"
-                  onClick={handleLogout}
-                  whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
-                >
-                  <Icon icon="ph:sign-out" width={18} height={18} />
-                  <span>退出登录</span>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-
           <div className="toolbar">
             <motion.div
               className="toolbar-item"
@@ -196,14 +188,73 @@ export default function Layout() {
               <Icon icon="ph:bell" width={22} height={22} />
               <span className="badge">3</span>
             </motion.div>
+          </div>
 
-            <motion.div
-              className="toolbar-item"
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Icon icon="ph:gear-six" width={22} height={22} />
+          <div className="user-info">
+            <motion.div className="avatar" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Icon icon="ph:user-circle-fill" width={36} height={36} />
             </motion.div>
+
+            <div className="user-dropdown" ref={dropdownRef}>
+              <motion.div className="user-name" whileHover={{ color: '#6c5ce7' }} onClick={toggleDropdown}>
+                <span>{userInfo?.nickname || userInfo?.name || '用户'}</span>
+                <Icon
+                  icon="ph:caret-down"
+                  className="dropdown-icon"
+                  width={16}
+                  height={16}
+                  style={{ transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </motion.div>
+
+              {isDropdownOpen && (
+                <motion.div
+                  className="dropdown-menu"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="menu-header">
+                    <div className="user-avatar">
+                      <Icon icon="ph:user-circle-fill" width={40} height={40} />
+                    </div>
+                    <div className="user-details">
+                      <div className="user-display-name">{userInfo?.nickname || userInfo?.name || '用户'}</div>
+                      <div className="user-role">Web3爱好者</div>
+                    </div>
+                  </div>
+
+                  <div className="menu-divider"></div>
+
+                  <motion.div
+                    className="dropdown-item"
+                    whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+                  >
+                    <Icon icon="ph:user-gear" width={18} height={18} />
+                    <span>个人设置</span>
+                  </motion.div>
+                  <motion.div
+                    className="dropdown-item"
+                    whileHover={{ x: 5, backgroundColor: 'rgba(108, 92, 231, 0.2)' }}
+                  >
+                    <Icon icon="ph:wallet" width={18} height={18} />
+                    <span>我的钱包</span>
+                  </motion.div>
+
+                  <div className="menu-divider"></div>
+
+                  <motion.div
+                    className="dropdown-item logout-item"
+                    onClick={handleLogout}
+                    whileHover={{ x: 5, backgroundColor: 'rgba(255, 86, 86, 0.15)' }}
+                  >
+                    <Icon icon="ph:sign-out" width={18} height={18} />
+                    <span>退出登录</span>
+                  </motion.div>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
       </motion.div>
