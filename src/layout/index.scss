@@ -359,6 +359,7 @@
         @include glassmorphism;
         border-radius: $border-radius-medium;
         @include gradient-border;
+        background-color: black;
         position: absolute;
         padding: 0;
         z-index: 100;
