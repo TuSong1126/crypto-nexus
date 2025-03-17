@@ -59,6 +59,9 @@ export default defineMock([
           'btn:web3Tools/explorer/search'
         ],
         routes: [
+          // 首页路由权限
+          'route:home',
+
           // Web3资产路由权限
           'route:web3Assets',
           'route:web3Assets/list',
