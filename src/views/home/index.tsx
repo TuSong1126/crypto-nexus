@@ -207,20 +207,67 @@ export default function Home() {
         <motion.div className="compact-header" variants={itemVariants}>
           <Row gutter={[16, 16]} className="dashboard-header-row">
             <Col xs={24} md={16}>
-              <div className="welcome-panel">
-                <motion.div
-                  className="welcome-content"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="welcome-text">
-                    <h2>
-                      探索 <span className="gradient-text">Web3</span> 世界
-                    </h2>
-                    <p>掌控您的数字资产，参与去中心化经济，构建未来金融</p>
+              <motion.div
+                className="welcome-panel"
+                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 260,
+                  damping: 20,
+                  delay: 0.1
+                }}
+              >
+                {/* 装饰元素 */}
+                <div className="welcome-decoration-el circle-1"></div>
+                <div className="welcome-decoration-el circle-2"></div>
+                <div className="welcome-decoration-el dot-group">
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                </div>
 
-                    <div className="action-buttons">
+                {/* 浮动形状元素 */}
+                <div className="floating-element hexagon"></div>
+                <div className="floating-element triangle"></div>
+                <div className="floating-element square"></div>
+                <div className="floating-element glow-orb"></div>
+
+                <div className="welcome-content">
+                  <div className="welcome-text">
+                    <motion.h2
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.4 }}
+                    >
+                      探索{' '}
+                      <span className="gradient-text" data-text="Web3">
+                        Web3
+                      </span>{' '}
+                      世界
+                      <div className="title-glow"></div>
+                      <motion.span
+                        className="title-decoration"
+                        initial={{ width: 0 }}
+                        animate={{ width: '120px' }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                      ></motion.span>
+                    </motion.h2>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
+                    >
+                      掌控您的数字资产，参与去中心化经济，构建未来金融
+                    </motion.p>
+
+                    <motion.div
+                      className="action-buttons"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4, duration: 0.4 }}
+                    >
                       <Button variant="primary" size="medium" className="glow-effect">
                         <Icon icon="mdi:rocket-launch" className="btn-icon" />
                         开始探索
@@ -229,24 +276,132 @@ export default function Home() {
                         <Icon icon="mdi:play-circle" className="btn-icon" />
                         观看演示
                       </Button>
-                    </div>
+                    </motion.div>
+
+                    {/* 添加统计数据 */}
+                    <motion.div
+                      className="welcome-stats"
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5, duration: 0.4 }}
+                    >
+                      <div className="stat-item">
+                        <div className="stat-value">32.5K+</div>
+                        <div className="stat-label">
+                          <span className="indicator positive"></span>
+                          活跃用户
+                        </div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-value">$7.8M</div>
+                        <div className="stat-label">
+                          <span className="indicator positive"></span>
+                          交易量
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* 集成快捷功能区 */}
+                    <motion.div
+                      className="integrated-quick-features"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}
+                    >
+                      <div className="features-header">
+                        <motion.span
+                          initial={{ opacity: 0, width: 0 }}
+                          animate={{ opacity: 1, width: 'auto' }}
+                          transition={{ delay: 0.7, duration: 0.4 }}
+                          className="features-title"
+                        >
+                          快捷功能
+                        </motion.span>
+                        <motion.div
+                          className="features-line"
+                          initial={{ width: 0 }}
+                          animate={{ width: '100%' }}
+                          transition={{ delay: 0.8, duration: 0.6 }}
+                        ></motion.div>
+                      </div>
+                      <div className="features-grid">
+                        {quickFeatures.map((feature, index) => (
+                          <motion.div
+                            key={feature.title}
+                            className="feature-pill"
+                            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{
+                              delay: 0.7 + index * 0.1,
+                              type: 'spring',
+                              stiffness: 300,
+                              damping: 20
+                            }}
+                            whileHover={{
+                              scale: 1.05,
+                              y: -5,
+                              boxShadow: `0 8px 20px rgba(0,0,0,0.15), 0 0 10px ${feature.color}50`
+                            }}
+                            style={{
+                              background: `linear-gradient(135deg, ${feature.color}20, transparent)`,
+                              borderLeft: `2px solid ${feature.color}`
+                            }}
+                          >
+                            <div
+                              className="feature-glow"
+                              style={{ background: `radial-gradient(circle, ${feature.color}30 0%, transparent 70%)` }}
+                            ></div>
+                            <div className="feature-icon" style={{ color: feature.color }}>
+                              <Icon icon={feature.icon} />
+                              <div className="icon-pulse" style={{ borderColor: feature.color }}></div>
+                            </div>
+                            <div className="feature-name">{feature.title}</div>
+                            <div className="feature-arrow">
+                              <Icon icon="mdi:chevron-right" />
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </div>
 
                   <div className="crypto-visual">
+                    <div className="visual-header">
+                      <motion.div
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="visual-title"
+                      >
+                        热门加密货币
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, x: 5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="visual-action"
+                      >
+                        <Icon icon="mdi:arrow-right" />
+                      </motion.div>
+                    </div>
+
                     <div className="crypto-icon-group">
                       {['eth', 'btc', 'sol'].map((coin, index) => (
                         <motion.div
                           key={coin}
                           className={`crypto-icon ${coin}`}
-                          animate={{
-                            y: [0, -10, 0],
-                            rotate: index % 2 === 0 ? [0, 5, 0] : [0, -5, 0]
-                          }}
+                          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
                           transition={{
-                            repeat: Infinity,
-                            duration: 3 + index * 0.5,
-                            ease: 'easeInOut',
-                            delay: index * 0.2
+                            delay: 0.3 + index * 0.1,
+                            type: 'spring',
+                            stiffness: 260,
+                            damping: 20
+                          }}
+                          whileHover={{
+                            y: -5,
+                            scale: 1.05,
+                            transition: { duration: 0.2 }
                           }}
                         >
                           <div className="icon-backdrop"></div>
@@ -256,14 +411,19 @@ export default function Home() {
                           </div>
                           <div className="icon-label">
                             <span>{coin.toUpperCase()}</span>
-                            <span className="price">
+                            <motion.span
+                              className="price"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ delay: 0.5 + index * 0.1 }}
+                            >
                               $
                               {coin === 'eth'
                                 ? cryptoPrice.eth.toFixed(0)
                                 : coin === 'btc'
                                   ? cryptoPrice.btc.toFixed(0)
                                   : cryptoPrice.sol.toFixed(0)}
-                            </span>
+                            </motion.span>
                           </div>
                           <div className="icon-particles">
                             {Array.from({ length: 4 }).map((_, i) => (
@@ -282,14 +442,39 @@ export default function Home() {
                         </motion.div>
                       ))}
                     </div>
+
                     <div className="crypto-rings">
-                      <div className="ring ring-1"></div>
-                      <div className="ring ring-2"></div>
-                      <div className="ring ring-3"></div>
+                      <motion.div
+                        className="ring ring-1"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 0.7, scale: 1 }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                      ></motion.div>
+                      <motion.div
+                        className="ring ring-2"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 0.5, scale: 1 }}
+                        transition={{ delay: 0.7, duration: 0.8 }}
+                      ></motion.div>
+                      <motion.div
+                        className="ring ring-3"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 0.3, scale: 1 }}
+                        transition={{ delay: 0.8, duration: 0.8 }}
+                      ></motion.div>
                     </div>
+
+                    <motion.div
+                      className="orbit-line"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.7 }}
+                      transition={{ delay: 0.9, duration: 0.8 }}
+                    >
+                      <div className="orbit-dot"></div>
+                    </motion.div>
                   </div>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             </Col>
 
             <Col xs={24} md={8}>
@@ -366,34 +551,6 @@ export default function Home() {
               </motion.div>
             </Col>
           </Row>
-
-          {/* 快捷功能导航 */}
-          <motion.div
-            className="quick-features"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <Row gutter={[16, 16]}>
-              {quickFeatures.map((feature) => (
-                <Col xs={12} sm={6} key={feature.title}>
-                  <motion.div
-                    className="feature-item"
-                    whileHover={{
-                      y: -5,
-                      boxShadow: `0 10px 20px rgba(0,0,0,0.1), 0 0 15px ${feature.color}30`
-                    }}
-                    style={{ borderTop: `3px solid ${feature.color}` }}
-                  >
-                    <div className="feature-icon" style={{ color: feature.color }}>
-                      <Icon icon={feature.icon} />
-                    </div>
-                    <div className="feature-title">{feature.title}</div>
-                  </motion.div>
-                </Col>
-              ))}
-            </Row>
-          </motion.div>
         </motion.div>
 
         {/* 市场概览 */}
