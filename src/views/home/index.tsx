@@ -240,6 +240,7 @@ export default function Home() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.4 }}
+                      className="welcome-title"
                     >
                       探索{' '}
                       <span className="gradient-text" data-text="Web3">
@@ -258,6 +259,7 @@ export default function Home() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3, duration: 0.4 }}
+                      className="welcome-description"
                     >
                       掌控您的数字资产，参与去中心化经济，构建未来金融
                     </motion.p>
@@ -482,72 +484,281 @@ export default function Home() {
                 className="account-summary"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 300,
+                  damping: 24,
+                  delay: 0.3
+                }}
               >
-                <div className="balance-card">
-                  <div className="balance-header">
-                    <h3>总资产余额</h3>
-                    <div className="balance-trend positive">
-                      <Icon icon="mdi:trending-up" />
-                      <span>+5.8%</span>
-                    </div>
-                  </div>
+                {/* 装饰元素 */}
+                <div className="summary-decoration circle-1"></div>
+                <div className="summary-decoration circle-2"></div>
+                <div className="summary-pattern"></div>
 
+                <motion.div
+                  className="summary-header"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h3>资产概览</h3>
+                  <div className="header-options">
+                    <motion.div className="refresh-btn" whileHover={{ rotate: 180 }} transition={{ duration: 0.5 }}>
+                      <Icon icon="mdi:refresh" />
+                    </motion.div>
+                    <motion.div className="more-btn" whileHover={{ scale: 1.1 }}>
+                      <Icon icon="mdi:dots-horizontal" />
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                <div className="balance-card">
                   <motion.div
-                    className="balance-amount"
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
+                    className="balance-amount-wrapper"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
                     transition={{
                       delay: 0.5,
                       type: 'spring',
                       stiffness: 300
                     }}
                   >
-                    <div className="amount-decoration"></div>
-                    <span className="amount-value">${(walletBalance * cryptoPrice.eth).toFixed(2)}</span>
-                    <span className="amount-currency">USD</span>
+                    <div className="balance-label">
+                      总资产估值
+                      <motion.div
+                        className="balance-trend positive"
+                        initial={{ x: -10, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <Icon icon="mdi:trending-up" />
+                        <span>+5.8%</span>
+                      </motion.div>
+                    </div>
 
-                    <div className="balance-chart">
-                      {Array.from({ length: 7 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className="chart-bar"
-                          style={{
-                            height: `${20 + Math.random() * 30}px`,
-                            animationDelay: `${i * 0.1}s`
-                          }}
-                        />
-                      ))}
+                    <div className="balance-amount">
+                      <div className="amount-decoration"></div>
+                      <span className="amount-value">
+                        $
+                        {(walletBalance * cryptoPrice.eth + 0.018 * cryptoPrice.btc + 0.12 * cryptoPrice.sol).toFixed(
+                          2
+                        )}
+                      </span>
+                      <span className="amount-currency">USD</span>
                     </div>
                   </motion.div>
 
                   <motion.div
-                    className="wallet-assets"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
+                    className="progress-ring-container"
+                    initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    transition={{ delay: 0.7, duration: 0.6, type: 'spring' }}
                   >
-                    <div className="wallet-eth">
-                      <div className="asset-icon eth">
-                        <Icon icon="cryptocurrency:eth" />
-                      </div>
-                      <div className="asset-info">
-                        <span className="asset-amount">{walletBalance.toFixed(2)} ETH</span>
-                        <span className="asset-value">${(walletBalance * cryptoPrice.eth).toFixed(2)}</span>
+                    <div className="progress-ring">
+                      <svg viewBox="0 0 120 120" width="120" height="120">
+                        <circle
+                          className="progress-ring-bg"
+                          cx="60"
+                          cy="60"
+                          r="54"
+                          strokeWidth="8"
+                          stroke="rgba(255,255,255,0.1)"
+                          fill="none"
+                        />
+                        <circle
+                          className="progress-ring-eth"
+                          cx="60"
+                          cy="60"
+                          r="54"
+                          strokeWidth="8"
+                          stroke="#627eea"
+                          fill="none"
+                          strokeDasharray="339.292"
+                          strokeDashoffset="169.646" // 50%
+                        />
+                        <circle
+                          className="progress-ring-btc"
+                          cx="60"
+                          cy="60"
+                          r="54"
+                          strokeWidth="8"
+                          stroke="#f7931a"
+                          fill="none"
+                          strokeDasharray="339.292"
+                          strokeDashoffset="288.898" // 15%
+                        />
+                        <circle
+                          className="progress-ring-sol"
+                          cx="60"
+                          cy="60"
+                          r="54"
+                          strokeWidth="8"
+                          stroke="#14f195"
+                          fill="none"
+                          strokeDasharray="339.292"
+                          strokeDashoffset="322.327" // 5%
+                        />
+                      </svg>
+                      <div className="ring-content">
+                        <motion.div
+                          className="ring-center"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.9, type: 'spring' }}
+                        >
+                          <Icon icon="mdi:wallet-outline" />
+                        </motion.div>
                       </div>
                     </div>
-
-                    <div className="wallet-btc">
-                      <div className="asset-icon btc">
-                        <Icon icon="cryptocurrency:btc" />
+                    <div className="distribution-legend">
+                      <div className="legend-item eth">
+                        <span className="legend-color"></span>
+                        <span className="legend-label">ETH 80%</span>
                       </div>
-                      <div className="asset-info">
-                        <span className="asset-amount">0.018 BTC</span>
-                        <span className="asset-value">${(0.018 * cryptoPrice.btc).toFixed(2)}</span>
+                      <div className="legend-item btc">
+                        <span className="legend-color"></span>
+                        <span className="legend-label">BTC 15%</span>
+                      </div>
+                      <div className="legend-item sol">
+                        <span className="legend-color"></span>
+                        <span className="legend-label">SOL 5%</span>
                       </div>
                     </div>
                   </motion.div>
                 </div>
+
+                <motion.div
+                  className="asset-list"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  <div className="asset-list-header">
+                    <h4>资产列表</h4>
+                    <motion.div
+                      className="view-all-btn"
+                      whileHover={{ x: 3 }}
+                      transition={{ type: 'spring', stiffness: 400 }}
+                    >
+                      <span>查看全部</span>
+                      <Icon icon="mdi:chevron-right" />
+                    </motion.div>
+                  </div>
+
+                  <div className="asset-items">
+                    <motion.div
+                      className="asset-item"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.9 }}
+                      whileHover={{
+                        scale: 1.02
+                      }}
+                    >
+                      <div className="asset-icon eth">
+                        <Icon icon="cryptocurrency:eth" />
+                        <div className="asset-icon-bg"></div>
+                      </div>
+                      <div className="asset-info">
+                        <div className="asset-name-row">
+                          <span className="asset-name">Ethereum</span>
+                          <span className="asset-amount">{walletBalance.toFixed(2)} ETH</span>
+                        </div>
+                        <div className="asset-value-row">
+                          <span className="asset-price">${cryptoPrice.eth.toFixed(2)}</span>
+                          <span className="asset-value">${(walletBalance * cryptoPrice.eth).toFixed(2)}</span>
+                        </div>
+                        <div className="sparkline">
+                          {Array.from({ length: 10 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="sparkline-bar"
+                              style={{
+                                height: `${15 + Math.sin(i / 3) * 10 + Math.random() * 5}px`,
+                                animationDelay: `${i * 0.1}s`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className="asset-item"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.0 }}
+                      whileHover={{
+                        scale: 1.02
+                      }}
+                    >
+                      <div className="asset-icon btc">
+                        <Icon icon="cryptocurrency:btc" />
+                        <div className="asset-icon-bg"></div>
+                      </div>
+                      <div className="asset-info">
+                        <div className="asset-name-row">
+                          <span className="asset-name">Bitcoin</span>
+                          <span className="asset-amount">0.018 BTC</span>
+                        </div>
+                        <div className="asset-value-row">
+                          <span className="asset-price">${cryptoPrice.btc.toFixed(2)}</span>
+                          <span className="asset-value">${(0.018 * cryptoPrice.btc).toFixed(2)}</span>
+                        </div>
+                        <div className="sparkline">
+                          {Array.from({ length: 10 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="sparkline-bar"
+                              style={{
+                                height: `${12 + Math.cos(i / 2) * 8 + Math.random() * 5}px`,
+                                animationDelay: `${i * 0.1}s`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className="asset-item"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.1 }}
+                      whileHover={{
+                        scale: 1.02
+                      }}
+                    >
+                      <div className="asset-icon sol">
+                        <Icon icon="cryptocurrency:sol" />
+                        <div className="asset-icon-bg"></div>
+                      </div>
+                      <div className="asset-info">
+                        <div className="asset-name-row">
+                          <span className="asset-name">Solana</span>
+                          <span className="asset-amount">0.12 SOL</span>
+                        </div>
+                        <div className="asset-value-row">
+                          <span className="asset-price">${cryptoPrice.sol.toFixed(2)}</span>
+                          <span className="asset-value">${(0.12 * cryptoPrice.sol).toFixed(2)}</span>
+                        </div>
+                        <div className="sparkline">
+                          {Array.from({ length: 10 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="sparkline-bar"
+                              style={{
+                                height: `${18 + Math.sin(i / 1.5) * 7 + Math.random() * 5}px`,
+                                animationDelay: `${i * 0.1}s`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
               </motion.div>
             </Col>
           </Row>
