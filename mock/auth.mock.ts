@@ -48,11 +48,6 @@ export default defineMock([
           'btn:defi/pool/add',
           'btn:defi/pool/remove',
 
-          // DAO按钮权限
-          'btn:dao/proposals/create',
-          'btn:dao/proposals/view',
-          'btn:dao/voting/vote',
-
           // Web3工具按钮权限
           'btn:web3Tools/wallet/connect',
           'btn:web3Tools/wallet/disconnect',
@@ -76,11 +71,6 @@ export default defineMock([
           'route:defi',
           'route:defi/swap',
           'route:defi/pool',
-
-          // DAO路由权限
-          'route:dao',
-          'route:dao/proposals',
-          'route:dao/voting',
 
           // Web3工具路由权限
           'route:web3Tools',
