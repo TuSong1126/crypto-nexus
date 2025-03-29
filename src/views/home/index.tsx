@@ -255,6 +255,24 @@ export default function Home() {
                         transition={{ delay: 0.6, duration: 0.8 }}
                       ></motion.span>
                     </motion.h2>
+
+                    {/* 3D科技感数字计数器 */}
+                    <div className="tech-counter">
+                      <div className="counter-item">
+                        <div className="counter-value">3.7M+</div>
+                        <div className="counter-label">用户总数</div>
+                        <div className="counter-glow"></div>
+                      </div>
+                      <div className="counter-separator">
+                        <div className="separator-dot"></div>
+                      </div>
+                      <div className="counter-item">
+                        <div className="counter-value">$2.9B</div>
+                        <div className="counter-label">交易量</div>
+                        <div className="counter-glow"></div>
+                      </div>
+                    </div>
+
                     <motion.p
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -280,6 +298,24 @@ export default function Home() {
                       </Button>
                     </motion.div>
 
+                    {/* 3D科技感进度条 */}
+                    <div className="tech-progress-container">
+                      <div className="tech-progress-header">
+                        <div className="tech-progress-title">Web3 生态系统发展</div>
+                        <div className="tech-progress-value">78%</div>
+                      </div>
+                      <div className="tech-progress-bar">
+                        <div className="tech-progress-fill"></div>
+                        <div className="tech-progress-glow"></div>
+                        <div className="tech-progress-marks">
+                          <div className="mark mark-1">Q1</div>
+                          <div className="mark mark-2">Q2</div>
+                          <div className="mark mark-3">Q3</div>
+                          <div className="mark mark-4">Q4</div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* 添加统计数据 */}
                     <motion.div
                       className="welcome-stats"
@@ -302,6 +338,23 @@ export default function Home() {
                         </div>
                       </div>
                     </motion.div>
+
+                    {/* 3D折线图 */}
+                    <div className="tech-graph-container">
+                      <div className="tech-graph-title">近期活动</div>
+                      <div className="tech-graph">
+                        <div className="graph-axis y-axis"></div>
+                        <div className="graph-axis x-axis"></div>
+                        <div className="graph-line">
+                          <div className="graph-point point-1"></div>
+                          <div className="graph-point point-2"></div>
+                          <div className="graph-point point-3"></div>
+                          <div className="graph-point point-4"></div>
+                          <div className="graph-point point-5"></div>
+                        </div>
+                        <div className="graph-area"></div>
+                      </div>
+                    </div>
 
                     {/* 集成快捷功能区 */}
                     <motion.div
@@ -496,6 +549,13 @@ export default function Home() {
                 <div className="summary-decoration circle-2"></div>
                 <div className="summary-pattern"></div>
 
+                {/* 全息扫描线 */}
+                <div className="holographic-scan-line"></div>
+
+                {/* 科技线框装饰 */}
+                <div className="tech-lines top-right"></div>
+                <div className="tech-lines bottom-left"></div>
+
                 <motion.div
                   className="summary-header"
                   initial={{ opacity: 0, y: -10 }}
@@ -648,7 +708,7 @@ export default function Home() {
 
                   <div className="asset-items">
                     <motion.div
-                      className="asset-item"
+                      className="asset-item eth"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.9 }}
@@ -685,7 +745,7 @@ export default function Home() {
                     </motion.div>
 
                     <motion.div
-                      className="asset-item"
+                      className="asset-item btc"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 1.0 }}
@@ -722,7 +782,7 @@ export default function Home() {
                     </motion.div>
 
                     <motion.div
-                      className="asset-item"
+                      className="asset-item sol"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 1.1 }}
