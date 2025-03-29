@@ -225,13 +225,11 @@ const StyleWrapper = styled.div`
 
   .dashboard {
     padding: 2rem;
-    background-color: rgba(249, 250, 251, 0.8);
     border-radius: 20px;
     box-shadow:
       0 10px 15px -3px rgba(0, 0, 0, 0.08),
       0 4px 6px -2px rgba(0, 0, 0, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(229, 231, 235, 0.4);
   }
 
   .dashboard-header {

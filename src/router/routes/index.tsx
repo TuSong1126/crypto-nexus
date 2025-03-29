@@ -15,8 +15,8 @@ const businessRoutes = [
   ...web3ToolsRoutes,
   ...nftMarketRoutes,
   ...defiRoutes,
-  ...web3AssetsRoutes,
-  ...daoRoutes
+  ...daoRoutes,
+  ...web3AssetsRoutes
 ] as RouteType[]
 
 export default businessRoutes
