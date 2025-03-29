@@ -51,16 +51,6 @@ const WalletManage = (): JSX.Element => {
     },
     {
       id: 2,
-      type: 'receive',
-      from: '0xMno345...901B',
-      to: '0xAbc123...789F',
-      amount: '1.2 ETH',
-      fee: '0.0015 ETH',
-      status: 'success',
-      date: '昨天 18:42'
-    },
-    {
-      id: 3,
       type: 'swap',
       tokenFrom: 'ETH',
       tokenTo: 'USDT',
@@ -71,7 +61,7 @@ const WalletManage = (): JSX.Element => {
       date: '昨天 10:15'
     },
     {
-      id: 4,
+      id: 3,
       type: 'approve',
       token: 'USDC',
       spender: 'Uniswap V3',
