@@ -1,33 +1,455 @@
 @use '@/styles/variables.scss' as *;
 @use '@/styles/animations.scss' as *;
 
-.web3-home-container {
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.home-container {
+  width: 100%;
   position: relative;
+  overflow: hidden;
 
-  // 首页浮动装饰元素
-  .floating-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-    z-index: 0;
-    pointer-events: none;
+  .hero-section {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(23, 43, 77, 0.7) 0%, rgba(67, 26, 107, 0.7) 100%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      z-index: 1;
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(to right, #ffffff, #d0a8ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .hero-subtitle {
+        font-size: 1.4rem;
+        margin-bottom: 40px;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+      }
+    }
   }
 
-  .home-orb-1 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($accent-color-1, 0.1));
-    top: 5%;
-    right: 5%;
+  .stats-section {
+    margin-bottom: 40px;
   }
 
-  .home-orb-2 {
-    width: 250px;
-    height: 250px;
-    background: linear-gradient(135deg, rgba($secondary-color, 0.2), rgba($accent-color-2, 0.1));
-    bottom: 10%;
-    left: 5%;
+  .section {
+    margin-bottom: 60px;
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+
+      .section-title {
+        font-size: 2.4rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        background: linear-gradient(to right, $secondary-color, $primary-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: neonText 3s infinite alternate;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+    }
   }
+
+  .feature-section {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $bg-gradient-2;
+      border-radius: $border-radius-large;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .feature-card {
+      height: 100%;
+      text-align: center;
+      padding: 30px 20px;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      backdrop-filter: blur(5px);
+      @include glassmorphism;
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: $border-glow;
+      }
+
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+          z-index: 1;
+        }
+
+        svg {
+          color: white;
+          z-index: 2;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+      }
+
+      h4 {
+        margin-bottom: 10px;
+        font-weight: 600;
+        background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0.7));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  .knowledge-card {
+    height: 100%;
+    padding: 30px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba($primary-color, 0.3);
+    background: linear-gradient(135deg, rgba($bg-dark, 0.7), rgba($primary-dark, 0.1));
+    @include gradient-border;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba($primary-color, 0.2);
+      border-color: rgba($primary-color, 0.5);
+
+      .knowledge-header {
+        svg {
+          animation: pulse 2s infinite;
+          color: $accent-color-1;
+        }
+      }
+    }
+
+    .knowledge-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+
+      svg {
+        margin-right: 16px;
+        color: $secondary-color;
+        transition: color 0.3s ease;
+      }
+
+      h4 {
+        margin: 0;
+        font-weight: 600;
+        background: linear-gradient(to right, $secondary-light, $primary-light);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+    }
+
+    button {
+      background: rgba($primary-color, 0.15);
+
+      &:hover {
+        background: rgba($primary-color, 0.25);
+      }
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover svg {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .market-trends-card {
+    height: 100%;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h3 {
+        margin: 0;
+        background: linear-gradient(to right, $secondary-color, $primary-light);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .coin-list {
+      .coin-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .coin-info {
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 16px;
+          }
+
+          .coin-name {
+            font-weight: 500;
+          }
+
+          .coin-symbol {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+
+        .coin-price {
+          text-align: right;
+
+          .price-value {
+            font-weight: 600;
+          }
+
+          .price-change {
+            font-size: 0.85rem;
+
+            &.positive {
+              color: $accent-color-3;
+            }
+
+            &.negative {
+              color: $accent-color-1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .action-cards {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .main-action-card {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, $primary-dark, $primary-color);
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      &:hover::after {
+        opacity: 1;
+        animation: gradientBG 3s ease infinite;
+      }
+
+      h3 {
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      p {
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .event-card {
+      flex: 1;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba($accent-color-1, 0.3);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba($accent-color-1, 0.1), transparent);
+        z-index: -1;
+      }
+
+      .event-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: $accent-color-1;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba($accent-color-1, 0.5);
+      }
+
+      h4 {
+        margin-bottom: 10px;
+        color: $accent-color-1;
+      }
+
+      p {
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: 400px;
+      padding: 40px 20px;
+
+      .hero-content {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .section {
+      margin-bottom: 40px;
+
+      .section-header {
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .action-cards {
+      .main-action-card {
+        padding: 30px 20px;
+      }
+    }
+  }
+}
+
+// 首页浮动装饰元素
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($accent-color-1, 0.1));
+  top: 5%;
+  right: 5%;
+}
+
+.home-orb-2 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, rgba($secondary-color, 0.2), rgba($accent-color-2, 0.1));
+  bottom: 10%;
+  left: 5%;
 }
 
 // 卡片容器
