@@ -150,7 +150,7 @@ const Login = () => {
           </motion.div>
 
           <motion.h2 className="web3-tagline" variants={itemVariants}>
-            Web3 World
+            CryptoNexus
           </motion.h2>
 
           <motion.p className="web3-description" variants={itemVariants}>
@@ -229,7 +229,7 @@ const Login = () => {
           </motion.div>
 
           <motion.p className="web3-login-footer" variants={itemVariants}>
-            © 2025 Web3 World. All rights reserved.
+            © 2025 CryptoNexus. All rights reserved.
           </motion.p>
         </motion.div>
       </motion.div>

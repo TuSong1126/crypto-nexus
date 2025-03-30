@@ -19,31 +19,31 @@ export default function Home() {
     eth: 2275.5,
     sol: 112.25
   })
+  const [priceTick, setPriceTick] = useState(0)
 
   useEffect(() => {
-    // 模拟余额增长动画
-    const timer = setInterval(() => {
-      setWalletBalance((prev) => {
-        if (prev < 3.65) {
-          return prev + 0.01
-        }
-        clearInterval(timer)
-        return 3.65
-      })
-    }, 20)
+    // 模拟获取钱包余额
+    setTimeout(() => {
+      setWalletBalance(0.521)
+    }, 1000)
 
-    // 模拟价格波动
-    const priceTimer = setInterval(() => {
-      setCryptoPrice((prev) => ({
-        btc: prev.btc + (Math.random() - 0.5) * 20,
-        eth: prev.eth + (Math.random() - 0.5) * 5,
-        sol: prev.sol + (Math.random() - 0.5) * 2
-      }))
+    // 模拟价格更新动画
+    const priceInterval = setInterval(() => {
+      setPriceTick((prev) => prev + 1)
+
+      setCryptoPrice((prev) => {
+        // 添加小幅度随机波动
+        const randomFactor = 0.002
+        return {
+          eth: prev.eth * (1 + (Math.random() - 0.5) * randomFactor),
+          btc: prev.btc * (1 + (Math.random() - 0.5) * randomFactor),
+          sol: prev.sol * (1 + (Math.random() - 0.5) * randomFactor)
+        }
+      })
     }, 3000)
 
     return () => {
-      clearInterval(timer)
-      clearInterval(priceTimer)
+      clearInterval(priceInterval)
     }
   }, [])
 
@@ -243,10 +243,10 @@ export default function Home() {
                       className="welcome-title"
                     >
                       探索{' '}
-                      <span className="gradient-text" data-text="Web3">
-                        Web3
+                      <span className="gradient-text" data-text="CryptoNexus">
+                        CryptoNexus
                       </span>{' '}
-                      世界
+                      宇宙
                       <div className="title-glow"></div>
                       <motion.span
                         className="title-decoration"
@@ -255,23 +255,6 @@ export default function Home() {
                         transition={{ delay: 0.6, duration: 0.8 }}
                       ></motion.span>
                     </motion.h2>
-
-                    {/* 3D科技感数字计数器 */}
-                    <div className="tech-counter">
-                      <div className="counter-item">
-                        <div className="counter-value">3.7M+</div>
-                        <div className="counter-label">用户总数</div>
-                        <div className="counter-glow"></div>
-                      </div>
-                      <div className="counter-separator">
-                        <div className="separator-dot"></div>
-                      </div>
-                      <div className="counter-item">
-                        <div className="counter-value">$2.9B</div>
-                        <div className="counter-label">交易量</div>
-                        <div className="counter-glow"></div>
-                      </div>
-                    </div>
 
                     <motion.p
                       initial={{ opacity: 0, y: 10 }}
@@ -827,47 +810,101 @@ export default function Home() {
         {/* 市场概览 */}
         <div className="market-overview">
           <motion.div
+            className="market-pulse"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          ></motion.div>
+
+          <motion.div
             className="market-ticker"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <div className="ticker-item">
+            <motion.div
+              className="ticker-item"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               <Icon icon="cryptocurrency:btc" />
               <span className="ticker-name">Bitcoin</span>
-              <span className="ticker-price">
+              <motion.span
+                className="ticker-price"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                animate={priceTick % 2 === 0 ? { scale: [1, 1.05, 1] } : {}}
+                transition={{ duration: 0.5 }}
+              >
                 ${cryptoPrice.btc.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </span>
-              <span className="ticker-change positive">+2.4%</span>
-            </div>
-            <div className="ticker-item">
+              </motion.span>
+              <motion.span className="ticker-change positive" whileHover={{ x: 3 }}>
+                +2.4%
+              </motion.span>
+            </motion.div>
+
+            <motion.div
+              className="ticker-item"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               <Icon icon="cryptocurrency:eth" />
               <span className="ticker-name">Ethereum</span>
-              <span className="ticker-price">
+              <motion.span
+                className="ticker-price"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                animate={priceTick % 3 === 0 ? { scale: [1, 1.05, 1] } : {}}
+                transition={{ duration: 0.5 }}
+              >
                 ${cryptoPrice.eth.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </span>
-              <span className="ticker-change positive">+3.8%</span>
-            </div>
-            <div className="ticker-item">
+              </motion.span>
+              <motion.span className="ticker-change positive" whileHover={{ x: 3 }}>
+                +3.8%
+              </motion.span>
+            </motion.div>
+
+            <motion.div
+              className="ticker-item"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               <Icon icon="cryptocurrency:sol" />
               <span className="ticker-name">Solana</span>
-              <span className="ticker-price">
+              <motion.span
+                className="ticker-price"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                animate={priceTick % 5 === 0 ? { scale: [1, 1.05, 1] } : {}}
+                transition={{ duration: 0.5 }}
+              >
                 ${cryptoPrice.sol.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </span>
-              <span className="ticker-change positive">+5.2%</span>
-            </div>
-            <div className="ticker-item">
-              <Icon icon="cryptocurrency:dot" />
-              <span className="ticker-name">Polkadot</span>
-              <span className="ticker-price">$13.45</span>
-              <span className="ticker-change negative">-0.8%</span>
-            </div>
-            <div className="ticker-item">
+              </motion.span>
+              <motion.span className="ticker-change positive" whileHover={{ x: 3 }}>
+                +5.2%
+              </motion.span>
+            </motion.div>
+
+            <motion.div
+              className="ticker-item"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               <Icon icon="cryptocurrency:avax" />
               <span className="ticker-name">Avalanche</span>
-              <span className="ticker-price">$29.87</span>
-              <span className="ticker-change positive">+1.5%</span>
-            </div>
+              <motion.span
+                className="ticker-price"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                animate={priceTick % 11 === 0 ? { scale: [1, 1.05, 1] } : {}}
+                transition={{ duration: 0.5 }}
+              >
+                $22.84
+              </motion.span>
+              <motion.span className="ticker-change positive" whileHover={{ x: 3 }}>
+                +4.1%
+              </motion.span>
+            </motion.div>
           </motion.div>
         </div>
 

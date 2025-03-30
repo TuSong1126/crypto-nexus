@@ -2401,7 +2401,86 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 15px 0;
+    padding-top: 30px;
     overflow: hidden;
+    position: relative;
+
+    // 添加动态背景
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(108, 92, 231, 0.05) 0%,
+        rgba(16, 16, 25, 0) 20%,
+        rgba(16, 16, 25, 0) 80%,
+        rgba(0, 206, 201, 0.05) 100%
+      );
+      z-index: 0;
+      animation: marketGradientShift 15s infinite alternate;
+    }
+
+    // 添加浮动点缀
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.3), rgba(0, 206, 201, 0.3), transparent);
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      animation: marketLinePulse 4s infinite alternate;
+    }
+
+    // 添加顶部装饰线
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.3), rgba(0, 206, 201, 0.3), transparent);
+      z-index: 1;
+      animation: marketLineShift 8s infinite alternate;
+    }
+
+    // 动态数据指示灯
+    .market-pulse {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #6c5ce7;
+      border-radius: 50%;
+      top: 14px;
+      left: 15px;
+      z-index: 2;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        border-radius: 50%;
+        animation: pulseDot 2s infinite;
+      }
+
+      &::after {
+        content: '实时数据';
+        position: absolute;
+        left: 13px;
+        top: -6px;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.7);
+        white-space: nowrap;
+      }
+    }
 
     .market-ticker {
       display: flex;
@@ -2410,6 +2489,32 @@
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      position: relative;
+      z-index: 2;
+      min-height: 60px;
+      align-items: center;
+
+      // 添加滚动渐变指示
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 60px;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      &::before {
+        left: 0;
+        background: linear-gradient(90deg, rgba(30, 35, 50, 0.95), transparent);
+      }
+
+      &::after {
+        right: 0;
+        background: linear-gradient(-90deg, rgba(30, 35, 50, 0.95), transparent);
+      }
 
       &::-webkit-scrollbar {
         display: none;
@@ -2419,44 +2524,393 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 15px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 18px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: translateY(0);
+
+        // 添加霓虹边框效果
+        &::after {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          border: 2px solid transparent;
+          border-radius: 14px;
+          background: linear-gradient(
+              45deg,
+              rgba(108, 92, 231, 0),
+              rgba(108, 92, 231, 0.5),
+              rgba(0, 206, 201, 0.5),
+              rgba(0, 206, 201, 0)
+            )
+            border-box;
+          -webkit-mask:
+            linear-gradient(#fff 0 0) padding-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        // 添加扫描线效果
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+          transform: skewX(-25deg);
+          animation: tickerScan 3s infinite;
+          animation-delay: var(--scan-delay, 0s);
+          opacity: 0;
+        }
+
+        // 添加悬停效果
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow:
+            0 8px 16px rgba(0, 0, 0, 0.15),
+            0 0 15px rgba(108, 92, 231, 0.2);
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(108, 92, 231, 0.3);
+
+          &::before {
+            opacity: 1;
+            animation-duration: 1.5s;
+          }
+
+          &::after {
+            opacity: 1;
+          }
+
+          .ticker-price {
+            color: white;
+          }
+
+          svg {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(108, 92, 231, 0.5));
+          }
+        }
 
         svg {
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+          transition: all 0.3s ease;
         }
 
         .ticker-name {
           color: white;
           font-weight: 500;
           margin-right: 10px;
+          transition: color 0.3s ease;
         }
 
         .ticker-price {
           color: rgba(255, 255, 255, 0.9);
           font-weight: 600;
+          position: relative;
+          transition: color 0.3s ease;
+
+          // 添加价格闪烁动画
+          &.flash {
+            animation: pricePulse 1s;
+          }
+
+          // 添加价格上涨/下跌动态指示
+          &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -3px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.3s ease;
+            opacity: 0.5;
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
         }
 
         .ticker-change {
           font-size: 0.9rem;
           font-weight: 600;
-          padding: 2px 8px;
-          border-radius: 4px;
+          padding: 3px 10px;
+          border-radius: 20px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
 
           &.positive {
             color: #00b894;
-            background: rgba(0, 184, 148, 0.1);
+            background: rgba(0, 184, 148, 0.08);
+            border: 1px solid rgba(0, 184, 148, 0.2);
+
+            &::before {
+              background: rgba(0, 184, 148, 0.15);
+            }
           }
 
           &.negative {
             color: #ff7675;
-            background: rgba(255, 118, 117, 0.1);
+            background: rgba(255, 118, 117, 0.08);
+            border: 1px solid rgba(255, 118, 117, 0.2);
+
+            &::before {
+              background: rgba(255, 118, 117, 0.15);
+            }
+          }
+
+          // 添加变化百分比波纹效果
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+          }
+
+          &:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            &::before {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          // 添加变化方向指示
+          &.positive::after,
+          &.negative::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 6px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+
+          &.positive::after {
+            border-bottom: 4px solid #00b894;
+          }
+
+          &.negative::after {
+            border-top: 4px solid #ff7675;
+          }
+
+          &:hover::after {
+            opacity: 1;
           }
         }
+
+        // 添加不同加密货币的特性化
+        &:nth-child(1) {
+          border-left: 2px solid #f7931a;
+          --scan-delay: 0s;
+          &:hover {
+            box-shadow:
+              0 8px 16px rgba(0, 0, 0, 0.15),
+              0 0 15px rgba(247, 147, 26, 0.3);
+          }
+          svg {
+            color: #f7931a;
+          }
+        }
+
+        &:nth-child(2) {
+          border-left: 2px solid #627eea;
+          --scan-delay: 0.5s;
+          &:hover {
+            box-shadow:
+              0 8px 16px rgba(0, 0, 0, 0.15),
+              0 0 15px rgba(98, 126, 234, 0.3);
+          }
+          svg {
+            color: #627eea;
+          }
+        }
+
+        &:nth-child(3) {
+          border-left: 2px solid #14f195;
+          --scan-delay: 1s;
+          &:hover {
+            box-shadow:
+              0 8px 16px rgba(0, 0, 0, 0.15),
+              0 0 15px rgba(20, 241, 149, 0.3);
+          }
+          svg {
+            color: #14f195;
+          }
+        }
+
+        &:nth-child(4) {
+          border-left: 2px solid #e6007a;
+          --scan-delay: 1.5s;
+          &:hover {
+            box-shadow:
+              0 8px 16px rgba(0, 0, 0, 0.15),
+              0 0 15px rgba(230, 0, 122, 0.3);
+          }
+          svg {
+            color: #e6007a;
+          }
+        }
+
+        &:nth-child(5) {
+          border-left: 2px solid #e84142;
+          --scan-delay: 2s;
+          &:hover {
+            box-shadow:
+              0 8px 16px rgba(0, 0, 0, 0.15),
+              0 0 15px rgba(232, 65, 66, 0.3);
+          }
+          svg {
+            color: #e84142;
+          }
+        }
+
+        // 添加浮动动画
+        animation: floatItem 6s infinite ease-in-out;
+        animation-delay: calc(var(--scan-delay) * 2);
+      }
+    }
+
+    // 添加跳动数据点动画
+    @keyframes pulseDot {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0;
+      }
+    }
+
+    // 添加价格闪烁动画
+    @keyframes pricePulse {
+      0% {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      50% {
+        color: #6c5ce7;
+      }
+      100% {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+
+    // 添加ticker扫描线动画
+    @keyframes tickerScan {
+      0% {
+        left: -100%;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        left: 200%;
+        opacity: 0;
+      }
+    }
+
+    // 添加市场背景渐变动画
+    @keyframes marketGradientShift {
+      0% {
+        opacity: 0.6;
+        background-position: 0% 50%;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.6;
+        background-position: 100% 50%;
+      }
+    }
+
+    // 添加底部线条动画
+    @keyframes marketLinePulse {
+      0% {
+        opacity: 0.3;
+        transform: scaleX(0.8);
+      }
+      100% {
+        opacity: 0.8;
+        transform: scaleX(1);
+      }
+    }
+
+    // 添加顶部线条动画
+    @keyframes marketLineShift {
+      0% {
+        transform: translateX(-30%);
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateX(30%);
+        opacity: 0.2;
+      }
+    }
+
+    // 添加项目浮动动画
+    @keyframes floatItem {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    // 添加光晕效果
+    &::before,
+    &::after {
+      animation-play-state: paused;
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        animation-play-state: running;
+      }
+
+      // 添加背景动态效果
+      &::before {
+        animation-duration: 5s;
       }
     }
   }
