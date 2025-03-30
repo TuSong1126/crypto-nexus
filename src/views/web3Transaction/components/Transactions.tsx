@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import Web3Card from '@/components/web3/Web3Card'
@@ -126,6 +126,33 @@ const ConnectButton = styled(motion.button)`
   }
 `
 
+// 新增视图切换组件
+const ViewToggle = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  padding: 0.5rem;
+  width: fit-content;
+`
+
+const ToggleButton = styled(motion.button)<{ $active: boolean }>`
+  background: ${(props) => (props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'transparent')};
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${(props) => (props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'rgba(255, 255, 255, 0.1)')};
+  }
+`
+
+// 网格视图样式
 const TransactionsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -254,8 +281,256 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   )
 }
 
+// 视图类型枚举
+enum ViewType {
+  GRID = 'grid',
+  TIMELINE = 'timeline',
+  TABLE = 'table'
+}
+
+// 表格视图样式
+const TableContainer = styled(motion.div)`
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+`
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: white;
+`
+
+const TableHeader = styled.thead`
+  background: linear-gradient(90deg, rgba(108, 92, 231, 0.2), rgba(0, 206, 201, 0.2));
+  border-radius: 16px 16px 0 0;
+
+  th {
+    padding: 1.25rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    position: relative;
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+
+    &:first-child {
+      border-top-left-radius: 16px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 16px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, #6c5ce7, #00cec9);
+    }
+  }
+`
+
+const TableRow = styled(motion.tr)`
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(108, 92, 231, 0.1);
+  }
+
+  &:last-child td {
+    border-bottom: none;
+
+    &:first-child {
+      border-bottom-left-radius: 16px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 16px;
+    }
+  }
+`
+
+const TableCell = styled.td`
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.95rem;
+`
+
+const StatusBadge = styled.span<{ $type: string }>`
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: ${({ $type }) => {
+    switch ($type) {
+      case 'recent':
+        return 'rgba(108, 92, 231, 0.2)'
+      case 'hour':
+        return 'rgba(0, 206, 201, 0.2)'
+      default:
+        return 'rgba(255, 255, 255, 0.1)'
+    }
+  }};
+  color: ${({ $type }) => {
+    switch ($type) {
+      case 'recent':
+        return '#6c5ce7'
+      case 'hour':
+        return '#00cec9'
+      default:
+        return 'rgba(255, 255, 255, 0.7)'
+    }
+  }};
+`
+
+const AddressWithIcon = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #6c5ce7;
+  }
+`
+
+const AddressIcon = styled.div<{ $from?: boolean }>`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  background: ${({ $from }) =>
+    $from ? 'linear-gradient(135deg, #6c5ce7, #a29bfe)' : 'linear-gradient(135deg, #00cec9, #81ecec)'};
+`
+
+const AmountCell = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+`
+
+const EthIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #627eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: white;
+  font-weight: bold;
+`
+
+const TableActionButton = styled.button`
+  background: transparent;
+  border: 1px solid rgba(108, 92, 231, 0.5);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(108, 92, 231, 0.2);
+    border-color: #6c5ce7;
+  }
+`
+
+// 得到交易状态类型
+const getStatusType = (timestamp: string): string => {
+  if (timestamp.includes('刚刚')) return 'recent'
+  if (timestamp.includes('小时')) return 'hour'
+  return 'default'
+}
+
+// 表格视图组件
+const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ transactions }) => {
+  return (
+    <TableContainer initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+      <StyledTable>
+        <TableHeader>
+          <tr>
+            <th>时间</th>
+            <th>发送方</th>
+            <th>接收方</th>
+            <th>金额</th>
+            <th>消息</th>
+            <th>操作</th>
+          </tr>
+        </TableHeader>
+        <tbody>
+          {transactions.map((tx, index) => (
+            <TableRow
+              key={tx.id || index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.3 }}
+            >
+              <TableCell>
+                <StatusBadge $type={getStatusType(tx.timestamp)}>{tx.timestamp}</StatusBadge>
+              </TableCell>
+              <TableCell>
+                <AddressWithIcon
+                  href={`https://etherscan.io/address/${tx.addressFrom}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <AddressIcon $from>{tx.addressFrom.substring(2, 4)}</AddressIcon>
+                  {shortenAddress(tx.addressFrom)}
+                </AddressWithIcon>
+              </TableCell>
+              <TableCell>
+                <AddressWithIcon href={`https://etherscan.io/address/${tx.addressTo}`} target="_blank" rel="noreferrer">
+                  <AddressIcon>{tx.addressTo.substring(2, 4)}</AddressIcon>
+                  {shortenAddress(tx.addressTo)}
+                </AddressWithIcon>
+              </TableCell>
+              <TableCell>
+                <AmountCell>
+                  <EthIcon>Ξ</EthIcon>
+                  {tx.amount} ETH
+                </AmountCell>
+              </TableCell>
+              <TableCell>{tx.message}</TableCell>
+              <TableCell>
+                <TableActionButton onClick={() => window.open(`https://etherscan.io/tx/${tx.id}`, '_blank')}>
+                  查看详情
+                </TableActionButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </StyledTable>
+    </TableContainer>
+  )
+}
+
 const Transactions: React.FC = () => {
   const { transactions, currentAccount } = useContext(TransactionContext)
+  const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE)
+
+  // 合并示例数据和真实交易数据
+  const allTransactions = [...dummyData, ...transactions].reverse()
 
   // 动画变量
   const containerVariants = {
@@ -299,13 +574,38 @@ const Transactions: React.FC = () => {
             </ConnectButton>
           </EmptyStateContainer>
         ) : (
-          <TransactionsGrid variants={containerVariants} initial="hidden" animate="visible">
-            {[...dummyData, ...transactions].reverse().map((transaction, i) => (
-              <TransactionCardWrapper key={i} variants={itemVariants}>
-                <TransactionCard {...transaction} />
-              </TransactionCardWrapper>
-            ))}
-          </TransactionsGrid>
+          <>
+            {/* 视图切换器 */}
+            <ViewToggle>
+              <ToggleButton
+                $active={viewType === ViewType.TABLE}
+                onClick={() => setViewType(ViewType.TABLE)}
+                whileTap={{ scale: 0.95 }}
+              >
+                表格视图
+              </ToggleButton>
+              <ToggleButton
+                $active={viewType === ViewType.GRID}
+                onClick={() => setViewType(ViewType.GRID)}
+                whileTap={{ scale: 0.95 }}
+              >
+                网格视图
+              </ToggleButton>
+            </ViewToggle>
+
+            {/* 根据选择的视图类型显示不同的布局 */}
+            {viewType === ViewType.GRID ? (
+              <TransactionsGrid variants={containerVariants} initial="hidden" animate="visible">
+                {allTransactions.map((transaction, i) => (
+                  <TransactionCardWrapper key={i} variants={itemVariants}>
+                    <TransactionCard {...transaction} />
+                  </TransactionCardWrapper>
+                ))}
+              </TransactionsGrid>
+            ) : (
+              <TransactionTable transactions={allTransactions} />
+            )}
+          </>
         )}
       </ContentWrapper>
     </TransactionsContainer>
