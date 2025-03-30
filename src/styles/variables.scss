@@ -47,6 +47,26 @@ $border-radius-medium: 8px;
 $border-radius-large: 16px;
 $border-radius-full: 9999px;
 
+// 字体大小 - 系统统一标准
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-md: 18px;
+$font-size-lg: 20px;
+$font-size-xl: 24px;
+$font-size-xxl: 28px;
+$font-size-title: 36px; // CryptoNexus标题专用大小
+
+// 基于rem的字体大小变量（1rem = 16px）
+$font-size-xs-rem: 0.75rem; // 12px
+$font-size-sm-rem: 0.875rem; // 14px
+$font-size-base-rem: 1rem; // 16px
+$font-size-md-rem: 1.125rem; // 18px
+$font-size-lg-rem: 1.25rem; // 20px
+$font-size-xl-rem: 1.5rem; // 24px
+$font-size-xxl-rem: 1.75rem; // 28px
+$font-size-title-rem: 2.25rem; // 36px - CryptoNexus标题专用大小
+
 // 系统主题适配CSS变量
 :root {
   // 颜色
@@ -101,6 +121,26 @@ $border-radius-full: 9999px;
   --border-radius-small: #{$border-radius-small};
   --border-radius-medium: #{$border-radius-medium};
   --border-radius-large: #{$border-radius-large};
+
+  // 字体大小变量 - px单位
+  --font-size-xs: #{$font-size-xs};
+  --font-size-sm: #{$font-size-sm};
+  --font-size-base: #{$font-size-base};
+  --font-size-md: #{$font-size-md};
+  --font-size-lg: #{$font-size-lg};
+  --font-size-xl: #{$font-size-xl};
+  --font-size-xxl: #{$font-size-xxl};
+  --font-size-title: #{$font-size-title};
+
+  // 字体大小变量 - rem单位
+  --font-size-xs-rem: #{$font-size-xs-rem};
+  --font-size-sm-rem: #{$font-size-sm-rem};
+  --font-size-base-rem: #{$font-size-base-rem};
+  --font-size-md-rem: #{$font-size-md-rem};
+  --font-size-lg-rem: #{$font-size-lg-rem};
+  --font-size-xl-rem: #{$font-size-xl-rem};
+  --font-size-xxl-rem: #{$font-size-xxl-rem};
+  --font-size-title-rem: #{$font-size-title-rem};
 }
 
 // 深色模式变量

@@ -214,7 +214,7 @@ const StyleWrapper = styled.div`
     }
 
     h2 {
-      font-size: 2.5rem;
+      font-size: $font-size-xxl-rem;
       font-weight: 700;
       margin-bottom: 12px;
       background: linear-gradient(90deg, #f97316, #ec4899);

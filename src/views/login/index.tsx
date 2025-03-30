@@ -81,6 +81,31 @@ const Login = () => {
     }
   }
 
+  const leftPanelVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: 'easeOut'
+      }
+    }
+  }
+
+  const rightPanelVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 24,
+        duration: 0.8
+      }
+    }
+  }
+
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -141,7 +166,7 @@ const Login = () => {
       />
 
       <motion.div className="web3-login-container" variants={containerVariants} initial="hidden" animate="visible">
-        <motion.div className="web3-login-left" variants={itemVariants}>
+        <motion.div className="web3-login-left" variants={leftPanelVariants}>
           <div className="web3-decoration top"></div>
           <div className="web3-decoration bottom"></div>
 
@@ -161,7 +186,7 @@ const Login = () => {
           </motion.p>
         </motion.div>
 
-        <motion.div className="web3-login-right">
+        <motion.div className="web3-login-right" variants={rightPanelVariants}>
           <motion.div className="web3-login-tabs" variants={itemVariants}>
             <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
               登录

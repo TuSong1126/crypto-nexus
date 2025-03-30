@@ -48,7 +48,7 @@ const StyleWrapper = styled.div`
   }
 
   .page-title {
-    font-size: 2.5rem;
+    font-size: $font-size-xxl-rem;
     font-weight: 700;
     margin: 0;
     background: linear-gradient(45deg, #6c5ce7, #00cec9);
