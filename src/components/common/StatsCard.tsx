@@ -78,13 +78,13 @@ const StyleWrapper = styled.div<StyleWrapperProps>`
   }
 
   .stat-title {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 8px;
   }
 
   .stat-value {
-    font-size: 2rem;
+    font-size: var(--font-size-xl);
     font-weight: 700;
     margin-bottom: 8px;
     background: linear-gradient(45deg, #6c5ce7, #00cec9);
@@ -94,7 +94,7 @@ const StyleWrapper = styled.div<StyleWrapperProps>`
   }
 
   .trend-indicator {
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     padding: 4px 8px;
     border-radius: 4px;
@@ -122,7 +122,7 @@ const StyleWrapper = styled.div<StyleWrapperProps>`
     align-items: center;
     justify-content: center;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 2rem;
+    font-size: var(--font-size-xl);
   }
 `
 

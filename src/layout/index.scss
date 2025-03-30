@@ -171,7 +171,7 @@
 
     .logo-text {
       margin-left: 12px;
-      font-size: 32px;
+      font-size: $font-size-title;
       font-weight: 700;
       background: linear-gradient(45deg, $primary-color, $secondary-color);
       -webkit-background-clip: text;
@@ -201,7 +201,7 @@
       position: relative;
       padding: 8px 16px;
       margin: 0 12px;
-      font-size: 16px;
+      font-size: $font-size-base;
       color: $text-secondary;
       text-decoration: none;
       transition: all $transition-fast ease;
@@ -212,7 +212,7 @@
 
       .menu-icon {
         margin-right: 8px;
-        font-size: 20px;
+        font-size: $font-size-lg;
       }
 
       .menu-text {
@@ -294,7 +294,7 @@
           background: $accent-color-1;
           color: white;
           border-radius: 50%;
-          font-size: 11px;
+          font-size: $font-size-xs - 1px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -336,7 +336,7 @@
       }
 
       .user-name {
-        font-size: 15px;
+        font-size: $font-size-sm;
         font-weight: 500;
         display: flex;
         align-items: center;
