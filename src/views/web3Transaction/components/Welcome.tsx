@@ -2,14 +2,15 @@ import { motion } from 'framer-motion'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 
-import Web3Card from '@/components/web3/Web3Card'
-
+// 不再使用Web3Card
+// import Web3Card from '@/components/web3/Web3Card'
 // 使用Unicode符号或文本代替react-icons
 // import { AiFillPlayCircle } from 'react-icons/ai'
 // import { BsInfoCircle } from 'react-icons/bs'
 // import { SiEthereum } from 'react-icons/si'
 import { TransactionContext } from '../context/TransactionContext'
 import { shortenAddress } from '../utils/shortenAddress'
+// 修复Loader导入路径
 import Loader from './Loader'
 
 const WelcomeContainer = styled.div`

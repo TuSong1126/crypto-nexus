@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import React from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import ParticleBackground from '@/components/web3/ParticleBackground'
@@ -38,39 +38,6 @@ const Logo = styled(motion.div)`
   gap: 0.5rem;
 `
 
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
-
-const NavItem = styled(motion.a)`
-  color: white;
-  margin: 0 1rem;
-  text-decoration: none;
-  position: relative;
-  padding: 0.5rem 0;
-  cursor: pointer;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #6c5ce7, #00cec9);
-    transition: width 0.3s;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
-`
-
 const MobileMenuButton = styled.div`
   display: none;
   color: white;
@@ -80,6 +47,38 @@ const MobileMenuButton = styled.div`
   @media (max-width: 768px) {
     display: block;
   }
+`
+
+const MobileMenu = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: rgba(15, 14, 19, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  padding: 2rem;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+`
+
+const CloseButton = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+`
+
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
 `
 
 const Footer = styled.footer`
@@ -92,11 +91,97 @@ const Footer = styled.footer`
   z-index: 5;
 `
 
+const StatsBanner = styled(motion.div)`
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 1rem;
+  background: linear-gradient(90deg, rgba(108, 92, 231, 0.15), rgba(0, 206, 201, 0.15));
+  backdrop-filter: blur(5px);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+`
+
+const StatItem = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`
+
+const StatValue = styled.div`
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #6c5ce7, #00cec9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+`
+
+const StatLabel = styled.div`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+`
+
+const ScrollToTopButton = styled(motion.button)`
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c5ce7, #00cec9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  font-size: 1.5rem;
+`
+
 /**
  * Web3交易演示页面
  * 展示了一个完整的Web3应用，包括钱包连接、发送交易和交易历史
  */
 const Web3Transaction: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [showScrollButton, setShowScrollButton] = useState(false)
+
+  // 检测滚动位置来显示/隐藏回到顶部按钮
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollButton(true)
+      } else {
+        setShowScrollButton(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   // 动画变量
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -118,11 +203,18 @@ const Web3Transaction: React.FC = () => {
     }
   }
 
+  const stats = [
+    { value: '5.2M+', label: '用户总数' },
+    { value: '21.8B+', label: '交易量(USD)' },
+    { value: '156+', label: '支持的国家' },
+    { value: '0.01%', label: '最低交易费' }
+  ]
+
   return (
     <TransactionsProvider>
       <PageContainer>
         {/* 粒子背景 */}
-        <ParticleBackground count={80} connectParticles={true} opacity={0.5} color="#6c5ce7" speed={0.3} />
+        <ParticleBackground count={100} connectParticles={true} opacity={0.5} color="#6c5ce7" speed={0.3} />
 
         {/* 装饰球体 */}
         <motion.div
@@ -185,8 +277,26 @@ const Web3Transaction: React.FC = () => {
             <span style={{ color: '#6c5ce7' }}>Ξ</span> 区块链交易平台
           </Logo>
 
-          <MobileMenuButton>☰</MobileMenuButton>
+          <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>☰</MobileMenuButton>
         </Header>
+
+        {/* 移动端菜单 */}
+        {isMobileMenuOpen && (
+          <Backdrop
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+
+        <MobileMenu
+          initial={{ x: 300 }}
+          animate={{ x: isMobileMenuOpen ? 0 : 300 }}
+          transition={{ type: 'spring', damping: 20 }}
+        >
+          <CloseButton onClick={() => setIsMobileMenuOpen(false)}>✕</CloseButton>
+        </MobileMenu>
 
         {/* 主要内容区域 */}
         <motion.div className="flex-grow relative z-10" variants={containerVariants} initial="hidden" animate="visible">
@@ -194,14 +304,53 @@ const Web3Transaction: React.FC = () => {
             <Welcome />
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <Services />
+          {/* 统计数据展示 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ padding: '0 1rem', marginTop: '-3rem', marginBottom: '3rem' }}
+          >
+            <StatsBanner>
+              {stats.map((stat, index) => (
+                <StatItem
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index + 0.3 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <StatValue>{stat.value}</StatValue>
+                  <StatLabel>{stat.label}</StatLabel>
+                </StatItem>
+              ))}
+            </StatsBanner>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <Transactions />
           </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Services />
+          </motion.div>
         </motion.div>
+
+        {/* 回到顶部按钮 */}
+        <AnimatePresence>
+          {showScrollButton && (
+            <ScrollToTopButton
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              onClick={scrollToTop}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              ↑
+            </ScrollToTopButton>
+          )}
+        </AnimatePresence>
 
         {/* 页脚 */}
         <Footer>
