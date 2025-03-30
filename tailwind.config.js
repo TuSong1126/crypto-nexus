@@ -1,7 +1,6 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './index.html'],
-  mode: 'jit',
-  darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       display: ['Open Sans', 'sans-serif'],
@@ -27,9 +26,6 @@ module.exports = {
         'slide-in': 'slide-in 0.5s ease-out'
       }
     }
-  },
-  variants: {
-    extend: {}
   },
   plugins: [require('@tailwindcss/forms')]
 }
