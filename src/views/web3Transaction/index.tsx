@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -30,12 +31,14 @@ const Header = styled(motion.header)`
 `
 
 const Logo = styled(motion.div)`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-shadow: 0 0 10px rgba(108, 92, 231, 0.7);
+  letter-spacing: 1px;
 `
 
 const MobileMenuButton = styled.div`
@@ -81,14 +84,89 @@ const Backdrop = styled(motion.div)`
   z-index: 90;
 `
 
-const Footer = styled.footer`
-  padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.3);
+const Footer = styled(motion.footer)`
+  position: relative;
+  margin-top: auto;
+  padding: 4rem 2rem;
   color: white;
   text-align: center;
-  margin-top: auto;
   position: relative;
   z-index: 5;
+  overflow: hidden;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(8, 8, 17, 0), rgba(8, 8, 17, 0.8));
+    transform: translateZ(-1px);
+    z-index: -1;
+  }
+`
+
+const FooterTitle = styled.h4`
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(90deg, #fff, rgba(108, 92, 231, 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+  }
+`
+
+const FooterText = styled.p`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+`
+
+const SocialLink = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  margin: 0 0.5rem;
+
+  &:hover {
+    color: #6c5ce7;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+  }
+`
+
+const CopyrightContainer = styled(motion.div)`
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `
 
 const StatsBanner = styled(motion.div)`
@@ -121,17 +199,22 @@ const StatItem = styled(motion.div)`
 `
 
 const StatValue = styled.div`
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   background: linear-gradient(90deg, #6c5ce7, #00cec9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(108, 92, 231, 0.3);
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
 `
 
 const StatLabel = styled.div`
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 `
 
 const ScrollToTopButton = styled(motion.button)`
@@ -273,11 +356,16 @@ const Web3Transaction: React.FC = () => {
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <span style={{ color: '#6c5ce7' }}>Ξ</span> 区块链交易平台
+            <Icon icon="ph:cube-transparent-fill" style={{ fontSize: '2.2rem', color: '#6c5ce7' }} />
+            区块链交易平台
           </Logo>
 
-          <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>☰</MobileMenuButton>
+          <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>
+            <Icon icon="ph:list-fill" style={{ fontSize: '2rem' }} />
+          </MobileMenuButton>
         </Header>
 
         {/* 移动端菜单 */}
@@ -352,34 +440,96 @@ const Web3Transaction: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* 页脚 */}
-        <Footer>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <h4 className="text-xl font-semibold mb-4">区块链交易平台</h4>
-                <p className="text-gray-400">探索加密世界的无限可能</p>
+        {/* 全新3D页脚 */}
+        <Footer
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="max-w-6xl mx-auto relative" style={{ zIndex: 5 }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              <div className="text-center md:text-left">
+                <FooterTitle>
+                  <Icon icon="ph:cube-transparent-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  区块链交易平台
+                </FooterTitle>
+                <FooterText>
+                  探索加密世界的无限可能，安全可靠的区块链资产管理平台。让每一笔交易都透明、高效、安全。
+                </FooterText>
               </div>
 
-              <div>
-                <h4 className="text-xl font-semibold mb-4">联系我们</h4>
-                <p className="text-gray-400">info@blockchainplatform.com</p>
+              <div className="text-center md:text-left">
+                <FooterTitle>
+                  <Icon icon="ph:envelope-simple-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  联系我们
+                </FooterTitle>
+                <FooterText className="flex items-center justify-center md:justify-start gap-2 mb-3">
+                  <Icon icon="ph:envelope" style={{ color: '#6c5ce7' }} />
+                  info@blockchainplatform.com
+                </FooterText>
+                <FooterText className="flex items-center justify-center md:justify-start gap-2">
+                  <Icon icon="ph:phone" style={{ color: '#6c5ce7' }} />
+                  +86 123 4567 8901
+                </FooterText>
               </div>
 
-              <div>
-                <h4 className="text-xl font-semibold mb-4">关注我们</h4>
-                <div className="flex space-x-4">
-                  <span className="cursor-pointer hover:text-[#6c5ce7] transition-colors">Twitter</span>
-                  <span className="cursor-pointer hover:text-[#6c5ce7] transition-colors">Discord</span>
-                  <span className="cursor-pointer hover:text-[#6c5ce7] transition-colors">Telegram</span>
+              <div className="text-center md:text-left">
+                <FooterTitle>
+                  <Icon icon="ph:share-network-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  关注我们
+                </FooterTitle>
+                <div className="flex justify-center md:justify-start space-x-4 mt-4">
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon icon="ph:twitter-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    Twitter
+                  </SocialLink>
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon icon="ph:discord-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    Discord
+                  </SocialLink>
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon icon="ph:telegram-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    Telegram
+                  </SocialLink>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-gray-700">
-              <p className="text-gray-400 text-sm">© 2025 区块链交易平台. 版权所有</p>
-            </div>
+            <CopyrightContainer
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            >
+              <Icon icon="ph:copyright" style={{ fontSize: '1.1rem' }} />
+              <span>2025 区块链交易平台. 版权所有</span>
+              <span style={{ margin: '0 8px' }}>|</span>
+              <span className="flex items-center gap-1">
+                <Icon icon="ph:shield-check-fill" style={{ color: '#6c5ce7' }} />
+                安全交易保障
+              </span>
+            </CopyrightContainer>
           </div>
+
+          {/* 底部装饰性元素 */}
+          <motion.div
+            style={{
+              position: 'absolute',
+              bottom: '-50px',
+              left: '0',
+              width: '100%',
+              height: '100px',
+              background: 'linear-gradient(to top, rgba(108, 92, 231, 0.2), transparent)',
+              zIndex: 1
+            }}
+            animate={{
+              opacity: [0.5, 0.8, 0.5]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: 'reverse'
+            }}
+          />
         </Footer>
       </PageContainer>
     </TransactionsProvider>
