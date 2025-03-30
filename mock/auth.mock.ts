@@ -51,7 +51,13 @@ export default defineMock([
           // Web3工具按钮权限
           'btn:web3Tools/wallet/connect',
           'btn:web3Tools/wallet/disconnect',
-          'btn:web3Tools/explorer/search'
+          'btn:web3Tools/explorer/search',
+
+          // 链上交易按钮权限
+          'btn:web3Transaction/send/execute',
+          'btn:web3Transaction/send/cancel',
+          'btn:web3Transaction/history/view',
+          'btn:web3Transaction/history/export'
         ],
         routes: [
           // 首页路由权限
@@ -75,7 +81,12 @@ export default defineMock([
           // Web3工具路由权限
           'route:web3Tools',
           'route:web3Tools/wallet',
-          'route:web3Tools/explorer'
+          'route:web3Tools/explorer',
+
+          // 链上交易路由权限
+          'route:web3Transaction',
+          'route:web3Transaction/send',
+          'route:web3Transaction/history'
         ]
       },
       msg: '获取权限'
