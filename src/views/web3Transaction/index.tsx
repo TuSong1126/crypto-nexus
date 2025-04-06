@@ -87,13 +87,14 @@ const Backdrop = styled(motion.div)`
 const Footer = styled(motion.footer)`
   position: relative;
   margin-top: auto;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem 4rem;
   color: white;
   text-align: center;
   position: relative;
   z-index: 5;
   overflow: hidden;
   transform-style: preserve-3d;
+  perspective: 1000px;
 
   &::before {
     content: '';
@@ -109,9 +110,9 @@ const Footer = styled(motion.footer)`
 `
 
 const FooterTitle = styled.h4`
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   background: linear-gradient(90deg, #fff, rgba(108, 92, 231, 0.8));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -120,6 +121,18 @@ const FooterTitle = styled.h4`
   align-items: center;
   gap: 0.5rem;
   justify-content: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #6c5ce7, #00cec9);
+    border-radius: 2px;
+  }
 
   @media (min-width: 768px) {
     justify-content: flex-start;
@@ -138,35 +151,124 @@ const FooterText = styled.p`
   }
 `
 
+const SocialLinkGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    grid-template-columns: repeat(3, minmax(100px, 120px));
+  }
+`
+
 const SocialLink = styled(motion.a)`
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.05rem;
+  font-size: 1rem;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
+  padding: 0.75rem;
+  border-radius: 12px;
   transition: all 0.3s ease;
-  margin: 0 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    color: #6c5ce7;
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-3px);
+    color: #fff;
+    background: rgba(108, 92, 231, 0.3);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+    border-color: rgba(108, 92, 231, 0.4);
   }
 `
 
 const CopyrightContainer = styled(motion.div)`
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.95rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+const FooterWave = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' style='fill: rgba(15, 14, 19, 0.8);'/%3E%3C/svg%3E");
+  background-size: cover;
+  z-index: -1;
+  transform-origin: top;
+`
+
+const FooterCardGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+`
+
+const FooterCard = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+
+  &:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: 0 15px 35px rgba(108, 92, 231, 0.2);
+    border-color: rgba(108, 92, 231, 0.2);
+  }
+`
+
+const SecurityBadge = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
   gap: 0.5rem;
+  background: rgba(108, 92, 231, 0.15);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  margin-top: 1rem;
+  font-weight: 500;
+  border: 1px solid rgba(108, 92, 231, 0.3);
+`
+
+const ContactItem = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(5px);
+  }
 `
 
 const StatsBanner = styled(motion.div)`
@@ -446,9 +548,16 @@ const Web3Transaction = (): JSX.Element => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
+          <FooterWave initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.7, ease: 'easeOut' }} />
+
           <div className="max-w-6xl mx-auto relative" style={{ zIndex: 5 }}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div className="text-center md:text-left">
+            <FooterCardGrid>
+              <FooterCard
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                whileHover={{ scale: 1.02 }}
+              >
                 <FooterTitle>
                   <Icon icon="ph:cube-transparent-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
                   区块链交易平台
@@ -456,80 +565,230 @@ const Web3Transaction = (): JSX.Element => {
                 <FooterText>
                   探索加密世界的无限可能，安全可靠的区块链资产管理平台。让每一笔交易都透明、高效、安全。
                 </FooterText>
-              </div>
+                <SecurityBadge
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Icon icon="ph:shield-check-fill" style={{ color: '#6c5ce7', fontSize: '1.2rem' }} />
+                  安全交易保障
+                </SecurityBadge>
+              </FooterCard>
 
-              <div className="text-center md:text-left">
+              <FooterCard
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                whileHover={{ scale: 1.02 }}
+              >
                 <FooterTitle>
                   <Icon icon="ph:envelope-simple-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
                   联系我们
                 </FooterTitle>
-                <FooterText className="flex items-center justify-center md:justify-start gap-2 mb-3">
-                  <Icon icon="ph:envelope" style={{ color: '#6c5ce7' }} />
-                  info@blockchainplatform.com
-                </FooterText>
-                <FooterText className="flex items-center justify-center md:justify-start gap-2">
-                  <Icon icon="ph:phone" style={{ color: '#6c5ce7' }} />
-                  +86 123 4567 8901
-                </FooterText>
-              </div>
+                <ContactItem whileHover={{ x: 5 }}>
+                  <Icon
+                    icon="ph:envelope"
+                    style={{
+                      color: '#6c5ce7',
+                      fontSize: '1.4rem',
+                      filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                    }}
+                  />
+                  <FooterText style={{ margin: 0 }}>info@blockchainplatform.com</FooterText>
+                </ContactItem>
+                <ContactItem whileHover={{ x: 5 }}>
+                  <Icon
+                    icon="ph:phone"
+                    style={{
+                      color: '#6c5ce7',
+                      fontSize: '1.4rem',
+                      filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                    }}
+                  />
+                  <FooterText style={{ margin: 0 }}>+86 123 4567 8901</FooterText>
+                </ContactItem>
+                <ContactItem whileHover={{ x: 5 }}>
+                  <Icon
+                    icon="ph:map-pin"
+                    style={{
+                      color: '#6c5ce7',
+                      fontSize: '1.4rem',
+                      filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                    }}
+                  />
+                  <FooterText style={{ margin: 0 }}>区块链大厦，科技园区</FooterText>
+                </ContactItem>
+              </FooterCard>
 
-              <div className="text-center md:text-left">
+              <FooterCard
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                whileHover={{ scale: 1.02 }}
+              >
                 <FooterTitle>
                   <Icon icon="ph:share-network-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
                   关注我们
                 </FooterTitle>
-                <div className="flex justify-center md:justify-start space-x-4 mt-4">
+                <FooterText>关注我们的社交媒体，获取最新的区块链资讯和平台动态。</FooterText>
+                <SocialLinkGrid>
                   <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Icon icon="ph:twitter-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    <Icon
+                      icon="ph:twitter-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
                     Twitter
                   </SocialLink>
                   <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Icon icon="ph:discord-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    <Icon
+                      icon="ph:discord-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
                     Discord
                   </SocialLink>
                   <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Icon icon="ph:telegram-logo-fill" style={{ color: '#6c5ce7', fontSize: '1.4rem' }} />
+                    <Icon
+                      icon="ph:telegram-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
                     Telegram
                   </SocialLink>
-                </div>
-              </div>
-            </div>
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon
+                      icon="ph:youtube-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
+                    YouTube
+                  </SocialLink>
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon
+                      icon="ph:medium-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
+                    Medium
+                  </SocialLink>
+                  <SocialLink href="#" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Icon
+                      icon="ph:github-logo-fill"
+                      style={{
+                        color: '#6c5ce7',
+                        fontSize: '1.4rem',
+                        filter: 'drop-shadow(0 0 8px rgba(108, 92, 231, 0.5))'
+                      }}
+                    />
+                    GitHub
+                  </SocialLink>
+                </SocialLinkGrid>
+              </FooterCard>
+            </FooterCardGrid>
 
             <CopyrightContainer
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.5 }}
             >
-              <Icon icon="ph:copyright" style={{ fontSize: '1.1rem' }} />
-              <span>2025 区块链交易平台. 版权所有</span>
+              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
+                <Icon icon="ph:copyright" style={{ fontSize: '1.1rem' }} />
+                <span>2025 区块链交易平台. 版权所有</span>
+              </motion.div>
               <span style={{ margin: '0 8px' }}>|</span>
-              <span className="flex items-center gap-1">
-                <Icon icon="ph:shield-check-fill" style={{ color: '#6c5ce7' }} />
-                安全交易保障
-              </span>
+              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
+                <Icon icon="ph:scroll" style={{ color: '#6c5ce7' }} />
+                <span>服务条款</span>
+              </motion.div>
+              <span style={{ margin: '0 8px' }}>|</span>
+              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
+                <Icon icon="ph:eye" style={{ color: '#6c5ce7' }} />
+                <span>隐私政策</span>
+              </motion.div>
             </CopyrightContainer>
           </div>
 
-          {/* 底部装饰性元素 */}
+          {/* 3D效果装饰元素 */}
           <motion.div
             style={{
               position: 'absolute',
-              bottom: '-50px',
+              bottom: '0',
               left: '0',
               width: '100%',
-              height: '100px',
+              height: '150px',
               background: 'linear-gradient(to top, rgba(108, 92, 231, 0.2), transparent)',
-              zIndex: 1
+              zIndex: 1,
+              transformStyle: 'preserve-3d',
+              transform: 'rotateX(70deg) translateZ(-50px)',
+              opacity: 0.5
             }}
             animate={{
-              opacity: [0.5, 0.8, 0.5]
+              opacity: [0.3, 0.5, 0.3]
             }}
             transition={{
-              duration: 3,
+              duration: 5,
               repeat: Infinity,
-              repeatType: 'reverse'
+              repeatType: 'mirror'
             }}
           />
+
+          {/* 波浪动画装饰 */}
+          <svg
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              width: '100%',
+              height: '120px',
+              zIndex: 2,
+              opacity: 0.3
+            }}
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <motion.path
+                id="gentle-wave"
+                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+                animate={{
+                  d: [
+                    'M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z',
+                    'M-160 34c30 0 58-14 88-14s 58 14 88 14 58-14 88-14 58 14 88 14 v44h-352z',
+                    'M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z'
+                  ]
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  repeatType: 'mirror',
+                  ease: 'easeInOut'
+                }}
+              />
+            </defs>
+            <motion.g>
+              <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(108, 92, 231, 0.3)" />
+              <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(0, 206, 201, 0.2)" />
+              <use xlinkHref="#gentle-wave" x="48" y="7" fill="rgba(108, 92, 231, 0.1)" />
+            </motion.g>
+          </svg>
         </Footer>
       </PageContainer>
     </TransactionsProvider>
