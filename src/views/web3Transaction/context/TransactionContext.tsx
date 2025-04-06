@@ -18,6 +18,9 @@ interface TransactionContextProps {
     message: string
   }
   transactionCount: number | null
+  accountBalance: string
+  getAccountBalance: () => Promise<void>
+  copyToClipboard: (text: string) => void
 }
 
 interface Transaction {
@@ -61,6 +64,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     Number(localStorage.getItem('transactionCount')) || null
   )
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [accountBalance, setAccountBalance] = useState('0')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
     setFormData((prevState) => ({ ...prevState, [name]: e.target.value }))
@@ -124,6 +128,35 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     }
   }
 
+  const getAccountBalance = async () => {
+    try {
+      if (!ethereum || !currentAccount) return
+
+      const provider = new ethers.BrowserProvider(ethereum)
+      const balance = await provider.getBalance(currentAccount)
+
+      // 将余额转换为ETH并格式化为最多4位小数
+      const formattedBalance = parseFloat(ethers.formatEther(balance)).toFixed(4)
+
+      setAccountBalance(formattedBalance)
+    } catch (error) {
+      console.log('获取余额失败:', error)
+      setAccountBalance('0')
+    }
+  }
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        // 可以在这里添加成功的提示，比如使用一个toast通知
+        console.log('已复制到剪贴板')
+      })
+      .catch((err) => {
+        console.log('复制失败:', err)
+      })
+  }
+
   const connectWallet = async () => {
     try {
       if (!ethereum) {
@@ -133,6 +166,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
       setCurrentAccount(accounts[0])
+      await getAccountBalance()
     } catch (error) {
       console.log(error)
     }
@@ -186,6 +220,12 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     checkIfTransactionsExists()
   }, [])
 
+  useEffect(() => {
+    if (currentAccount) {
+      getAccountBalance()
+    }
+  }, [currentAccount])
+
   return (
     <TransactionContext.Provider
       value={{
@@ -196,7 +236,10 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
         isLoading,
         sendTransaction,
         handleChange,
-        formData
+        formData,
+        accountBalance,
+        getAccountBalance,
+        copyToClipboard
       }}
     >
       {children}
