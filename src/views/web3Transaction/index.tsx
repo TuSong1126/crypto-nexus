@@ -240,7 +240,7 @@ const ScrollToTopButton = styled(motion.button)`
  * Web3交易演示页面
  * 展示了一个完整的Web3应用，包括钱包连接、发送交易和交易历史
  */
-const Web3Transaction: React.FC = () => {
+const Web3Transaction = (): JSX.Element => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showScrollButton, setShowScrollButton] = useState(false)
 
