@@ -64,8 +64,16 @@ const ContentWrapper = styled.div`
 `
 
 const Header = styled.div`
-  text-align: center;
+  text-align: left;
   margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+`
+
+const TitleContainer = styled.div`
+  flex: 1;
 `
 
 const Title = styled(motion.h2)`
@@ -100,7 +108,7 @@ const Subtitle = styled(motion.p)`
   font-size: 1.4rem;
   color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   position: relative;
   line-height: 1.5;
@@ -177,8 +185,6 @@ const ConnectButton = styled(motion.button)`
 // 新增视图切换组件
 const ViewToggle = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 2rem auto;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 50px;
   padding: 0.5rem;
@@ -794,15 +800,37 @@ const Transactions: React.FC = () => {
     <TransactionsContainer>
       <ContentWrapper>
         <Header>
-          <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            <Title data-text={currentAccount ? '最新交易' : '交易历史'} variants={itemVariants}>
-              {currentAccount ? '最新交易' : '交易历史'}
-            </Title>
+          <TitleContainer>
+            <motion.div variants={containerVariants} initial="hidden" animate="visible">
+              <Title data-text={currentAccount ? '最新交易' : '交易历史'} variants={itemVariants}>
+                {currentAccount ? '最新交易' : '交易历史'}
+              </Title>
+              <Subtitle variants={itemVariants}>
+                {currentAccount ? '查看区块链上所有已确认的最新交易记录' : '连接您的以太坊钱包，查看您的交易历史'}
+              </Subtitle>
+            </motion.div>
+          </TitleContainer>
 
-            <Subtitle variants={itemVariants}>
-              {currentAccount ? '查看区块链上所有已确认的最新交易记录' : '连接您的以太坊钱包，查看您的交易历史'}
-            </Subtitle>
-          </motion.div>
+          {currentAccount && (
+            <ViewToggle>
+              <ToggleButton
+                $active={viewType === ViewType.TABLE}
+                onClick={() => setViewType(ViewType.TABLE)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Icon icon="ph:table-fill" style={{ fontSize: '1.2rem' }} />
+                表格视图
+              </ToggleButton>
+              <ToggleButton
+                $active={viewType === ViewType.GRID}
+                onClick={() => setViewType(ViewType.GRID)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Icon icon="ph:grid-four-fill" style={{ fontSize: '1.2rem' }} />
+                网格视图
+              </ToggleButton>
+            </ViewToggle>
+          )}
         </Header>
 
         {!currentAccount ? (
@@ -823,26 +851,6 @@ const Transactions: React.FC = () => {
           </EmptyStateContainer>
         ) : (
           <>
-            {/* 视图切换器 */}
-            <ViewToggle>
-              <ToggleButton
-                $active={viewType === ViewType.TABLE}
-                onClick={() => setViewType(ViewType.TABLE)}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Icon icon="ph:table-fill" style={{ fontSize: '1.2rem' }} />
-                表格视图
-              </ToggleButton>
-              <ToggleButton
-                $active={viewType === ViewType.GRID}
-                onClick={() => setViewType(ViewType.GRID)}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Icon icon="ph:grid-four-fill" style={{ fontSize: '1.2rem' }} />
-                网格视图
-              </ToggleButton>
-            </ViewToggle>
-
             {/* 根据选择的视图类型显示不同的布局 */}
             {viewType === ViewType.GRID ? (
               <TransactionsGrid variants={containerVariants} initial="hidden" animate="visible">
