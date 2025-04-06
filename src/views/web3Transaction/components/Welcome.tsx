@@ -33,7 +33,7 @@ const ContentWrapper = styled.div`
 
   @media (min-width: 1024px) {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
   }
 `
 
@@ -42,38 +42,134 @@ const LeftSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background: rgba(30, 40, 70, 0.1);
+  border-radius: 24px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  z-index: 4;
+  height: 100%;
+  justify-content: space-between;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(0, 206, 201, 0.05));
+    z-index: -1;
+  }
 
   @media (min-width: 1024px) {
-    padding-right: 2rem;
+    padding-right: 1.5rem;
+    flex: 0.75;
   }
 `
 
-const Title = styled(motion.h1)`
-  font-size: 2.5rem;
+const SectionDescription = styled(motion.p)`
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  max-width: 500px;
+`
+
+const StatsContainer = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+`
+
+const StatItem = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 0.85rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`
+
+const StatValue = styled.div`
+  font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+  color: white;
+  margin-bottom: 0.25rem;
+  background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.7));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-
-  @media (min-width: 768px) {
-    font-size: 3.5rem;
-  }
 `
 
-const Description = styled(motion.p)`
-  font-size: 1.125rem;
+const StatLabel = styled.div`
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`
+
+const StepContainer = styled(motion.div)`
+  width: 100%;
+  margin-bottom: 1.25rem;
+`
+
+const StepTitle = styled.h3`
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
+const StepList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`
+
+const StepItem = styled(motion.div)`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+`
+
+const StepNumber = styled.div`
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #6c5ce7, #00cec9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+`
+
+const StepText = styled.div`
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 2rem;
-  max-width: 500px;
+  line-height: 1.4;
 `
 
 const ConnectButton = styled(motion.button)`
   background: linear-gradient(45deg, #6c5ce7, #00cec9);
   border: none;
   border-radius: 50px;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1.5rem;
   color: white;
   font-weight: 600;
   display: flex;
@@ -82,7 +178,7 @@ const ConnectButton = styled(motion.button)`
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 
   &:hover {
     transform: translateY(-2px);
@@ -95,25 +191,26 @@ const ConnectButton = styled(motion.button)`
 `
 
 const FeaturesGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
   width: 100%;
-  margin-top: 1rem;
 `
 
 const FeatureItem = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
+  width: 100%;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
-  padding: 1rem;
+  padding: 0.75rem;
   backdrop-filter: blur(5px);
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.07);
   }
 `
 
@@ -127,6 +224,7 @@ const FeatureText = styled.p`
   color: white;
   font-size: 0.875rem;
   font-weight: 500;
+  margin: 0;
 `
 
 const RightSection = styled(motion.div)`
@@ -135,6 +233,59 @@ const RightSection = styled(motion.div)`
   flex-direction: column;
   gap: 1.5rem;
   perspective: 2000px;
+  padding: 1.5rem;
+  background: rgba(30, 40, 70, 0.25);
+  border-radius: 24px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  z-index: 6;
+  transform: translateZ(0);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(0, 206, 201, 0.2));
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0.3;
+    animation: pulse 8s infinite linear;
+    z-index: -1;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0.3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    flex: 1.25;
+  }
 `
 
 const EthCard = styled(motion.div)`
@@ -150,6 +301,8 @@ const EthCard = styled(motion.div)`
   overflow: hidden;
   transform-style: preserve-3d;
   transition: all 0.5s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
 
   &::before {
     content: '';
@@ -317,6 +470,7 @@ const NetworkLabel = styled.p`
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  margin: 0;
 `
 
 const BalanceText = styled(motion.div)`
@@ -335,6 +489,40 @@ const BalanceAmount = styled(motion.span)`
   -webkit-text-fill-color: transparent;
 `
 
+const DisconnectButton = styled(motion.button)`
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+`
+
+const RefreshIcon = styled(motion.span)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 const RefreshButton = styled(motion.button)`
   background: rgba(255, 255, 255, 0.1);
   border: none;
@@ -348,10 +536,27 @@ const RefreshButton = styled(motion.button)`
   transition: all 0.2s;
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: rotate(15deg);
+
+    &::after {
+      opacity: 1;
+    }
   }
 `
 
@@ -391,6 +596,20 @@ const FormCard = styled(motion.div)`
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #6c5ce7, #00cec9);
+    opacity: 0.7;
+  }
 `
 
 const FormTitle = styled.h3`
@@ -399,6 +618,7 @@ const FormTitle = styled.h3`
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-align: left;
+  margin-top: 0;
 `
 
 const Input = styled.input`
@@ -434,10 +654,29 @@ const SubmitButton = styled.button`
   margin-top: 0.5rem;
   transition: all 0.3s;
   box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s;
+    z-index: -1;
+  }
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+
+    &::before {
+      left: 100%;
+    }
   }
 
   &:active {
@@ -467,6 +706,7 @@ const Welcome: React.FC = () => {
 
   const [showFullAddress, setShowFullAddress] = useState(false)
   const [showCopyTooltip, setShowCopyTooltip] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     const { addressTo, amount, keyword, message } = formData
@@ -490,6 +730,24 @@ const Welcome: React.FC = () => {
     setShowFullAddress(!showFullAddress)
   }
 
+  const handleRefreshBalance = async () => {
+    setIsRefreshing(true)
+    await getAccountBalance()
+    // 添加延迟以确保动画效果明显
+    setTimeout(() => {
+      setIsRefreshing(false)
+    }, 800)
+  }
+
+  const handleDisconnect = () => {
+    // 此处实现断开连接功能，根据您的钱包集成方式可能有所不同
+    // 常见的方式是清除本地存储的连接信息
+    localStorage.removeItem('walletConnected')
+    localStorage.removeItem('walletAddress')
+    // 然后刷新页面以重置状态
+    window.location.reload()
+  }
+
   // 动画变量
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -511,19 +769,39 @@ const Welcome: React.FC = () => {
     }
   }
 
+  // 统计数据
+  const stats = [
+    { value: '3.2M+', label: '总交易量', icon: 'ph:arrow-circle-up-fill' },
+    { value: '12K+', label: '活跃用户', icon: 'ph:users-fill' },
+    { value: '56K', label: '日交易额', icon: 'ph:currency-eth-fill' }
+  ]
+
+  // 使用步骤
+  const steps = ['连接您的以太坊钱包，确保有足够余额', '输入接收地址和金额', '点击发送按钮完成交易']
+
+  // 精简特性列表
   const features = [
-    { icon: '⚡', text: '可靠性' },
-    { icon: '🔒', text: '安全性' },
-    { icon: 'Ξ', text: '以太坊' },
-    { icon: '🌐', text: 'Web 3.0' },
-    { icon: '💰', text: '低手续费' },
-    { icon: '⛓', text: '区块链' }
+    { icon: '⚡', text: '快速' },
+    { icon: '🔒', text: '安全' },
+    { icon: '🌐', text: '全球' },
+    { icon: '💰', text: '低手续费' }
   ]
 
   return (
     <WelcomeContainer>
       <ContentWrapper>
-        <LeftSection variants={containerVariants} initial="hidden" animate="visible">
+        <LeftSection
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover={{
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)'
+          }}
+        >
+          <SectionDescription variants={itemVariants}>
+            体验无国界、低手续费的加密货币交易服务，保障您的每一笔交易安全可靠。
+          </SectionDescription>
+
           {!currentAccount && (
             <ConnectButton
               variants={itemVariants}
@@ -536,6 +814,33 @@ const Welcome: React.FC = () => {
             </ConnectButton>
           )}
 
+          <StatsContainer variants={containerVariants}>
+            {stats.map((stat, index) => (
+              <StatItem key={index} variants={itemVariants} whileHover={{ y: -5 }}>
+                <StatValue>{stat.value}</StatValue>
+                <StatLabel>
+                  <Icon icon={stat.icon} style={{ fontSize: '0.9rem', color: '#6c5ce7' }} />
+                  {stat.label}
+                </StatLabel>
+              </StatItem>
+            ))}
+          </StatsContainer>
+
+          <StepContainer variants={containerVariants}>
+            <StepTitle>
+              <Icon icon="ph:info" style={{ fontSize: '1.2rem', color: '#6c5ce7' }} />
+              如何使用
+            </StepTitle>
+            <StepList>
+              {steps.map((step, index) => (
+                <StepItem key={index} variants={itemVariants} whileHover={{ x: 5 }}>
+                  <StepNumber>{index + 1}</StepNumber>
+                  <StepText>{step}</StepText>
+                </StepItem>
+              ))}
+            </StepList>
+          </StepContainer>
+
           <FeaturesGrid variants={containerVariants}>
             {features.map((feature, index) => (
               <FeatureItem key={index} variants={itemVariants} whileHover={{ scale: 1.05 }}>
@@ -546,13 +851,20 @@ const Welcome: React.FC = () => {
           </FeaturesGrid>
         </LeftSection>
 
-        <RightSection variants={containerVariants} initial="hidden" animate="visible">
+        <RightSection
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover={{
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          }}
+        >
           <EthCard
             variants={itemVariants}
             whileHover={{
               y: -10,
               rotateX: 5,
-              boxShadow: '0 20px 40px rgba(108, 92, 231, 0.5)'
+              boxShadow: '0 25px 50px rgba(108, 92, 231, 0.6)'
             }}
           >
             <CardTop>
@@ -563,36 +875,54 @@ const Welcome: React.FC = () => {
             </CardTop>
 
             <CardBottom>
-              <WalletAddress onClick={toggleAddressDisplay} style={{ position: 'relative' }}>
-                <AddressBadge>
-                  {currentAccount ? (showFullAddress ? currentAccount : shortenAddress(currentAccount)) : '未连接钱包'}
-                </AddressBadge>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}
+              >
+                <WalletAddress
+                  onClick={toggleAddressDisplay}
+                  style={{ position: 'relative', marginBottom: 0, flex: 1 }}
+                >
+                  <AddressBadge>
+                    {currentAccount
+                      ? showFullAddress
+                        ? currentAccount
+                        : shortenAddress(currentAccount)
+                      : '未连接钱包'}
+                  </AddressBadge>
+
+                  {currentAccount && (
+                    <AddressIcon whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                      <Icon icon={showFullAddress ? 'ph:eye-slash' : 'ph:eye'} style={{ fontSize: '1rem' }} />
+                    </AddressIcon>
+                  )}
+
+                  {currentAccount && (
+                    <AddressIcon
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleCopyAddress()
+                      }}
+                    >
+                      <Icon icon="ph:copy" style={{ fontSize: '1rem' }} />
+                    </AddressIcon>
+                  )}
+
+                  {showCopyTooltip && (
+                    <CopyTooltip initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      已复制到剪贴板
+                    </CopyTooltip>
+                  )}
+                </WalletAddress>
 
                 {currentAccount && (
-                  <AddressIcon whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                    <Icon icon={showFullAddress ? 'ph:eye-slash' : 'ph:eye'} style={{ fontSize: '1rem' }} />
-                  </AddressIcon>
+                  <DisconnectButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleDisconnect}>
+                    <Icon icon="ph:sign-out" style={{ fontSize: '1rem' }} />
+                    断开连接
+                  </DisconnectButton>
                 )}
-
-                {currentAccount && (
-                  <AddressIcon
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleCopyAddress()
-                    }}
-                  >
-                    <Icon icon="ph:copy" style={{ fontSize: '1rem' }} />
-                  </AddressIcon>
-                )}
-
-                {showCopyTooltip && (
-                  <CopyTooltip initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    已复制到剪贴板
-                  </CopyTooltip>
-                )}
-              </WalletAddress>
+              </div>
 
               <BalanceContainer
                 initial={{ opacity: 0, y: 20 }}
@@ -606,11 +936,19 @@ const Welcome: React.FC = () => {
                     以太坊主网
                   </NetworkLabel>
                   <RefreshButton
-                    onClick={getAccountBalance}
+                    onClick={handleRefreshBalance}
                     whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9, rotate: 30 }}
+                    whileTap={{ scale: 0.9 }}
+                    disabled={isRefreshing}
                   >
-                    <Icon icon="ph:arrows-clockwise" style={{ fontSize: '0.9rem' }} />
+                    <RefreshIcon
+                      animate={isRefreshing ? { rotate: 360 } : { rotate: 0 }}
+                      transition={
+                        isRefreshing ? { repeat: Infinity, duration: 0.8, ease: 'linear' } : { duration: 0.3 }
+                      }
+                    >
+                      <Icon icon="ph:arrows-clockwise" style={{ fontSize: '0.9rem' }} />
+                    </RefreshIcon>
                   </RefreshButton>
                 </BalanceRow>
 
@@ -628,9 +966,10 @@ const Welcome: React.FC = () => {
                       }}
                     />
                     <BalanceAmount
+                      key={accountBalance} // 添加key使余额变化时触发动画
                       initial={{ y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.4 }}
+                      transition={{ duration: 0.4 }}
                     >
                       {accountBalance} ETH
                     </BalanceAmount>
@@ -644,7 +983,13 @@ const Welcome: React.FC = () => {
             </CardBottom>
           </EthCard>
 
-          <FormCard variants={itemVariants} whileHover={{ y: -5 }}>
+          <FormCard
+            variants={itemVariants}
+            whileHover={{
+              y: -5,
+              boxShadow: '0 15px 30px rgba(0, 0, 0, 0.4)'
+            }}
+          >
             <FormTitle>发送交易</FormTitle>
 
             <Input placeholder="接收地址" name="addressTo" type="text" onChange={(e) => handleChange(e, 'addressTo')} />
@@ -656,8 +1001,6 @@ const Welcome: React.FC = () => {
               step="0.0001"
               onChange={(e) => handleChange(e, 'amount')}
             />
-
-            <Input placeholder="关键词 (Gif)" name="keyword" type="text" onChange={(e) => handleChange(e, 'keyword')} />
 
             <Input placeholder="输入消息" name="message" type="text" onChange={(e) => handleChange(e, 'message')} />
 

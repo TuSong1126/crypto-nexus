@@ -361,11 +361,7 @@ const Services: React.FC = () => {
       <ContentWrapper>
         <LeftSection>
           <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            <Title variants={itemVariants}>
-              我们不断改进的
-              <br />
-              服务
-            </Title>
+            <Title variants={itemVariants}>不断改进的服务</Title>
 
             <Description variants={itemVariants}>
               购买和出售加密资产的最佳选择，我们提供各种超级友好的服务，让您的交易体验更加顺畅和安全。通过我们的专业工具，您可以轻松管理您的数字资产，享受DeFi和NFT的全部优势。
