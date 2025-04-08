@@ -271,54 +271,6 @@ const ContactItem = styled(motion.div)`
   }
 `
 
-const StatsBanner = styled(motion.div)`
-  display: flex;
-  justify-content: space-around;
-  padding: 2rem 1rem;
-  background: linear-gradient(90deg, rgba(108, 92, 231, 0.15), rgba(0, 206, 201, 0.15));
-  backdrop-filter: blur(5px);
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-  border-radius: 16px;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-`
-
-const StatItem = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    margin-bottom: 1rem;
-  }
-`
-
-const StatValue = styled.div`
-  font-size: 3rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, #6c5ce7, #00cec9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 10px rgba(108, 92, 231, 0.3);
-  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
-`
-
-const StatLabel = styled.div`
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-`
-
 const ScrollToTopButton = styled(motion.button)`
   position: fixed;
   bottom: 2rem;
@@ -387,13 +339,6 @@ const Web3Transaction = (): JSX.Element => {
       transition: { duration: 0.5 }
     }
   }
-
-  const stats = [
-    { value: '5.2M+', label: '用户总数' },
-    { value: '21.8B+', label: '交易量(USD)' },
-    { value: '156+', label: '支持的国家' },
-    { value: '0.01%', label: '最低交易费' }
-  ]
 
   return (
     <TransactionsProvider>
@@ -492,29 +437,6 @@ const Web3Transaction = (): JSX.Element => {
         <motion.div className="flex-grow relative z-10" variants={containerVariants} initial="hidden" animate="visible">
           <motion.div variants={itemVariants} className="gradient-bg-welcome">
             <Welcome />
-          </motion.div>
-
-          {/* 统计数据展示 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ padding: '0 1rem', marginTop: '-3rem', marginBottom: '3rem' }}
-          >
-            <StatsBanner>
-              {stats.map((stat, index) => (
-                <StatItem
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index + 0.3 }}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <StatValue>{stat.value}</StatValue>
-                  <StatLabel>{stat.label}</StatLabel>
-                </StatItem>
-              ))}
-            </StatsBanner>
           </motion.div>
 
           <motion.div variants={itemVariants}>
