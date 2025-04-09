@@ -12,7 +12,10 @@ dist
 dist-ssr
 *.local
 /src/router/dev.routerConfig.tsx
+
 /project_web3.0-main
+/solidityContract/node_modules
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
