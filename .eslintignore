@@ -25,3 +25,4 @@ tsconfig.node.json
 .stylelintrc.cjs
 .commitlint.config.cjs
 
+solidityContract
