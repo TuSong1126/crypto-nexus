@@ -131,63 +131,63 @@ const Web3Tools = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="all-tools-section">
-          <h3 className="section-heading">所有工具</h3>
-          <div className="tools-categories">
-            {allTools.map((category, index) => (
-              <div key={index} className="tool-category">
-                <h4 className="category-name">{category.category}</h4>
-                <div className="category-tools">
-                  {category.tools.map((tool) => (
-                    <div key={tool.id} className="tool-item" onClick={() => navigateTo(tool.path)}>
-                      <div className="tool-item-icon">
-                        <Icon icon={tool.icon} />
-                      </div>
-                      <div className="tool-item-name">{tool.name}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="additional-resources">
-          <h3 className="section-heading">学习资源</h3>
-          <div className="resources-grid">
-            <div className="resource-card">
-              <div className="resource-icon">
-                <Icon icon="mdi:book-open-page-variant" />
-              </div>
-              <div className="resource-content">
-                <h4>Web3基础指南</h4>
-                <p>了解区块链和Web3的基本概念和应用</p>
-              </div>
-            </div>
-            <div className="resource-card">
-              <div className="resource-icon">
-                <Icon icon="mdi:video-outline" />
-              </div>
-              <div className="resource-content">
-                <h4>视频教程</h4>
-                <p>观看详细的Web3工具使用教程和实操演示</p>
-              </div>
-            </div>
-            <div className="resource-card">
-              <div className="resource-icon">
-                <Icon icon="mdi:frequently-asked-questions" />
-              </div>
-              <div className="resource-content">
-                <h4>常见问题</h4>
-                <p>查找常见问题的解答和疑难解决方法</p>
-              </div>
-            </div>
-          </div>
+        <div className="tool-content">
+          <Outlet />
         </div>
       </div>
 
-      <div className="tool-content">
-        <Outlet />
+      <div className="all-tools-section">
+        <h3 className="section-heading">所有工具</h3>
+        <div className="tools-categories">
+          {allTools.map((category, index) => (
+            <div key={index} className="tool-category">
+              <h4 className="category-name">{category.category}</h4>
+              <div className="category-tools">
+                {category.tools.map((tool) => (
+                  <div key={tool.id} className="tool-item" onClick={() => navigateTo(tool.path)}>
+                    <div className="tool-item-icon">
+                      <Icon icon={tool.icon} />
+                    </div>
+                    <div className="tool-item-name">{tool.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="additional-resources">
+        <h3 className="section-heading">学习资源</h3>
+        <div className="resources-grid">
+          <div className="resource-card">
+            <div className="resource-icon">
+              <Icon icon="mdi:book-open-page-variant" />
+            </div>
+            <div className="resource-content">
+              <h4>Web3基础指南</h4>
+              <p>了解区块链和Web3的基本概念和应用</p>
+            </div>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">
+              <Icon icon="mdi:video-outline" />
+            </div>
+            <div className="resource-content">
+              <h4>视频教程</h4>
+              <p>观看详细的Web3工具使用教程和实操演示</p>
+            </div>
+          </div>
+          <div className="resource-card">
+            <div className="resource-icon">
+              <Icon icon="mdi:frequently-asked-questions" />
+            </div>
+            <div className="resource-content">
+              <h4>常见问题</h4>
+              <p>查找常见问题的解答和疑难解决方法</p>
+            </div>
+          </div>
+        </div>
       </div>
     </StyleWrapper>
   )
@@ -309,8 +309,6 @@ const StyleWrapper = styled.div`
   }
 
   .common-tools-section {
-    margin-bottom: 40px;
-
     .common-tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

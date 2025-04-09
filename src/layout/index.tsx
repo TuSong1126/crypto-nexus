@@ -211,7 +211,7 @@ export default function Layout() {
           variants={logoVariants}
           whileHover="whileHover"
         >
-          <span className="logo-text">Web3 World</span>
+          <span className="logo-text">CryptoNexus</span>
         </motion.div>
 
         <motion.div className="menu" variants={menuVariants}>

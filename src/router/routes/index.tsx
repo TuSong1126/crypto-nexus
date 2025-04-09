@@ -1,10 +1,9 @@
 import { lazy } from 'react'
 
-import daoRoutes from './modules/dao'
 import defiRoutes from './modules/defi'
 import nftMarketRoutes from './modules/nftMarket'
-import web3AssetsRoutes from './modules/web3Assets'
 import web3ToolsRoutes from './modules/web3Tools'
+import web3TransactionRoutes from './modules/web3Transaction'
 
 const businessRoutes = [
   {
@@ -15,8 +14,7 @@ const businessRoutes = [
   ...web3ToolsRoutes,
   ...nftMarketRoutes,
   ...defiRoutes,
-  ...web3AssetsRoutes,
-  ...daoRoutes
+  ...web3TransactionRoutes
 ] as RouteType[]
 
 export default businessRoutes

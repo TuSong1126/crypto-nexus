@@ -10,11 +10,6 @@ const web3ToolsRoutes: RouteType[] = [
         path: 'wallet',
         Component: lazy(() => import('@/views/web3Tools/wallet/index')),
         meta: { title: '钱包管理', permissionKey: 'web3Tools/wallet', icon: '' }
-      },
-      {
-        path: 'explorer',
-        Component: lazy(() => import('@/views/web3Tools/explorer/index')),
-        meta: { title: '区块浏览器', permissionKey: 'web3Tools/explorer', icon: '' }
       }
     ]
   }

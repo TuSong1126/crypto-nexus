@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react'
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ActionCard from '@/components/common/ActionCard'
 import Button from '@/components/common/Button'
 import PageLayout from '@/components/common/PageLayout'
-import StatsCard from '@/components/common/StatsCard'
 
 const Defi = () => {
   // 示例市场数据
@@ -15,29 +15,91 @@ const Defi = () => {
     { id: 3, name: 'XRP/USDT', price: '$0.62', change: '-0.5%', volume: '$845M' }
   ]
 
+  const [animateMetrics, setAnimateMetrics] = useState(false)
+
+  // 用于初始加载动画
+  useEffect(() => {
+    setAnimateMetrics(true)
+  }, [])
+
   return (
     <PageLayout title="DeFi 金融中心" subtitle="去中心化金融，提供流动性和代币交换">
       <StyleWrapper>
-        <div className="metrics-row">
-          <StatsCard
-            title="总资产"
-            value="$2,453"
-            trend={{ type: 'up', value: '5.2%' }}
-            icon={<Icon icon="mdi:wallet-outline" />}
-            variant="gradient"
-          />
-          <StatsCard
-            title="日收益"
-            value="$182"
-            trend={{ type: 'up', value: '12.5%' }}
-            icon={<Icon icon="mdi:cash-plus" />}
-          />
-          <StatsCard
-            title="平均APY"
-            value="8.4%"
-            trend={{ type: 'up', value: '0.6%' }}
-            icon={<Icon icon="mdi:chart-line" />}
-          />
+        <div className={`metrics-row ${animateMetrics ? 'animate-in' : ''}`}>
+          <div className="metrics-card holographic" data-delay="0">
+            <div className="metrics-glow"></div>
+            <div className="metrics-content">
+              <div className="metrics-icon">
+                <Icon icon="mdi:wallet-outline" />
+                <div className="pulse-effect"></div>
+              </div>
+              <div className="metrics-data">
+                <div className="metrics-title">总资产</div>
+                <div className="metrics-value ticker">$2,453</div>
+                <div className="metrics-trend positive">
+                  <Icon icon="mdi:arrow-up" />
+                  <span>5.2%</span>
+                </div>
+              </div>
+              <div className="metrics-graph">
+                <div className="bar-chart">
+                  <div className="bar" style={{ height: '60%' }}></div>
+                  <div className="bar" style={{ height: '80%' }}></div>
+                  <div className="bar" style={{ height: '40%' }}></div>
+                  <div className="bar" style={{ height: '70%' }}></div>
+                  <div className="bar active" style={{ height: '90%' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="metrics-card neo" data-delay="200">
+            <div className="metrics-glow"></div>
+            <div className="metrics-content">
+              <div className="metrics-icon">
+                <Icon icon="mdi:cash-plus" />
+                <div className="pulse-effect"></div>
+              </div>
+              <div className="metrics-data">
+                <div className="metrics-title">日收益</div>
+                <div className="metrics-value ticker">$182</div>
+                <div className="metrics-trend positive">
+                  <Icon icon="mdi:arrow-up" />
+                  <span>12.5%</span>
+                </div>
+              </div>
+              <div className="metrics-graph">
+                <div className="line-wave"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="metrics-card cyber" data-delay="400">
+            <div className="metrics-glow"></div>
+            <div className="metrics-content">
+              <div className="metrics-icon">
+                <Icon icon="mdi:chart-line" />
+                <div className="pulse-effect"></div>
+              </div>
+              <div className="metrics-data">
+                <div className="metrics-title">平均APY</div>
+                <div className="metrics-value ticker">8.4%</div>
+                <div className="metrics-trend positive">
+                  <Icon icon="mdi:arrow-up" />
+                  <span>0.6%</span>
+                </div>
+              </div>
+              <div className="metrics-graph">
+                <div className="radial-progress">
+                  <svg viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="16" fill="none" className="circle-bg" />
+                    <circle cx="18" cy="18" r="16" fill="none" className="circle-progress" />
+                  </svg>
+                  <div className="percentage">84%</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="section-container">
@@ -155,9 +217,316 @@ const StyleWrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+    }
+  }
+
+  .metrics-card {
+    position: relative;
+    background: rgba(18, 24, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    height: 180px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSlideUp 0.6s forwards;
+
+    &:hover {
+      transform: translateY(-5px) rotateX(5deg);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+
+      .metrics-glow {
+        opacity: 0.8;
+      }
+    }
+
+    &[data-delay='0'] {
+      animation-delay: 0s;
+    }
+    &[data-delay='200'] {
+      animation-delay: 0.2s;
+    }
+    &[data-delay='400'] {
+      animation-delay: 0.4s;
+    }
+
+    &.holographic {
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.8), rgba(25, 32, 55, 0.8));
+      border: 1px solid rgba(83, 92, 136, 0.3);
+
+      .metrics-glow {
+        background: radial-gradient(circle at 50% 0%, rgba(108, 92, 231, 0.5), rgba(0, 206, 201, 0.1));
+      }
+    }
+
+    &.neo {
+      background: linear-gradient(135deg, rgba(23, 32, 50, 0.8), rgba(16, 24, 40, 0.8));
+      border: 1px solid rgba(0, 206, 201, 0.3);
+
+      .metrics-glow {
+        background: radial-gradient(circle at 50% 50%, rgba(0, 206, 201, 0.5), transparent);
+      }
+    }
+
+    &.cyber {
+      background: linear-gradient(135deg, rgba(25, 30, 45, 0.8), rgba(20, 20, 35, 0.8));
+      border: 1px solid rgba(253, 203, 110, 0.3);
+
+      .metrics-glow {
+        background: radial-gradient(circle at 70% 30%, rgba(253, 203, 110, 0.5), transparent);
+      }
+    }
+  }
+
+  .metrics-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .metrics-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+  }
+
+  .metrics-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-right: 16px;
+    backdrop-filter: blur(5px);
+
+    .pulse-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .metrics-data {
+    flex: 1;
+  }
+
+  .metrics-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+  }
+
+  .metrics-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+
+    &.ticker {
+      background: linear-gradient(90deg, #fff, #6c5ce7, #fff);
+      background-size: 200% auto;
+      color: #000;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+    }
+  }
+
+  .metrics-trend {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+    &.positive {
+      color: #00b894;
+    }
+
+    &.negative {
+      color: #ff7675;
+    }
+
+    svg {
+      margin-right: 4px;
+      font-size: 16px;
+    }
+  }
+
+  .metrics-graph {
+    width: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .bar-chart {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    .bar {
+      width: 4px;
+      background: rgba(108, 92, 231, 0.5);
+      border-radius: 2px;
+      position: relative;
+      transform-origin: bottom;
+      animation: barGrow 1.5s ease-out forwards;
+      animation-fill-mode: both;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 2px;
+      }
+
+      &.active {
+        background: #6c5ce7;
+      }
+    }
+  }
+
+  .line-wave {
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(transparent, transparent 50%, rgba(0, 206, 201, 0.2) 50%, transparent);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 200%;
+      height: 2px;
+      background: #00cec9;
+      animation: wave 3s linear infinite;
+    }
+  }
+
+  .radial-progress {
+    width: 60px;
+    height: 60px;
+    position: relative;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+
+      .circle-bg {
+        stroke: rgba(255, 255, 255, 0.1);
+        stroke-width: 2;
+      }
+
+      .circle-progress {
+        stroke: #fdcb6e;
+        stroke-width: 2.5;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: circleProgress 2s ease-out forwards;
+      }
+    }
+
+    .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+  @keyframes fadeSlideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes barGrow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes wave {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes circleProgress {
+    to {
+      stroke-dashoffset: 16; /* 100 - 84 = 16 (84%) */
     }
   }
 
@@ -334,6 +703,174 @@ const StyleWrapper = styled.div`
   .activity-description {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
+  }
+
+  .icon-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #6c5ce7;
+      opacity: 0.8;
+      animation: particleFloat 3s infinite linear;
+
+      &:nth-child(1) {
+        top: 20%;
+        left: 30%;
+        animation-delay: 0s;
+        animation-duration: 2.5s;
+      }
+
+      &:nth-child(2) {
+        top: 60%;
+        left: 20%;
+        animation-delay: 0.3s;
+        animation-duration: 3.2s;
+      }
+
+      &:nth-child(3) {
+        top: 40%;
+        left: 70%;
+        animation-delay: 0.7s;
+        animation-duration: 2.8s;
+      }
+
+      &:nth-child(4) {
+        top: 70%;
+        left: 60%;
+        animation-delay: 1s;
+        animation-duration: 3s;
+      }
+
+      &:nth-child(5) {
+        top: 30%;
+        left: 50%;
+        animation-delay: 1.5s;
+        animation-duration: 2.7s;
+      }
+    }
+  }
+
+  .liquidity-bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .bubble {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(0, 206, 201, 0.8);
+      animation: bubbleRise 4s infinite ease-out;
+      opacity: 0.8;
+
+      @for $i from 1 through 8 {
+        &:nth-child(#{$i}) {
+          left: percentage(math.random());
+          bottom: percentage(math.random() * 0.5);
+          width: #{math.random() * 6 + 2}px;
+          height: #{math.random() * 6 + 2}px;
+          animation-delay: #{math.random() * 2}s;
+          animation-duration: #{math.random() * 2 + 3}s;
+        }
+      }
+    }
+  }
+
+  .staking-glow {
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: -20%;
+    left: -20%;
+    background: radial-gradient(circle, rgba(253, 203, 110, 0.4), transparent 50%);
+    animation: pulse 2s infinite alternate;
+  }
+
+  .action-card {
+    position: relative;
+    background: rgba(18, 24, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+
+      .card-glow {
+        opacity: 0.7;
+      }
+
+      .corner-decoration {
+        opacity: 1;
+      }
+    }
+
+    &.primary {
+      border-color: rgba(108, 92, 231, 0.3);
+
+      .card-glow {
+        background: radial-gradient(circle at 30% 30%, rgba(108, 92, 231, 0.4), transparent 70%);
+      }
+
+      .card-icon {
+        background: rgba(108, 92, 231, 0.2);
+        color: #6c5ce7;
+      }
+
+      .corner-decoration {
+        background: linear-gradient(135deg, #6c5ce7, transparent);
+      }
+    }
+
+    &.secondary {
+      border-color: rgba(0, 206, 201, 0.3);
+
+      .card-glow {
+        background: radial-gradient(circle at 30% 30%, rgba(0, 206, 201, 0.4), transparent 70%);
+      }
+
+      .card-icon {
+        background: rgba(0, 206, 201, 0.2);
+        color: #00cec9;
+      }
+
+      .corner-decoration {
+        background: linear-gradient(135deg, #00cec9, transparent);
+      }
+    }
+
+    &.neutral {
+      border-color: rgba(253, 203, 110, 0.3);
+
+      .card-glow {
+        background: radial-gradient(circle at 30% 30%, rgba(253, 203, 110, 0.4), transparent 70%);
+      }
+
+      .card-icon {
+        background: rgba(253, 203, 110, 0.2);
+        color: #fdcb6e;
+      }
+
+      .corner-decoration {
+        background: linear-gradient(135deg, #fdcb6e, transparent);
+      }
+    }
   }
 `
 
