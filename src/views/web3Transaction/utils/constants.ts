@@ -3,4 +3,4 @@
 import abiJson from '../../../../solidityContract/artifacts/contracts/Transactions.sol/Transactions.json'
 export const contractABI = abiJson.abi
 
-export const contractAddress = '0x8437D63884B2F623ff4E0292E18bD6b48c10D3cd'
+export const contractAddress = '0x2D395177615D171b1fdE3211041b0B04F1b22484'
