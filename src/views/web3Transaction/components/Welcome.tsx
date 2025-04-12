@@ -710,7 +710,6 @@ const Welcome: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     const { addressTo, amount, keyword, message } = formData
-    console.log(1111111, formData)
 
     e.preventDefault()
 
