@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import Web3Card from '@/components/web3/Web3Card'
 
 import { TransactionContext } from '../context/TransactionContext'
+import useFetchImg from '../hooks/useFetchImg'
 import { shortenAddress } from '../utils/shortenAddress'
 
 // 示例数据，用于展示界面
@@ -13,7 +14,7 @@ const dummyData = [
   {
     url: 'https://metro.co.uk/wp-content/uploads/2015/05/transfer_1431348094.gif?quality=90&strip=all&zoom=1&resize=540%2C284',
     message: '交易成功完成',
-    timestamp: '刚刚',
+    timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.01',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
@@ -21,7 +22,7 @@ const dummyData = [
   {
     url: 'https://i.pinimg.com/originals/68/a0/9e/68a09e774e98242871c2db0f99307420.gif',
     message: '以太坊转账',
-    timestamp: '1小时前',
+    timestamp: '2025/4/10 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.02',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
@@ -29,7 +30,7 @@ const dummyData = [
   {
     url: 'https://acegif.com/wp-content/uploads/gif-shaking-head-38.gif',
     message: '感谢您的信任',
-    timestamp: '昨天',
+    timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.03',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
@@ -378,7 +379,6 @@ const MessageText = styled.p`
     opacity: 0.8;
   }
 `
-
 // 3D交易卡片组件
 const TransactionCard: React.FC<TransactionCardProps> = ({
   addressTo,
@@ -386,11 +386,11 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   timestamp,
   message,
   amount,
-  url
+  keyword
 }) => {
   return (
     <Web3Card variant="glass" hover={true}>
-      <CardImage src={url} alt="交易相关图片" />
+      <CardImage src={useFetchImg({ keyword })} alt="" />
 
       <TransactionCardContent>
         <TimeStamp>
