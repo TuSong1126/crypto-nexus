@@ -10,9 +10,8 @@ import useFetchImg from '../hooks/useFetchImg'
 import { shortenAddress } from '../utils/shortenAddress'
 
 // 示例数据，用于展示界面
-const dummyData = [
+const demoData = [
   {
-    url: 'https://metro.co.uk/wp-content/uploads/2015/05/transfer_1431348094.gif?quality=90&strip=all&zoom=1&resize=540%2C284',
     message: '交易成功完成',
     timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
@@ -20,7 +19,6 @@ const dummyData = [
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
   },
   {
-    url: 'https://i.pinimg.com/originals/68/a0/9e/68a09e774e98242871c2db0f99307420.gif',
     message: '以太坊转账',
     timestamp: '2025/4/10 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
@@ -28,7 +26,6 @@ const dummyData = [
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
   },
   {
-    url: 'https://acegif.com/wp-content/uploads/gif-shaking-head-38.gif',
     message: '感谢您的信任',
     timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
@@ -794,8 +791,8 @@ const Transactions: React.FC = () => {
   const { transactions, currentAccount } = useContext(TransactionContext)
   const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE)
 
-  // 合并示例数据和真实交易数据
-  const allTransactions = [...dummyData, ...transactions].reverse()
+  // 示例数据和真实交易数据互斥展示
+  const allTransactions = transactions.length > 0 ? [...transactions] : [...demoData]
 
   // 动画变量
   const containerVariants = {
