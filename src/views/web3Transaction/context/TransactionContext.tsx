@@ -1,49 +1,13 @@
 import { ethers } from 'ethers'
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { Transaction, TransactionContextProps, TransactionsProviderProps } from '../types'
 // 从常量文件导入
 import { contractABI, contractAddress } from '../utils/constants'
 
-interface TransactionContextProps {
-  connectWallet: () => Promise<void>
-  transactions: Transaction[]
-  currentAccount: string
-  isLoading: boolean
-  sendTransaction: () => Promise<void>
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>, name: string) => void
-  formData: {
-    addressTo: string
-    amount: string
-    keyword: string
-    message: string
-  }
-  transactionCount: number | null
-  accountBalance: string
-  getAccountBalance: () => Promise<void>
-  copyToClipboard: (text: string) => void
-}
-
-interface Transaction {
-  addressTo: string
-  addressFrom: string
-  timestamp: string
-  message: string
-  keyword: string
-  amount: number
-}
-
-interface TransactionsProviderProps {
-  children: ReactNode
-}
-
-export const TransactionContext = createContext<TransactionContextProps>({} as TransactionContextProps)
-
-declare global {
-  interface Window {
-    ethereum?: any
-  }
-}
-
+export const TransactionContext = React.createContext<TransactionContextProps>(
+  {} as TransactionContextProps
+)
 const { ethereum } = window || {}
 
 const createEthereumContract = () => {
@@ -70,6 +34,54 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     setFormData((prevState) => ({ ...prevState, [name]: e.target.value }))
   }
 
+  const checkIfWalletIsConnect = async () => {
+    try {
+      if (!ethereum) {
+        alert('请安装MetaMask.')
+        return
+      }
+
+      const accounts = await ethereum.request({ method: 'eth_accounts' })
+
+      if (accounts.length) {
+        setCurrentAccount(accounts[0])
+        getAllTransactions()
+      } else {
+        console.log('没有找到账户')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const connectWallet = async () => {
+    try {
+      if (!ethereum) {
+        alert('请安装MetaMask.')
+        return
+      }
+
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      setCurrentAccount(accounts[0])
+      await getAccountBalance()
+    } catch (error) {
+      console.log(error)
+      throw new Error('连接钱包失败')
+    }
+  }
+
+  const checkIfTransactionsExists = async () => {
+    try {
+      if (!ethereum) return
+
+      const contract = await createEthereumContract()
+      if (!contract) return
+
+      const currentTransactionCount = await contract.getTransactionCount()
+      window.localStorage.setItem('transactionCount', currentTransactionCount.toString())
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const getAllTransactions = async () => {
     try {
       if (!ethereum) return
@@ -93,41 +105,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
       console.log(error)
     }
   }
-
-  const checkIfWalletIsConnect = async () => {
-    try {
-      if (!ethereum) {
-        console.log('请安装MetaMask.')
-        return
-      }
-
-      const accounts = await ethereum.request({ method: 'eth_accounts' })
-
-      if (accounts.length) {
-        setCurrentAccount(accounts[0])
-        getAllTransactions()
-      } else {
-        console.log('没有找到账户')
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const checkIfTransactionsExists = async () => {
-    try {
-      if (!ethereum) return
-
-      const contract = await createEthereumContract()
-      if (!contract) return
-
-      const currentTransactionCount = await contract.getTransactionCount()
-      window.localStorage.setItem('transactionCount', currentTransactionCount.toString())
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const getAccountBalance = async () => {
     try {
       if (!ethereum || !currentAccount) return
@@ -142,33 +119,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     } catch (error) {
       console.log('获取余额失败:', error)
       setAccountBalance('0')
-    }
-  }
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        // 可以在这里添加成功的提示，比如使用一个toast通知
-        console.log('已复制到剪贴板')
-      })
-      .catch((err) => {
-        console.log('复制失败:', err)
-      })
-  }
-
-  const connectWallet = async () => {
-    try {
-      if (!ethereum) {
-        alert('请安装MetaMask.')
-        return
-      }
-
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      setCurrentAccount(accounts[0])
-      await getAccountBalance()
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -200,7 +150,12 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
       // 记录交易到合约
       setIsLoading(true)
-      const transactionHash = await contract.addToBlockchain(addressTo, parsedAmount, message, keyword)
+      const transactionHash = await contract.addToBlockchain(
+        addressTo,
+        parsedAmount,
+        message,
+        keyword
+      )
 
       console.log(`加载中 - ${transactionHash.hash}`)
       await transactionHash.wait()
@@ -210,9 +165,28 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
       // 更新交易计数
       const txCount = await contract.getTransactionCount()
       setTransactionCount(Number(txCount))
+
+      // 重置表单
+      setFormData({ addressTo: '', amount: '', keyword: '', message: '' })
+      // 重新获取所有交易
+      getAllTransactions()
+      // 重新获取账户余额
+      getAccountBalance()
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        // 可以在这里添加成功的提示，比如使用一个toast通知
+        console.log('已复制到剪贴板')
+      })
+      .catch((err) => {
+        console.log('复制失败:', err)
+      })
   }
 
   useEffect(() => {

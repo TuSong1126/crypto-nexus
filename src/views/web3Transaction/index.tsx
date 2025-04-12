@@ -344,7 +344,13 @@ const Web3Transaction = (): JSX.Element => {
     <TransactionsProvider>
       <PageContainer>
         {/* 粒子背景 */}
-        <ParticleBackground count={100} connectParticles={true} opacity={0.5} color="#6c5ce7" speed={0.3} />
+        <ParticleBackground
+          count={100}
+          connectParticles={true}
+          opacity={0.5}
+          color="#6c5ce7"
+          speed={0.3}
+        />
 
         {/* 装饰球体 */}
         <motion.div
@@ -356,7 +362,8 @@ const Web3Transaction = (): JSX.Element => {
             width: '300px',
             height: '300px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle at 30% 30%, rgba(108, 92, 231, 0.8), rgba(0, 206, 201, 0.4))',
+            background:
+              'radial-gradient(circle at 30% 30%, rgba(108, 92, 231, 0.8), rgba(0, 206, 201, 0.4))',
             filter: 'blur(60px)',
             zIndex: 1
           }}
@@ -381,7 +388,8 @@ const Web3Transaction = (): JSX.Element => {
             width: '250px',
             height: '250px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle at 70% 70%, rgba(0, 206, 201, 0.6), rgba(108, 92, 231, 0.3))',
+            background:
+              'radial-gradient(circle at 70% 70%, rgba(0, 206, 201, 0.6), rgba(108, 92, 231, 0.3))',
             filter: 'blur(50px)',
             zIndex: 1
           }}
@@ -398,7 +406,11 @@ const Web3Transaction = (): JSX.Element => {
         />
 
         {/* 导航栏 */}
-        <Header initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
+        <Header
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <Logo
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -406,7 +418,10 @@ const Web3Transaction = (): JSX.Element => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Icon icon="ph:cube-transparent-fill" style={{ fontSize: '2.2rem', color: '#6c5ce7' }} />
+            <Icon
+              icon="ph:cube-transparent-fill"
+              style={{ fontSize: '2.2rem', color: '#6c5ce7' }}
+            />
             区块链交易平台
           </Logo>
 
@@ -434,7 +449,12 @@ const Web3Transaction = (): JSX.Element => {
         </MobileMenu>
 
         {/* 主要内容区域 */}
-        <motion.div className="flex-grow relative z-10" variants={containerVariants} initial="hidden" animate="visible">
+        <motion.div
+          className="flex-grow relative z-10"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div variants={itemVariants} className="gradient-bg-welcome">
             <Welcome />
           </motion.div>
@@ -470,7 +490,11 @@ const Web3Transaction = (): JSX.Element => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <FooterWave initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.7, ease: 'easeOut' }} />
+          <FooterWave
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          />
 
           <div className="max-w-6xl mx-auto relative" style={{ zIndex: 5 }}>
             <FooterCardGrid>
@@ -481,7 +505,10 @@ const Web3Transaction = (): JSX.Element => {
                 whileHover={{ scale: 1.02 }}
               >
                 <FooterTitle>
-                  <Icon icon="ph:cube-transparent-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  <Icon
+                    icon="ph:cube-transparent-fill"
+                    style={{ color: '#6c5ce7', fontSize: '1.8rem' }}
+                  />
                   区块链交易平台
                 </FooterTitle>
                 <FooterText>
@@ -492,7 +519,10 @@ const Web3Transaction = (): JSX.Element => {
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 >
-                  <Icon icon="ph:shield-check-fill" style={{ color: '#6c5ce7', fontSize: '1.2rem' }} />
+                  <Icon
+                    icon="ph:shield-check-fill"
+                    style={{ color: '#6c5ce7', fontSize: '1.2rem' }}
+                  />
                   安全交易保障
                 </SecurityBadge>
               </FooterCard>
@@ -504,7 +534,10 @@ const Web3Transaction = (): JSX.Element => {
                 whileHover={{ scale: 1.02 }}
               >
                 <FooterTitle>
-                  <Icon icon="ph:envelope-simple-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  <Icon
+                    icon="ph:envelope-simple-fill"
+                    style={{ color: '#6c5ce7', fontSize: '1.8rem' }}
+                  />
                   联系我们
                 </FooterTitle>
                 <ContactItem whileHover={{ x: 5 }}>
@@ -549,7 +582,10 @@ const Web3Transaction = (): JSX.Element => {
                 whileHover={{ scale: 1.02 }}
               >
                 <FooterTitle>
-                  <Icon icon="ph:share-network-fill" style={{ color: '#6c5ce7', fontSize: '1.8rem' }} />
+                  <Icon
+                    icon="ph:share-network-fill"
+                    style={{ color: '#6c5ce7', fontSize: '1.8rem' }}
+                  />
                   关注我们
                 </FooterTitle>
                 <FooterText>关注我们的社交媒体，获取最新的区块链资讯和平台动态。</FooterText>

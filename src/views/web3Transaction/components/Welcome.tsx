@@ -104,7 +104,7 @@ const StatValue = styled.div`
   color: white;
   margin-bottom: 0.25rem;
   background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.7));
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 `
 
@@ -485,7 +485,7 @@ const BalanceText = styled(motion.div)`
 
 const BalanceAmount = styled(motion.span)`
   background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 `
 
@@ -710,6 +710,7 @@ const Welcome: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     const { addressTo, amount, keyword, message } = formData
+    console.log(1111111, formData)
 
     e.preventDefault()
 
@@ -876,7 +877,12 @@ const Welcome: React.FC = () => {
 
             <CardBottom>
               <div
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '1rem'
+                }}
               >
                 <WalletAddress
                   onClick={toggleAddressDisplay}
@@ -892,7 +898,10 @@ const Welcome: React.FC = () => {
 
                   {currentAccount && (
                     <AddressIcon whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                      <Icon icon={showFullAddress ? 'ph:eye-slash' : 'ph:eye'} style={{ fontSize: '1rem' }} />
+                      <Icon
+                        icon={showFullAddress ? 'ph:eye-slash' : 'ph:eye'}
+                        style={{ fontSize: '1rem' }}
+                      />
                     </AddressIcon>
                   )}
 
@@ -910,14 +919,22 @@ const Welcome: React.FC = () => {
                   )}
 
                   {showCopyTooltip && (
-                    <CopyTooltip initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    <CopyTooltip
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
                       已复制到剪贴板
                     </CopyTooltip>
                   )}
                 </WalletAddress>
 
                 {currentAccount && (
-                  <DisconnectButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleDisconnect}>
+                  <DisconnectButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleDisconnect}
+                  >
                     <Icon icon="ph:sign-out" style={{ fontSize: '1rem' }} />
                     断开连接
                   </DisconnectButton>
@@ -944,7 +961,9 @@ const Welcome: React.FC = () => {
                     <RefreshIcon
                       animate={isRefreshing ? { rotate: 360 } : { rotate: 0 }}
                       transition={
-                        isRefreshing ? { repeat: Infinity, duration: 0.8, ease: 'linear' } : { duration: 0.3 }
+                        isRefreshing
+                          ? { repeat: Infinity, duration: 0.8, ease: 'linear' }
+                          : { duration: 0.3 }
                       }
                     >
                       <Icon icon="ph:arrows-clockwise" style={{ fontSize: '0.9rem' }} />
@@ -991,9 +1010,12 @@ const Welcome: React.FC = () => {
             }}
           >
             <FormTitle>发送交易</FormTitle>
-
-            <Input placeholder="接收地址" name="addressTo" type="text" onChange={(e) => handleChange(e, 'addressTo')} />
-
+            <Input
+              placeholder="接收地址"
+              name="addressTo"
+              type="text"
+              onChange={(e) => handleChange(e, 'addressTo')}
+            />
             <Input
               placeholder="金额 (ETH)"
               name="amount"
@@ -1001,11 +1023,19 @@ const Welcome: React.FC = () => {
               step="0.0001"
               onChange={(e) => handleChange(e, 'amount')}
             />
-
-            <Input placeholder="输入消息" name="message" type="text" onChange={(e) => handleChange(e, 'message')} />
-
+            <Input
+              placeholder="关键词"
+              name="keyword"
+              type="text"
+              onChange={(e) => handleChange(e, 'keyword')}
+            />
+            <Input
+              placeholder="输入消息"
+              name="message"
+              type="text"
+              onChange={(e) => handleChange(e, 'message')}
+            />
             <Divider />
-
             {isLoading ? (
               <Loader />
             ) : (

@@ -46,6 +46,8 @@ module.exports = {
       }
     ],
     'no-debugger': 'warn', //提交时不允许有debugger
-    'simple-import-sort/imports': ['warn']
+    'simple-import-sort/imports': ['warn'],
+    'react-hooks/exhaustive-deps': 'off', // 关闭依赖项检查(例如useEffect)
+    'no-console': 'off' // 关闭控制台输出检查
   }
 }
