@@ -45,6 +45,7 @@ interface TransactionCardProps {
   amount: string | number
   url?: string
   id?: number
+  txHash?: string
 }
 
 const TransactionsContainer = styled.div`
@@ -773,7 +774,9 @@ const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ 
               <TableCell>{tx.message}</TableCell>
               <TableCell>
                 <TableActionButton
-                  onClick={() => window.open(`https://etherscan.io/tx/${tx.id}`, '_blank')}
+                  onClick={() =>
+                    window.open(`https://sepolia.etherscan.io/tx/${tx.txHash}`, '_blank')
+                  }
                 >
                   <Icon icon="ph:arrow-square-out-fill" style={{ fontSize: '1.1rem' }} />
                   查看详情

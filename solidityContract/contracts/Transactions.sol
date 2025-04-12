@@ -10,7 +10,8 @@ contract Transactions {
     uint amount,
     string message,
     uint256 timestamp,
-    string keyword
+    string keyword,
+    string txHash
   );
 
   struct TransferStruct {
@@ -20,6 +21,7 @@ contract Transactions {
     string message;
     uint256 timestamp;
     string keyword;
+    string txHash;
   }
 
   TransferStruct[] transactions;
@@ -29,15 +31,16 @@ contract Transactions {
     address payable receiver,
     uint amount,
     string memory message,
-    string memory keyword
+    string memory keyword,
+    string memory txHash
   ) public {
     transactionCount += 1;
 
     transactions.push(
-      TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword)
+      TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword, txHash)
     );
 
-    emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword);
+    emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword, txHash);
   }
 
   // 所有交易的结果数组

@@ -97,7 +97,8 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
         timestamp: new Date(Number(transaction.timestamp) * 1000).toLocaleString(),
         message: transaction.message,
         keyword: transaction.keyword,
-        amount: Number(ethers.formatEther(transaction.amount))
+        amount: Number(ethers.formatEther(transaction.amount)),
+        txHash: transaction.txHash
       }))
 
       setTransactions(structuredTransactions)
@@ -136,7 +137,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
       const parsedAmount = ethers.parseEther(amount)
 
       // 发送交易
-      await ethereum.request({
+      const txHash = await ethereum.request({
         method: 'eth_sendTransaction',
         params: [
           {
@@ -147,19 +148,21 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
           }
         ]
       })
+      console.log('本次交易的txHash', txHash)
 
       // 记录交易到合约
       setIsLoading(true)
-      const transactionHash = await contract.addToBlockchain(
+      const addToBlockchainHash = await contract.addToBlockchain(
         addressTo,
         parsedAmount,
         message,
-        keyword
+        keyword,
+        txHash
       )
 
-      console.log(`加载中 - ${transactionHash.hash}`)
-      await transactionHash.wait()
-      console.log(`成功 - ${transactionHash.hash}`)
+      console.log(`加载中 - ${addToBlockchainHash.hash}`)
+      await addToBlockchainHash.wait()
+      console.log(`成功 - ${addToBlockchainHash.hash}`)
       setIsLoading(false)
 
       // 更新交易计数
