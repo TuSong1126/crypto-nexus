@@ -6,33 +6,28 @@ import styled from 'styled-components'
 import Web3Card from '@/components/web3/Web3Card'
 
 import { TransactionContext } from '../context/TransactionContext'
+import useFetchImg from '../hooks/useFetchImg'
 import { shortenAddress } from '../utils/shortenAddress'
 
 // 示例数据，用于展示界面
-const dummyData = [
+const demoData = [
   {
-    id: 1,
-    url: 'https://metro.co.uk/wp-content/uploads/2015/05/transfer_1431348094.gif?quality=90&strip=all&zoom=1&resize=540%2C284',
     message: '交易成功完成',
-    timestamp: '刚刚',
+    timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.01',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
   },
   {
-    id: 2,
-    url: 'https://i.pinimg.com/originals/68/a0/9e/68a09e774e98242871c2db0f99307420.gif',
     message: '以太坊转账',
-    timestamp: '1小时前',
+    timestamp: '2025/4/10 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.02',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
   },
   {
-    id: 3,
-    url: 'https://acegif.com/wp-content/uploads/gif-shaking-head-38.gif',
     message: '感谢您的信任',
-    timestamp: '昨天',
+    timestamp: '2025/4/11 12:00:00',
     addressFrom: '0xCF8e569A97C423952DdFf902375C7C76549A6A90',
     amount: '0.03',
     addressTo: '0x8aa395Ab97837576aF9cd6946C79024ef1acfdbE'
@@ -48,6 +43,7 @@ interface TransactionCardProps {
   amount: string | number
   url?: string
   id?: number
+  txHash?: string
 }
 
 const TransactionsContainer = styled.div`
@@ -192,7 +188,8 @@ const ViewToggle = styled.div`
 `
 
 const ToggleButton = styled(motion.button)<{ $active: boolean }>`
-  background: ${(props) => (props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'transparent')};
+  background: ${(props) =>
+    props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'transparent'};
   color: white;
   border: none;
   border-radius: 50px;
@@ -227,7 +224,8 @@ const ToggleButton = styled(motion.button)<{ $active: boolean }>`
   }
 
   &:hover {
-    background: ${(props) => (props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'rgba(255, 255, 255, 0.1)')};
+    background: ${(props) =>
+      props.$active ? 'linear-gradient(45deg, #6c5ce7, #00cec9)' : 'rgba(255, 255, 255, 0.1)'};
   }
 `
 
@@ -378,7 +376,6 @@ const MessageText = styled.p`
     opacity: 0.8;
   }
 `
-
 // 3D交易卡片组件
 const TransactionCard: React.FC<TransactionCardProps> = ({
   addressTo,
@@ -386,11 +383,11 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   timestamp,
   message,
   amount,
-  url
+  keyword
 }) => {
   return (
     <Web3Card variant="glass" hover={true}>
-      <CardImage src={url} alt="交易相关图片" />
+      <CardImage src={useFetchImg({ keyword })} alt="" />
 
       <TransactionCardContent>
         <TimeStamp>
@@ -398,7 +395,11 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
           {timestamp}
         </TimeStamp>
 
-        <AddressLine href={`https://etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
+        <AddressLine
+          href={`https://etherscan.io/address/${addressFrom}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AddressLabel>从</AddressLabel>
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <Icon icon="ph:user-circle-fill" style={{ color: '#6c5ce7', fontSize: '1.2rem' }} />
@@ -406,7 +407,11 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
           </span>
         </AddressLine>
 
-        <AddressLine href={`https://etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
+        <AddressLine
+          href={`https://etherscan.io/address/${addressTo}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AddressLabel>至</AddressLabel>
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <Icon icon="ph:user-circle-fill" style={{ color: '#00cec9', fontSize: '1.2rem' }} />
@@ -607,7 +612,9 @@ const AddressIcon = styled.div<{ $from?: boolean }>`
   justify-content: center;
   font-size: 0.75rem;
   background: ${({ $from }) =>
-    $from ? 'linear-gradient(135deg, #6c5ce7, #a29bfe)' : 'linear-gradient(135deg, #00cec9, #81ecec)'};
+    $from
+      ? 'linear-gradient(135deg, #6c5ce7, #a29bfe)'
+      : 'linear-gradient(135deg, #00cec9, #81ecec)'};
 `
 
 const AmountCell = styled.div`
@@ -677,7 +684,11 @@ const getStatusType = (timestamp: string): string => {
 // 表格视图组件
 const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ transactions }) => {
   return (
-    <TableContainer initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+    <TableContainer
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <StyledTable>
         <TableHeader>
           <tr>
@@ -716,7 +727,7 @@ const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ 
         <tbody>
           {transactions.map((tx, index) => (
             <TableRow
-              key={tx.id || index}
+              key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.3 }}
@@ -742,7 +753,11 @@ const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ 
                 </AddressWithIcon>
               </TableCell>
               <TableCell>
-                <AddressWithIcon href={`https://etherscan.io/address/${tx.addressTo}`} target="_blank" rel="noreferrer">
+                <AddressWithIcon
+                  href={`https://etherscan.io/address/${tx.addressTo}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <AddressIcon>{tx.addressTo.substring(2, 4)}</AddressIcon>
                   {shortenAddress(tx.addressTo)}
                 </AddressWithIcon>
@@ -755,7 +770,11 @@ const TransactionTable: React.FC<{ transactions: TransactionCardProps[] }> = ({ 
               </TableCell>
               <TableCell>{tx.message}</TableCell>
               <TableCell>
-                <TableActionButton onClick={() => window.open(`https://etherscan.io/tx/${tx.id}`, '_blank')}>
+                <TableActionButton
+                  onClick={() =>
+                    window.open(`https://sepolia.etherscan.io/tx/${tx.txHash}`, '_blank')
+                  }
+                >
                   <Icon icon="ph:arrow-square-out-fill" style={{ fontSize: '1.1rem' }} />
                   查看详情
                 </TableActionButton>
@@ -772,8 +791,8 @@ const Transactions: React.FC = () => {
   const { transactions, currentAccount } = useContext(TransactionContext)
   const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE)
 
-  // 合并示例数据和真实交易数据
-  const allTransactions = [...dummyData, ...transactions].reverse()
+  // 示例数据和真实交易数据互斥展示
+  const allTransactions = transactions.length > 0 ? [...transactions] : [...demoData]
 
   // 动画变量
   const containerVariants = {
@@ -806,7 +825,9 @@ const Transactions: React.FC = () => {
                 {currentAccount ? '最新交易' : '交易历史'}
               </Title>
               <Subtitle variants={itemVariants}>
-                {currentAccount ? '查看区块链上所有已确认的最新交易记录' : '连接您的以太坊钱包，查看您的交易历史'}
+                {currentAccount
+                  ? '查看区块链上所有已确认的最新交易记录'
+                  : '连接您的以太坊钱包，查看您的交易历史'}
               </Subtitle>
             </motion.div>
           </TitleContainer>
@@ -844,7 +865,11 @@ const Transactions: React.FC = () => {
               <Icon icon="ph:wallet-fill" />
             </motion.div>
             <EmptyStateText>请连接您的钱包以查看交易历史</EmptyStateText>
-            <ConnectButton variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <ConnectButton
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Icon icon="ph:plugs-connected-fill" style={{ fontSize: '1.3rem' }} />
               连接钱包
             </ConnectButton>
