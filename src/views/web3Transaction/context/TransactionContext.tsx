@@ -91,15 +91,17 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
       const availableTransactions = await contract.getAllTransactions()
 
-      const structuredTransactions = availableTransactions.map((transaction: any) => ({
-        addressTo: transaction.receiver,
-        addressFrom: transaction.sender,
-        timestamp: new Date(Number(transaction.timestamp) * 1000).toLocaleString(),
-        message: transaction.message,
-        keyword: transaction.keyword,
-        amount: Number(ethers.formatEther(transaction.amount)),
-        txHash: transaction.txHash
-      }))
+      const structuredTransactions = availableTransactions
+        .map((transaction: any) => ({
+          addressTo: transaction.receiver,
+          addressFrom: transaction.sender,
+          timestamp: new Date(Number(transaction.timestamp) * 1000).toLocaleString(),
+          message: transaction.message,
+          keyword: transaction.keyword,
+          amount: Number(ethers.formatEther(transaction.amount)),
+          txHash: transaction.txHash
+        }))
+        .reverse()
 
       setTransactions(structuredTransactions)
     } catch (error) {
