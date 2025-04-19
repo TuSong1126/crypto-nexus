@@ -86,7 +86,10 @@ export default defineMock([
           // 链上交易路由权限
           'route:web3Transaction',
           'route:web3Transaction/send',
-          'route:web3Transaction/history'
+          'route:web3Transaction/history',
+
+          // 链上交易02路由权限
+          'route:web3Transaction02'
         ]
       },
       msg: '获取权限'
