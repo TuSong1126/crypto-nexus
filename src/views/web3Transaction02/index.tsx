@@ -3,10 +3,22 @@ import '@rainbow-me/rainbowkit/styles.css'
 import { ConnectButton, darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { WagmiProvider } from 'wagmi'
 
 import { config } from './config'
 // 组件
+import {
+  Container,
+  Content,
+  Header,
+  LeftColumn,
+  RightColumn,
+  Subtitle,
+  theme,
+  Title,
+  WalletConnectContainer
+} from './styled'
 import TransactionForm from './TransactionForm'
 import TransactionHistory from './TransactionHistory'
 import { TransactionType } from './types'
@@ -40,26 +52,29 @@ const Web3Transaction02 = () => {
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={config}>
         <RainbowKitProvider theme={darkTheme()}>
-          <div className="min-h-screen bg-gray-900 text-white p-6">
-            <h1 className="text-3xl font-bold mb-8 text-center">Web3 交易平台</h1>
+          <StyledThemeProvider theme={theme}>
+            <Container>
+              {/* 钱包连接按钮 - 右上角 */}
+              <WalletConnectContainer>
+                <ConnectButton />
+              </WalletConnectContainer>
 
-            <div className="flex flex-col lg:flex-row gap-8">
-              <div className="w-full lg:w-1/2 space-y-8">
-                <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-                  <h2 className="text-xl font-semibold mb-4">钱包连接</h2>
-                  <div className="flex justify-center">
-                    <ConnectButton />
-                  </div>
-                </div>
+              <Header>
+                <Title>Web3 交易平台</Title>
+                <Subtitle>安全、快速地发送以太坊和代币交易</Subtitle>
+              </Header>
 
-                <TransactionForm addTransaction={addTransaction} />
-              </div>
+              <Content>
+                <LeftColumn>
+                  <TransactionForm addTransaction={addTransaction} />
+                </LeftColumn>
 
-              <div className="w-full lg:w-1/2">
-                <TransactionHistory transactions={transactions} />
-              </div>
-            </div>
-          </div>
+                <RightColumn>
+                  <TransactionHistory transactions={transactions} />
+                </RightColumn>
+              </Content>
+            </Container>
+          </StyledThemeProvider>
         </RainbowKitProvider>
       </WagmiProvider>
     </QueryClientProvider>

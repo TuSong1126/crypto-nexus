@@ -1,5 +1,27 @@
 import React from 'react'
 
+import {
+  Card,
+  CardTitle,
+  DetailLabel,
+  DetailValue,
+  EmptyIcon,
+  EmptyState,
+  EmptyText,
+  ErrorStatus,
+  PendingStatus,
+  SuccessStatus,
+  TransactionDetailRow,
+  TransactionDetails,
+  TransactionHash,
+  TransactionHeader,
+  TransactionItem,
+  TransactionList,
+  TransactionStatus,
+  TransactionTime,
+  TransactionTitle,
+  TransactionTitleContainer
+} from './styled'
 import { TransactionType } from './types'
 
 interface TransactionHistoryProps {
@@ -9,10 +31,15 @@ interface TransactionHistoryProps {
 const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions }) => {
   if (transactions.length === 0) {
     return (
-      <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-        <h2 className="text-xl font-semibold mb-4">交易历史</h2>
-        <div className="text-gray-400 text-center py-6">暂无交易记录</div>
-      </div>
+      <Card>
+        <CardTitle>
+          <span>📜 交易历史</span>
+        </CardTitle>
+        <EmptyState>
+          <EmptyIcon>📝</EmptyIcon>
+          <EmptyText>暂无交易记录</EmptyText>
+        </EmptyState>
+      </Card>
     )
   }
 
@@ -27,79 +54,62 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions })
     })
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusComponent = (status: string) => {
     switch (status) {
       case 'success':
-        return 'text-green-500'
+        return <SuccessStatus>✅ 成功</SuccessStatus>
       case 'pending':
-        return 'text-yellow-500'
+        return <PendingStatus>⏳ 处理中</PendingStatus>
       case 'error':
-        return 'text-red-500'
+        return <ErrorStatus>❌ 失败</ErrorStatus>
       default:
-        return 'text-gray-500'
-    }
-  }
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'success':
-        return '成功'
-      case 'pending':
-        return '处理中'
-      case 'error':
-        return '失败'
-      default:
-        return '未知'
+        return <TransactionStatus>未知</TransactionStatus>
     }
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-      <h2 className="text-xl font-semibold mb-4">交易历史</h2>
+    <Card>
+      <CardTitle>
+        <span>📜 交易历史</span>
+      </CardTitle>
 
-      <div className="space-y-4">
+      <TransactionList>
         {transactions.map((tx) => (
-          <div
-            key={tx.id}
-            className="border border-gray-700 rounded-lg p-4 hover:bg-gray-750 transition-all"
-          >
-            <div className="flex justify-between items-start mb-2">
-              <div className="flex-1">
-                <h3 className="font-medium">{tx.description || '以太坊交易'}</h3>
-                <p className="text-sm text-gray-400 mt-1">{formatDate(tx.timestamp)}</p>
-              </div>
-              <div className={`${getStatusColor(tx.status)} px-2 py-1 rounded text-xs font-medium`}>
-                {getStatusText(tx.status)}
-              </div>
-            </div>
+          <TransactionItem key={tx.id}>
+            <TransactionHeader>
+              <TransactionTitleContainer>
+                <TransactionTitle>{tx.description || '以太坊交易'}</TransactionTitle>
+                <TransactionTime>{formatDate(tx.timestamp)}</TransactionTime>
+              </TransactionTitleContainer>
+              {getStatusComponent(tx.status)}
+            </TransactionHeader>
 
-            <div className="space-y-2 mt-3 text-sm">
-              <div className="grid grid-cols-12 gap-2">
-                <span className="col-span-3 text-gray-400">接收地址:</span>
-                <span className="col-span-9 truncate">{tx.to}</span>
-              </div>
+            <TransactionDetails>
+              <TransactionDetailRow>
+                <DetailLabel>接收地址:</DetailLabel>
+                <DetailValue>{tx.to}</DetailValue>
+              </TransactionDetailRow>
 
-              <div className="grid grid-cols-12 gap-2">
-                <span className="col-span-3 text-gray-400">金额:</span>
-                <span className="col-span-9">{tx.value} ETH</span>
-              </div>
+              <TransactionDetailRow>
+                <DetailLabel>金额:</DetailLabel>
+                <DetailValue>{tx.value} ETH</DetailValue>
+              </TransactionDetailRow>
 
-              <div className="grid grid-cols-12 gap-2">
-                <span className="col-span-3 text-gray-400">交易哈希:</span>
-                <a
+              <TransactionDetailRow>
+                <DetailLabel>交易哈希:</DetailLabel>
+                <TransactionHash
                   href={`https://etherscan.io/tx/${tx.hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="col-span-9 truncate text-blue-400 hover:text-blue-300"
                 >
                   {tx.hash}
-                </a>
-              </div>
-            </div>
-          </div>
+                </TransactionHash>
+              </TransactionDetailRow>
+            </TransactionDetails>
+          </TransactionItem>
         ))}
-      </div>
-    </div>
+      </TransactionList>
+    </Card>
   )
 }
 

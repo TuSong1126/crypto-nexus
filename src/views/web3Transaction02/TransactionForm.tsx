@@ -2,6 +2,18 @@ import { useState } from 'react'
 import { parseEther } from 'viem'
 import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 
+import {
+  Card,
+  CardTitle,
+  ErrorAlert,
+  Form,
+  FormGroup,
+  FormInput,
+  FormLabel,
+  InfoAlert,
+  PrimaryButton,
+  WarningAlert
+} from './styled'
 import { TransactionType } from './types'
 
 interface TransactionFormProps {
@@ -79,79 +91,76 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-      <h2 className="text-xl font-semibold mb-4">发送交易</h2>
+    <Card>
+      <CardTitle>
+        <span>💸 发送交易</span>
+      </CardTitle>
 
       {!isConnected && (
-        <div className="text-yellow-400 mb-4 p-3 bg-yellow-900/30 rounded">
-          请先连接钱包才能发送交易
-        </div>
+        <WarningAlert>
+          <span>⚠️ 请先连接钱包才能发送交易</span>
+        </WarningAlert>
       )}
 
       {isConnected && balance && (
-        <div className="mb-4 p-3 bg-blue-900/30 rounded">
-          <p>
-            当前余额: {balance.formatted} {balance.symbol}
-          </p>
-        </div>
+        <InfoAlert>
+          <span>
+            💰 当前余额: {balance.formatted} {balance.symbol}
+          </span>
+        </InfoAlert>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">收款地址</label>
-          <input
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <FormLabel>收款地址</FormLabel>
+          <FormInput
             type="text"
             value={recipient}
             onChange={(e) => setRecipient(e.target.value)}
             placeholder="0x..."
-            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none"
             disabled={!isConnected || isSubmitting}
           />
-        </div>
+        </FormGroup>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">金额 (ETH)</label>
-          <input
+        <FormGroup>
+          <FormLabel>金额 (ETH)</FormLabel>
+          <FormInput
             type="text"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.01"
-            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none"
             disabled={!isConnected || isSubmitting}
           />
-        </div>
+        </FormGroup>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">描述 (可选)</label>
-          <input
+        <FormGroup>
+          <FormLabel>描述 (可选)</FormLabel>
+          <FormInput
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="交易描述..."
-            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none"
             disabled={!isConnected || isSubmitting}
           />
-        </div>
+        </FormGroup>
 
-        {error && <div className="text-red-400 p-3 bg-red-900/30 rounded">{error}</div>}
+        {error && (
+          <ErrorAlert>
+            <span>❌ {error}</span>
+          </ErrorAlert>
+        )}
 
-        {isPending && <div className="text-blue-400 p-3 bg-blue-900/30 rounded">交易确认中...</div>}
+        {isPending && (
+          <InfoAlert>
+            <span>⏳ 交易确认中...</span>
+          </InfoAlert>
+        )}
 
-        <button
-          type="submit"
-          className={`w-full py-2 px-4 rounded font-medium ${
-            !isConnected
-              ? 'bg-gray-600 cursor-not-allowed'
-              : isSubmitting
-                ? 'bg-blue-700 cursor-wait'
-                : 'bg-blue-600 hover:bg-blue-700'
-          }`}
-          disabled={!isConnected || isSubmitting}
-        >
+        <PrimaryButton type="submit" disabled={!isConnected || isSubmitting}>
           {isSubmitting ? '处理中...' : '发送交易'}
-        </button>
-      </form>
-    </div>
+        </PrimaryButton>
+      </Form>
+    </Card>
   )
 }
 
