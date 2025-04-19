@@ -28,7 +28,10 @@ import {
 export const config = getDefaultConfig({
   appName: 'Crypto Nexus Web3',
   // 在实际项目中应该替换为真实的projectId
-  // 请访问https://cloud.walletconnect.com注册并创建一个新项目
+  /**
+   * https://cloud.walletconnect.com注册并创建一个新项目
+   * https://cloud.reown.com
+   */
   projectId: 'cb283f0aafc6c099844885972323e311',
   transports: {
     [mainnet.id]: http(),
