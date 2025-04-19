@@ -98,7 +98,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions })
               <TransactionDetailRow>
                 <DetailLabel>交易哈希:</DetailLabel>
                 <TransactionHash
-                  href={`https://etherscan.io/tx/${tx.hash}`}
+                  href={`https://sepolia.etherscan.io/tx/${tx.hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
