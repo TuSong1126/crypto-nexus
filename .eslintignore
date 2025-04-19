@@ -24,5 +24,6 @@ tsconfig.node.json
 .prettierrc.cjs
 .stylelintrc.cjs
 .commitlint.config.cjs
+package.json
 
 solidityContract

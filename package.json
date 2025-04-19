@@ -1,5 +1,5 @@
 {
-  "name": "accompany",
+  "name": "crypto-nexus",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -71,7 +71,7 @@
     "stylelint-declaration-block-no-ignored-properties": "2.8.0",
     "stylelint-prettier": "5.0.0",
     "tailwindcss": "^4.0.17",
-    "typescript": "^5.2.2",
+    "typescript": "~5.3.3",
     "vite": "^5.0.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-mock-dev-server": "1.7.1"
