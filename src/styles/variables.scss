@@ -18,23 +18,23 @@ $accent-color-3: #00b894;
 // 背景色
 $bg-dark: #0f0e13;
 $bg-gradient-1: linear-gradient(to right, #0f0e13, #202030, #0f0e13);
-$bg-gradient-2: linear-gradient(to right, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
-$bg-card: rgba(255, 255, 255, 0.05);
-$bg-glass: rgba(255, 255, 255, 0.1);
+$bg-gradient-2: linear-gradient(to right, rgb(108 92 231 / 10%), rgb(0 206 201 / 10%));
+$bg-card: rgb(255 255 255 / 5%);
+$bg-glass: rgb(255 255 255 / 10%);
 
 // 边框
-$border-color: rgba(255, 255, 255, 0.2);
-$border-glow: 0 0 10px rgba(108, 92, 231, 0.5);
+$border-color: rgb(255 255 255 / 20%);
+$border-glow: 0 0 10px rgb(108 92 231 / 50%);
 
 // 文字颜色
-$text-primary: #ffffff;
-$text-secondary: rgba(255, 255, 255, 0.7);
-$text-tertiary: rgba(255, 255, 255, 0.5);
+$text-primary: #fff;
+$text-secondary: rgb(255 255 255 / 70%);
+$text-tertiary: rgb(255 255 255 / 50%);
 
 // 阴影
-$shadow-small: 0 4px 12px rgba(0, 0, 0, 0.5);
-$shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.5);
-$shadow-large: 0 16px 48px rgba(0, 0, 0, 0.5);
+$shadow-small: 0 4px 12px rgb(0 0 0 / 50%);
+$shadow-medium: 0 8px 24px rgb(0 0 0 / 50%);
+$shadow-large: 0 16px 48px rgb(0 0 0 / 50%);
 
 // 动画时间
 $transition-fast: 0.2s;
@@ -83,7 +83,7 @@ $font-size-title-rem: 2.25rem; // 36px - CryptoNexus标题专用大小
 
   // 背景颜色
   --bg-color: #f7f9fc;
-  --card-bg-color: #ffffff;
+  --card-bg-color: #fff;
   --card-alt-bg-color: #f9fafb;
   --card-hover-bg-color: #f3f4f6;
   --table-header-bg: #f9fafb;
@@ -95,27 +95,27 @@ $font-size-title-rem: 2.25rem; // 36px - CryptoNexus标题专用大小
   --neutral-color: #6b7280;
 
   // 背景色变体
-  --success-bg-color: rgba(16, 185, 129, 0.1);
-  --error-bg-color: rgba(239, 68, 68, 0.1);
-  --warning-bg-color: rgba(245, 158, 11, 0.1);
-  --neutral-bg-color: rgba(107, 114, 128, 0.1);
-  --primary-light-color: rgba(59, 130, 246, 0.1);
+  --success-bg-color: rgb(16 185 129 / 10%);
+  --error-bg-color: rgb(239 68 68 / 10%);
+  --warning-bg-color: rgb(245 158 11 / 10%);
+  --neutral-bg-color: rgb(107 114 128 / 10%);
+  --primary-light-color: rgb(59 130 246 / 10%);
 
   // 边框和阴影
   --border-color: #e5e7eb;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgb(0 0 0 / 10%);
 
   // 特殊颜色
   --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  --hover-bg-color: rgba(59, 130, 246, 0.05);
+  --hover-bg-color: rgb(59 130 246 / 5%);
 
   // 币种专用颜色
   --eth-color: #3b82f6;
-  --eth-bg-color: rgba(59, 130, 246, 0.1);
+  --eth-bg-color: rgb(59 130 246 / 10%);
   --btc-color: #f59e0b;
-  --btc-bg-color: rgba(245, 158, 11, 0.1);
+  --btc-bg-color: rgb(245 158 11 / 10%);
   --usdt-color: #10b981;
-  --usdt-bg-color: rgba(16, 185, 129, 0.1);
+  --usdt-bg-color: rgb(16 185 129 / 10%);
 
   // 尺寸相关
   --border-radius-small: #{$border-radius-small};
@@ -154,23 +154,23 @@ $font-size-title-rem: 2.25rem; // 36px - CryptoNexus标题专用大小
 
     // 背景颜色 - 深色模式
     --bg-color: #{$bg-dark};
-    --card-bg-color: rgba(30, 41, 59, 0.8);
-    --card-alt-bg-color: rgba(30, 41, 59, 0.6);
-    --card-hover-bg-color: rgba(30, 41, 59, 0.95);
-    --table-header-bg: rgba(17, 24, 39, 0.8);
+    --card-bg-color: rgb(30 41 59 / 80%);
+    --card-alt-bg-color: rgb(30 41 59 / 60%);
+    --card-hover-bg-color: rgb(30 41 59 / 95%);
+    --table-header-bg: rgb(17 24 39 / 80%);
 
     // 边框和阴影 - 深色模式
-    --border-color: rgba(75, 85, 99, 0.5);
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --border-color: rgb(75 85 99 / 50%);
+    --shadow-color: rgb(0 0 0 / 30%);
 
     // 背景色变体 - 深色模式 (稍微调亮一点以在暗色背景下更明显)
-    --success-bg-color: rgba(16, 185, 129, 0.15);
-    --error-bg-color: rgba(239, 68, 68, 0.15);
-    --warning-bg-color: rgba(245, 158, 11, 0.15);
-    --neutral-bg-color: rgba(107, 114, 128, 0.15);
-    --primary-light-color: rgba(59, 130, 246, 0.15);
+    --success-bg-color: rgb(16 185 129 / 15%);
+    --error-bg-color: rgb(239 68 68 / 15%);
+    --warning-bg-color: rgb(245 158 11 / 15%);
+    --neutral-bg-color: rgb(107 114 128 / 15%);
+    --primary-light-color: rgb(59 130 246 / 15%);
 
     // 特殊颜色适配
-    --hover-bg-color: rgba(59, 130, 246, 0.1);
+    --hover-bg-color: rgb(59 130 246 / 10%);
   }
 }

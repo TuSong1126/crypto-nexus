@@ -1,7 +1,13 @@
 import 'nprogress/nprogress.css'
 
 import { message } from 'antd'
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, Method } from 'axios'
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+  Method
+} from 'axios'
 import NProgress from 'nprogress'
 
 import { ConstEnum, ResultStatusEnum } from '@/enums'

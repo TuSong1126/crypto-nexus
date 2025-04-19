@@ -6,7 +6,7 @@ module.exports = {
     'stylelint-config-rational-order',
     'prettier'
   ],
-  plugins: ["stylelint-declaration-block-no-ignored-properties", 'stylelint-prettier'],
+  plugins: ['stylelint-declaration-block-no-ignored-properties', 'stylelint-prettier'],
 
   // 自定义规则
   rules: {
@@ -34,11 +34,18 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['apply', 'use', 'for']
+        ignoreAtRules: ['apply', 'use', 'for', 'include', 'mixin', 'extend', 'tailwind']
+      }
+    ],
+    // 允许未知规则
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['apply', 'use', 'for', 'include', 'mixin', 'extend', 'tailwind']
       }
     ]
   },
 
   // 忽略检查的文件或文件夹
-  ignoreFiles: ['node_modules/**/*', 'build/**/*'],
-};
+  ignoreFiles: ['node_modules/**/*', 'build/**/*']
+}

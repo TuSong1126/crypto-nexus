@@ -10,7 +10,14 @@ interface ActionCardProps {
   variant?: 'default' | 'primary' | 'secondary'
 }
 
-const ActionCard = ({ title, description, icon, children, onClick, variant = 'default' }: ActionCardProps) => {
+const ActionCard = ({
+  title,
+  description,
+  icon,
+  children,
+  onClick,
+  variant = 'default'
+}: ActionCardProps) => {
   return (
     <StyleWrapper $variant={variant} onClick={onClick} $clickable={!!onClick}>
       <div className="card-header">

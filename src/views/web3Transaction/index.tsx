@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import ParticleBackground from '@/components/web3/ParticleBackground'
 
 import { Services, Transactions, Welcome } from './components'
-import { TransactionsProvider } from './context/TransactionContext'
+import { TransactionsProvider } from './context/TransactionsProvider'
 
 const PageContainer = styled.div`
   min-height: 100vh;

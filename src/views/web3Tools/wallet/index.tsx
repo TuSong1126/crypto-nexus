@@ -274,7 +274,11 @@ const WalletManage = (): JSX.Element => {
                   <div className={`tx-status ${tx.status}`}>
                     <span className="status-dot"></span>
                     <span className="status-text">
-                      {tx.status === 'success' ? '已确认' : tx.status === 'pending' ? '处理中' : '失败'}
+                      {tx.status === 'success'
+                        ? '已确认'
+                        : tx.status === 'pending'
+                          ? '处理中'
+                          : '失败'}
                     </span>
                   </div>
 

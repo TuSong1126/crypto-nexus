@@ -346,7 +346,8 @@ const Services: React.FC = () => {
   ]
 
   // 查找当前活动的服务分类
-  const activeCategory = serviceCategories.find((category) => category.id === activeTab) || serviceCategories[0]
+  const activeCategory =
+    serviceCategories.find((category) => category.id === activeTab) || serviceCategories[0]
 
   // 指标数据
   const metrics = [
@@ -367,7 +368,11 @@ const Services: React.FC = () => {
               购买和出售加密资产的最佳选择，我们提供各种超级友好的服务，让您的交易体验更加顺畅和安全。通过我们的专业工具，您可以轻松管理您的数字资产，享受DeFi和NFT的全部优势。
             </Description>
 
-            <LearnMoreButton variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <LearnMoreButton
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               了解更多
             </LearnMoreButton>
 
@@ -399,7 +404,13 @@ const Services: React.FC = () => {
             ))}
           </ServiceTabs>
 
-          <motion.div key={activeTab} initial="hidden" animate="visible" exit="exit" variants={tabVariants}>
+          <motion.div
+            key={activeTab}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={tabVariants}
+          >
             <TabContent>
               {activeCategory.services.map((service, index) => (
                 <ServiceCardWrapper
