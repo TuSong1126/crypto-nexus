@@ -1,13 +1,12 @@
 import { ethers } from 'ethers'
 import React, { useEffect, useState } from 'react'
 
-import { Transaction, TransactionContextProps, TransactionsProviderProps } from '../types'
+import { Transaction, TransactionsProviderProps } from '../types'
 // 从常量文件导入
 import { contractABI, contractAddress } from '../utils/constants'
+// 从单独的文件导入Context
+import { TransactionContext } from './TransactionContext'
 
-export const TransactionContext = React.createContext<TransactionContextProps>(
-  {} as TransactionContextProps
-)
 const { ethereum } = window || {}
 
 const createEthereumContract = () => {
