@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@iconify/react": "^5.0.2",
+    "@rainbow-me/rainbowkit": "^2.2.4",
     "@tailwindcss/postcss": "^4.0.17",
+    "@tanstack/react-query": "^5.74.4",
     "ahooks": "^3.7.8",
     "antd": "^5.11.5",
     "axios": "^1.6.2",
@@ -30,7 +32,9 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.27.0",
     "styled-components": "^6.1.1",
+    "viem": "2.x",
     "vite-plugin-svg-icons": "^2.0.1",
+    "wagmi": "^2.14.16",
     "web3-utils": "^4.3.3",
     "zustand": "^4.5.2"
   },
