@@ -105,7 +105,7 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
       {isConnected && balance && (
         <InfoAlert>
           <span>
-            💰 当前余额: {balance.formatted} {balance.symbol}
+            💰 当前详细余额: {balance.formatted} {balance.symbol}
           </span>
         </InfoAlert>
       )}

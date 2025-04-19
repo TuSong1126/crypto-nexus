@@ -20,8 +20,8 @@ export const theme = {
 // 容器组件
 export const Container = styled.div`
   position: relative;
-  min-height: 100vh;
-  padding: 2rem;
+  min-height: 90vh;
+  padding: 1rem;
   color: ${(props) => props.theme.textPrimary};
   font-family:
     'Inter',
@@ -39,58 +39,14 @@ export const Container = styled.div`
 
 // 钱包连接容器（右上角）
 export const WalletConnectContainer = styled.div`
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  z-index: 100;
-`
-
-// 头部组件
-export const Header = styled.div`
-  position: relative;
-  margin: 4rem 0 4rem;
-  text-align: center;
-  animation: fadeIn 0.8s ease-out;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`
-
-export const Title = styled.h1`
-  margin-bottom: 0.75rem;
-  color: transparent;
-  font-weight: 800;
-  font-size: 3rem;
-  letter-spacing: -0.5px;
-  background: ${(props) => props.theme.gradientBg};
-  -webkit-background-clip: text;
-  text-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
-`
-
-export const Subtitle = styled.p`
-  max-width: 600px;
-  margin: 0 auto;
-  color: ${(props) => props.theme.textSecondary};
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 1.6;
+  margin-bottom: 2rem;
 `
 
 // 内容区域
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 1.5rem;
   animation: slideUp 0.6s ease-out;
 
   @keyframes slideUp {
@@ -110,7 +66,7 @@ export const Content = styled.div`
 `
 
 export const LeftColumn = styled.div`
-  flex: 1;
+  width: 500px;
   transition: transform 0.3s ease;
 `
 
@@ -122,8 +78,8 @@ export const RightColumn = styled.div`
 // 卡片组件
 export const Card = styled.div`
   position: relative;
-  margin-bottom: 2rem;
-  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
   overflow: hidden;
   background-color: ${(props) => props.theme.cardBg};
   background-image: linear-gradient(
@@ -137,11 +93,6 @@ export const Card = styled.div`
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
-    transform: translateY(-5px);
-  }
 
   &::before {
     content: '';
@@ -158,9 +109,9 @@ export const CardTitle = styled.h2`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   letter-spacing: -0.3px;
 
   &::after {
@@ -184,22 +135,22 @@ export const WalletConnectWrapper = styled.div`
 export const Form = styled.form``
 
 export const FormGroup = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `
 
 export const FormLabel = styled.label`
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   color: ${(props) => props.theme.textSecondary};
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 `
 
 export const FormInput = styled.input`
   width: 100%;
-  padding: 0.9rem 1rem;
+  padding: 0.75rem 0.9rem;
   color: ${(props) => props.theme.textPrimary};
   font-size: 1rem;
   background-color: rgba(255, 255, 255, 0.05);
@@ -228,8 +179,8 @@ export const Alert = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 8px;
   animation: fadeIn 0.3s ease;
 `
@@ -270,12 +221,6 @@ export const PrimaryButton = styled(Button)`
   color: white;
   background: ${(props) => props.theme.gradientBg};
   box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
-
-  &:hover {
-    transform: translateY(-2px);
-    filter: brightness(110%);
-    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5);
-  }
 
   &:active {
     transform: translateY(0);
@@ -324,12 +269,6 @@ export const TransactionItem = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: ${(props) => props.theme.borderRadius};
   transition: all 0.3s ease;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    transform: scale(1.01);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
 `
 
 export const TransactionHeader = styled.div`

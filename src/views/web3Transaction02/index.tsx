@@ -13,12 +13,9 @@ import { config } from './config'
 import {
   Container,
   Content,
-  Header,
   LeftColumn,
   RightColumn,
-  Subtitle,
   theme,
-  Title,
   WalletConnectContainer
 } from './config/styled'
 import { TransactionType } from './config/types'
@@ -58,11 +55,6 @@ const Web3Transaction02 = () => {
               <WalletConnectContainer>
                 <ConnectButton />
               </WalletConnectContainer>
-
-              <Header>
-                <Title>Web3 交易平台</Title>
-                <Subtitle>安全、快速地发送以太坊和代币交易</Subtitle>
-              </Header>
 
               <Content>
                 <LeftColumn>
