@@ -51,7 +51,6 @@ const Web3Transaction02 = () => {
         <RainbowKitProvider theme={darkTheme()}>
           <StyledThemeProvider theme={theme}>
             <Container>
-              {/* 钱包连接按钮 - 右上角 */}
               <WalletConnectContainer>
                 <ConnectButton />
               </WalletConnectContainer>
