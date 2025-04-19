@@ -116,7 +116,9 @@ const Defi = () => {
               <div className="market-row" key={item.id}>
                 <div className="market-cell">{item.name}</div>
                 <div className="market-cell price">{item.price}</div>
-                <div className={`market-cell change ${item.change.startsWith('+') ? 'positive' : 'negative'}`}>
+                <div
+                  className={`market-cell change ${item.change.startsWith('+') ? 'positive' : 'negative'}`}
+                >
                   {item.change}
                 </div>
                 <div className="market-cell volume">{item.volume}</div>
@@ -153,7 +155,11 @@ const Defi = () => {
                 添加流动性
               </Button>
             </ActionCard>
-            <ActionCard title="质押挖矿" description="质押您的代币以赚取更多奖励" icon={<Icon icon="mdi:safe" />}>
+            <ActionCard
+              title="质押挖矿"
+              description="质押您的代币以赚取更多奖励"
+              icon={<Icon icon="mdi:safe" />}
+            >
               <Button variant="outline" fullWidth>
                 开始质押
               </Button>
@@ -273,7 +279,11 @@ const StyleWrapper = styled.div`
       border: 1px solid rgba(83, 92, 136, 0.3);
 
       .metrics-glow {
-        background: radial-gradient(circle at 50% 0%, rgba(108, 92, 231, 0.5), rgba(0, 206, 201, 0.1));
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(108, 92, 231, 0.5),
+          rgba(0, 206, 201, 0.1)
+        );
       }
     }
 
@@ -428,7 +438,12 @@ const StyleWrapper = styled.div`
   .line-wave {
     width: 100%;
     height: 60px;
-    background: linear-gradient(transparent, transparent 50%, rgba(0, 206, 201, 0.2) 50%, transparent);
+    background: linear-gradient(
+      transparent,
+      transparent 50%,
+      rgba(0, 206, 201, 0.2) 50%,
+      transparent
+    );
     position: relative;
     overflow: hidden;
 

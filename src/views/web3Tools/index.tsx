@@ -60,7 +60,12 @@ const Web3Tools = (): JSX.Element => {
     {
       category: '开发工具',
       tools: [
-        { id: 'contract', name: '合约交互', icon: 'mdi:file-document-outline', path: '/web3Tools/contract' },
+        {
+          id: 'contract',
+          name: '合约交互',
+          icon: 'mdi:file-document-outline',
+          path: '/web3Tools/contract'
+        },
         { id: 'abi', name: 'ABI解析器', icon: 'mdi:code-json', path: '/web3Tools/abi' },
         { id: 'events', name: '事件监听', icon: 'mdi:bell-outline', path: '/web3Tools/events' }
       ]

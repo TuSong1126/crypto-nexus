@@ -173,8 +173,16 @@ export default function Layout() {
   }
 
   return (
-    <div className={classNames('web3-layout-wrapper', { 'style-mode': VITE_STYLE_MODE === 'true' })}>
-      <ParticleBackground count={100} connectParticles={true} opacity={0.5} color="#6c5ce7" speed={0.3} />
+    <div
+      className={classNames('web3-layout-wrapper', { 'style-mode': VITE_STYLE_MODE === 'true' })}
+    >
+      <ParticleBackground
+        count={100}
+        connectParticles={true}
+        opacity={0.5}
+        color="#6c5ce7"
+        speed={0.3}
+      />
 
       <motion.div
         className="floating-orb orb-1"
@@ -204,7 +212,12 @@ export default function Layout() {
         }}
       />
 
-      <motion.div className="web3-header-wrapper" variants={headerVariants} initial="initial" animate="animate">
+      <motion.div
+        className="web3-header-wrapper"
+        variants={headerVariants}
+        initial="initial"
+        animate="animate"
+      >
         <motion.div
           className="logo"
           onClick={() => router.push(VITE_APP_HOMEPAGE)}
@@ -269,7 +282,11 @@ export default function Layout() {
             </motion.div>
 
             <div className="user-dropdown" ref={dropdownRef}>
-              <motion.div className="user-name" whileHover={{ color: '#6c5ce7' }} onClick={toggleDropdown}>
+              <motion.div
+                className="user-name"
+                whileHover={{ color: '#6c5ce7' }}
+                onClick={toggleDropdown}
+              >
                 <span>{userInfo?.nickname || userInfo?.name || '用户'}</span>
                 <Icon
                   icon="ph:caret-down"
@@ -293,7 +310,9 @@ export default function Layout() {
                       <Icon icon="ph:user-circle-fill" width={40} height={40} />
                     </div>
                     <div className="user-details">
-                      <div className="user-display-name">{userInfo?.nickname || userInfo?.name || '用户'}</div>
+                      <div className="user-display-name">
+                        {userInfo?.nickname || userInfo?.name || '用户'}
+                      </div>
                       <div className="user-role">Web3爱好者</div>
                     </div>
                   </div>

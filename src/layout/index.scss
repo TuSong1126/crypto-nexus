@@ -90,60 +90,60 @@
 
 // Web3 风格布局样式
 .web3-layout-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: $bg-dark;
   color: $text-primary;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  background: $bg-dark;
 
   // 浮动装饰元素
   .floating-orb {
     position: absolute;
+    z-index: 0;
     border-radius: 50%;
     filter: blur(80px);
-    z-index: 0;
   }
 
   .orb-1 {
+    top: -150px;
+    left: -100px;
     width: 400px;
     height: 400px;
     background: linear-gradient(135deg, rgba($primary-color, 0.3), rgba($accent-color-1, 0.2));
-    top: -150px;
-    left: -100px;
   }
 
   .orb-2 {
+    right: -100px;
+    bottom: -100px;
     width: 350px;
     height: 350px;
     background: linear-gradient(135deg, rgba($secondary-color, 0.3), rgba($accent-color-2, 0.2));
-    bottom: -100px;
-    right: -100px;
   }
 }
 
 .web3-header-wrapper {
-  width: 100%;
-  height: 75px;
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  height: 75px;
   padding: 0 32px;
-  @include glassmorphism;
-  backdrop-filter: blur(10px);
-  z-index: 10;
   border-bottom: 1px solid $border-color;
-  position: relative;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgb(0 0 0 / 20%);
+  backdrop-filter: blur(10px);
+
+  @include glassmorphism;
 
   &::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 1px;
     background: linear-gradient(
       90deg,
@@ -152,13 +152,14 @@
       rgba($secondary-color, 0.5),
       transparent
     );
+    content: '';
   }
 
   .logo {
+    position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
-    position: relative;
 
     .logo-icon {
       filter: drop-shadow(0 0 8px rgba($primary-color, 0.7));
@@ -170,23 +171,23 @@
     }
 
     .logo-text {
-      margin-left: 12px;
-      font-size: $font-size-title;
-      font-weight: 700;
-      background: linear-gradient(45deg, $primary-color, $secondary-color);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
       position: relative;
+      margin-left: 12px;
+      color: transparent;
+      font-weight: 700;
+      font-size: $font-size-title;
+      background: linear-gradient(45deg, $primary-color, $secondary-color);
+      background-clip: text;
+      background-clip: text;
 
       &::after {
-        content: '';
         position: absolute;
         bottom: -4px;
         left: 0;
         width: 100%;
         height: 1px;
         background: linear-gradient(90deg, transparent, rgba($secondary-color, 0.7), transparent);
+        content: '';
       }
     }
   }
@@ -194,21 +195,21 @@
   .menu {
     display: flex;
     flex: 1;
-    padding: 0 64px;
     justify-content: center;
+    padding: 0 64px;
 
     .menu-item {
       position: relative;
-      padding: 8px 16px;
-      margin: 0 12px;
-      font-size: $font-size-base;
-      color: $text-secondary;
-      text-decoration: none;
-      transition: all $transition-fast ease;
-      border-radius: $border-radius-medium;
-      overflow: hidden;
       display: flex;
       align-items: center;
+      margin: 0 12px;
+      padding: 8px 16px;
+      overflow: hidden;
+      color: $text-secondary;
+      font-size: $font-size-base;
+      text-decoration: none;
+      border-radius: $border-radius-medium;
+      transition: all $transition-fast ease;
 
       .menu-icon {
         margin-right: 8px;
@@ -224,16 +225,16 @@
         position: absolute;
         bottom: 0;
         left: 0;
+        z-index: 1;
         height: 2px;
         background: linear-gradient(90deg, $primary-color, $secondary-color);
-        z-index: 1;
         box-shadow: 0 0 10px rgba($primary-color, 0.7);
       }
 
       &:hover {
         color: $text-primary;
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        background: rgb(255 255 255 / 5%);
+        box-shadow: 0 0 15px rgb(0 0 0 / 20%);
       }
 
       &.active {
@@ -242,7 +243,6 @@
         background: rgba($primary-color, 0.1);
 
         &::after {
-          content: '';
           position: absolute;
           bottom: 0;
           left: 0;
@@ -250,6 +250,7 @@
           height: 2px;
           background: linear-gradient(90deg, $primary-color, $secondary-color);
           box-shadow: 0 0 8px rgba($primary-color, 0.8);
+          content: '';
         }
       }
     }
@@ -267,17 +268,17 @@
 
       .toolbar-item {
         position: relative;
-        width: 40px;
-        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        color: $text-secondary;
+        width: 40px;
+        height: 40px;
         margin-left: 8px;
+        color: $text-secondary;
+        border: 1px solid rgb(255 255 255 / 10%);
+        border-radius: 50%;
         cursor: pointer;
         transition: all $transition-fast ease;
-        border: 1px solid rgba(255, 255, 255, 0.1);
 
         &:hover {
           color: $text-primary;
@@ -289,16 +290,16 @@
           position: absolute;
           top: -2px;
           right: -2px;
-          width: 18px;
-          height: 18px;
-          background: $accent-color-1;
-          color: white;
-          border-radius: 50%;
-          font-size: $font-size-xs - 1px;
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 18px;
+          height: 18px;
+          color: white;
           font-weight: 600;
+          font-size: $font-size-xs - 1px;
+          background: $accent-color-1;
+          border-radius: 50%;
           box-shadow: 0 0 5px rgba($accent-color-1, 0.5);
         }
       }
@@ -308,8 +309,8 @@
       position: relative;
       display: flex;
       align-items: center;
-      margin-left: 20px;
       order: 2;
+      margin-left: 20px;
       cursor: pointer;
 
       .avatar {
@@ -318,11 +319,11 @@
         justify-content: center;
         width: 40px;
         height: 40px;
-        border-radius: 50%;
-        background: rgba($primary-color, 0.15);
         margin-right: 10px;
         color: $primary-color;
+        background: rgba($primary-color, 0.15);
         border: 1px solid rgba($primary-color, 0.3);
+        border-radius: 50%;
         box-shadow: 0 0 10px rgba($primary-color, 0.3);
         transition: all 0.3s ease;
 
@@ -336,10 +337,10 @@
       }
 
       .user-name {
-        font-size: $font-size-sm;
-        font-weight: 500;
         display: flex;
         align-items: center;
+        font-weight: 500;
+        font-size: $font-size-sm;
         transition: color 0.2s ease;
 
         span {
@@ -352,31 +353,32 @@
       }
 
       .dropdown-menu {
+        position: absolute;
         top: 100%;
         right: -18px;
-        margin-top: 12px;
-        width: 220px;
-        @include glassmorphism;
-        border-radius: $border-radius-medium;
-        @include gradient-border;
-        background-color: black;
-        position: absolute;
-        padding: 0;
         z-index: 100;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        width: 220px;
+        margin-top: 12px;
+        padding: 0;
         overflow: hidden;
+        background-color: black;
+        border-radius: $border-radius-medium;
+        box-shadow: 0 10px 25px rgb(0 0 0 / 30%);
+
+        @include glassmorphism;
+        @include gradient-border;
 
         &::before {
-          content: '';
           position: absolute;
           top: -8px;
           right: 28px;
           width: 16px;
           height: 16px;
-          background: rgba(255, 255, 255, 0.05);
-          transform: rotate(45deg);
-          border-left: 1px solid $border-color;
+          background: rgb(255 255 255 / 5%);
           border-top: 1px solid $border-color;
+          border-left: 1px solid $border-color;
+          transform: rotate(45deg);
+          content: '';
         }
 
         .menu-header {
@@ -399,21 +401,22 @@
             flex-direction: column;
 
             .user-display-name {
+              margin-bottom: 4px;
+              color: $text-primary;
               font-weight: 600;
               font-size: 15px;
-              color: $text-primary;
-              margin-bottom: 4px;
             }
 
             .user-role {
-              font-size: 12px;
               color: $text-secondary;
+              font-size: 12px;
             }
           }
         }
 
         .menu-divider {
           height: 1px;
+          margin: 4px 0;
           background: linear-gradient(
             to right,
             transparent,
@@ -421,7 +424,6 @@
             rgba($secondary-color, 0.2),
             transparent
           );
-          margin: 4px 0;
         }
 
         .dropdown-item {
@@ -437,8 +439,8 @@
           }
 
           &:hover {
-            background: rgba($primary-color, 0.15);
             color: $text-primary;
+            background: rgba($primary-color, 0.15);
           }
 
           &.logout-item {
@@ -457,19 +459,19 @@
 }
 
 .web3-main-content-wrapper {
-  flex: 1;
-  overflow: auto;
-  padding: 32px 64px;
-  width: 100%;
   position: relative;
   z-index: 1;
+  flex: 1;
+  width: 100%;
+  padding: 32px 64px;
+  overflow: auto;
 
   &::-webkit-scrollbar {
     width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgb(255 255 255 / 3%);
     border-radius: 8px;
   }
 
@@ -484,22 +486,23 @@
 
   .back-to-top {
     position: fixed;
-    bottom: 24px;
     right: 24px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba($primary-color, 0.2);
-    color: $text-primary;
+    bottom: 24px;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    box-shadow: 0 0 15px rgba($primary-color, 0.3);
+    width: 48px;
+    height: 48px;
+    color: $text-primary;
+    background: rgba($primary-color, 0.2);
     border: 1px solid rgba($primary-color, 0.3);
-    @include glassmorphism;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba($primary-color, 0.3);
+    cursor: pointer;
     transition: all $transition-fast ease;
+
+    @include glassmorphism;
 
     &:hover {
       box-shadow: 0 0 20px rgba($primary-color, 0.5);

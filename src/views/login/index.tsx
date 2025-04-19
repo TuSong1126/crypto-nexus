@@ -165,12 +165,21 @@ const Login = () => {
         }}
       />
 
-      <motion.div className="web3-login-container" variants={containerVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="web3-login-container"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <motion.div className="web3-login-left" variants={leftPanelVariants}>
           <div className="web3-decoration top"></div>
           <div className="web3-decoration bottom"></div>
 
-          <motion.div className="web3-illustration" variants={itemVariants} whileHover={{ scale: 1.05, rotate: 5 }}>
+          <motion.div
+            className="web3-illustration"
+            variants={itemVariants}
+            whileHover={{ scale: 1.05, rotate: 5 }}
+          >
             <img src={Web3Logo} alt="Web3" width={240} height={240} />
           </motion.div>
 
@@ -188,10 +197,16 @@ const Login = () => {
 
         <motion.div className="web3-login-right" variants={rightPanelVariants}>
           <motion.div className="web3-login-tabs" variants={itemVariants}>
-            <div className={`tab ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>
+            <div
+              className={`tab ${activeTab === 'login' ? 'active' : ''}`}
+              onClick={() => setActiveTab('login')}
+            >
               登录
             </div>
-            <div className={`tab ${activeTab === 'register' ? 'active' : ''}`} onClick={() => setActiveTab('register')}>
+            <div
+              className={`tab ${activeTab === 'register' ? 'active' : ''}`}
+              onClick={() => setActiveTab('register')}
+            >
               注册
             </div>
           </motion.div>
@@ -229,11 +244,24 @@ const Login = () => {
             </div>
 
             {activeTab === 'login' ? (
-              <Web3Button onClick={handleLogin} isLoading={isLoggingIn} fullWidth size="large" gradient glow>
+              <Web3Button
+                onClick={handleLogin}
+                isLoading={isLoggingIn}
+                fullWidth
+                size="large"
+                gradient
+                glow
+              >
                 登录
               </Web3Button>
             ) : (
-              <Web3Button onClick={handleRegister} isLoading={isRegistering} fullWidth size="large" gradient>
+              <Web3Button
+                onClick={handleRegister}
+                isLoading={isRegistering}
+                fullWidth
+                size="large"
+                gradient
+              >
                 注册
               </Web3Button>
             )}

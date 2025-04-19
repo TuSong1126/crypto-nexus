@@ -200,7 +200,12 @@ export default function Home() {
 
   return (
     <PageLayout title="Web3 元宇宙" subtitle="探索去中心化未来的无限可能">
-      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="home-container">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="home-container"
+      >
         <ParticleBackground />
 
         {/* 紧凑导航面板 */}
@@ -387,11 +392,16 @@ export default function Home() {
                           >
                             <div
                               className="feature-glow"
-                              style={{ background: `radial-gradient(circle, ${feature.color}30 0%, transparent 70%)` }}
+                              style={{
+                                background: `radial-gradient(circle, ${feature.color}30 0%, transparent 70%)`
+                              }}
                             ></div>
                             <div className="feature-icon" style={{ color: feature.color }}>
                               <Icon icon={feature.icon} />
-                              <div className="icon-pulse" style={{ borderColor: feature.color }}></div>
+                              <div
+                                className="icon-pulse"
+                                style={{ borderColor: feature.color }}
+                              ></div>
                             </div>
                             <div className="feature-name">{feature.title}</div>
                             <div className="feature-arrow">
@@ -547,7 +557,11 @@ export default function Home() {
                 >
                   <h3>资产概览</h3>
                   <div className="header-options">
-                    <motion.div className="refresh-btn" whileHover={{ rotate: 180 }} transition={{ duration: 0.5 }}>
+                    <motion.div
+                      className="refresh-btn"
+                      whileHover={{ rotate: 180 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <Icon icon="mdi:refresh" />
                     </motion.div>
                     <motion.div className="more-btn" whileHover={{ scale: 1.1 }}>
@@ -584,9 +598,11 @@ export default function Home() {
                       <div className="amount-decoration"></div>
                       <span className="amount-value">
                         $
-                        {(walletBalance * cryptoPrice.eth + 0.018 * cryptoPrice.btc + 0.12 * cryptoPrice.sol).toFixed(
-                          2
-                        )}
+                        {(
+                          walletBalance * cryptoPrice.eth +
+                          0.018 * cryptoPrice.btc +
+                          0.12 * cryptoPrice.sol
+                        ).toFixed(2)}
                       </span>
                       <span className="amount-currency">USD</span>
                     </div>
@@ -710,7 +726,9 @@ export default function Home() {
                         </div>
                         <div className="asset-value-row">
                           <span className="asset-price">${cryptoPrice.eth.toFixed(2)}</span>
-                          <span className="asset-value">${(walletBalance * cryptoPrice.eth).toFixed(2)}</span>
+                          <span className="asset-value">
+                            ${(walletBalance * cryptoPrice.eth).toFixed(2)}
+                          </span>
                         </div>
                         <div className="sparkline">
                           {Array.from({ length: 10 }).map((_, i) => (
@@ -747,7 +765,9 @@ export default function Home() {
                         </div>
                         <div className="asset-value-row">
                           <span className="asset-price">${cryptoPrice.btc.toFixed(2)}</span>
-                          <span className="asset-value">${(0.018 * cryptoPrice.btc).toFixed(2)}</span>
+                          <span className="asset-value">
+                            ${(0.018 * cryptoPrice.btc).toFixed(2)}
+                          </span>
                         </div>
                         <div className="sparkline">
                           {Array.from({ length: 10 }).map((_, i) => (
@@ -784,7 +804,9 @@ export default function Home() {
                         </div>
                         <div className="asset-value-row">
                           <span className="asset-price">${cryptoPrice.sol.toFixed(2)}</span>
-                          <span className="asset-value">${(0.12 * cryptoPrice.sol).toFixed(2)}</span>
+                          <span className="asset-value">
+                            ${(0.12 * cryptoPrice.sol).toFixed(2)}
+                          </span>
                         </div>
                         <div className="sparkline">
                           {Array.from({ length: 10 }).map((_, i) => (
@@ -966,7 +988,12 @@ export default function Home() {
         <div className="section ecosystem-section">
           <Row gutter={[24, 24]}>
             <Col xs={24}>
-              <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <motion.div
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
                 <div className="section-header ecosystem-header">
                   <div className="header-decoration"></div>
                   <motion.div
@@ -990,7 +1017,9 @@ export default function Home() {
                     transition={{ duration: 0.7, delay: 0.2 }}
                     viewport={{ once: true }}
                   >
-                    <Paragraph className="section-subtitle">探索去中心化网络中相互连接的数字经济生态</Paragraph>
+                    <Paragraph className="section-subtitle">
+                      探索去中心化网络中相互连接的数字经济生态
+                    </Paragraph>
                   </motion.div>
                 </div>
               </motion.div>
@@ -1026,7 +1055,9 @@ export default function Home() {
                       <div className="card-glass-effect"></div>
                       <div
                         className="card-glow"
-                        style={{ background: `radial-gradient(circle, ${item.color}40 0%, transparent 70%)` }}
+                        style={{
+                          background: `radial-gradient(circle, ${item.color}40 0%, transparent 70%)`
+                        }}
                       ></div>
 
                       <div className="ecosystem-icon-wrapper">
@@ -1036,7 +1067,9 @@ export default function Home() {
                         </div>
                         <div
                           className="icon-glow"
-                          style={{ background: `radial-gradient(circle, ${item.color}40 0%, transparent 70%)` }}
+                          style={{
+                            background: `radial-gradient(circle, ${item.color}40 0%, transparent 70%)`
+                          }}
                         ></div>
                       </div>
 
@@ -1185,14 +1218,21 @@ export default function Home() {
 
         <Row gutter={[24, 24]} className="section trends-section">
           <Col xs={24} lg={15}>
-            <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               <div className="section-header trends-header">
                 <div className="section-title">
                   <span className="gradient-text" data-text="最新技术趋势">
                     最新技术趋势
                   </span>
                 </div>
-                <Paragraph className="section-subtitle">引领区块链和去中心化技术发展的前沿创新领域</Paragraph>
+                <Paragraph className="section-subtitle">
+                  引领区块链和去中心化技术发展的前沿创新领域
+                </Paragraph>
               </div>
 
               <Row gutter={[24, 24]}>
@@ -1245,7 +1285,9 @@ export default function Home() {
                     </span>{' '}
                     未来技术
                   </h3>
-                  <p className="action-description">加入我们的开发者社区，获取前沿技术资讯，参与创新项目开发与测试</p>
+                  <p className="action-description">
+                    加入我们的开发者社区，获取前沿技术资讯，参与创新项目开发与测试
+                  </p>
                   <Button variant="primary" size="large" className="action-button glow-effect">
                     <Icon icon="mdi:rocket-launch" style={{ marginRight: 8 }} />
                     加入社区

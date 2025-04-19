@@ -34,7 +34,10 @@ export default function Router() {
         <Layout />
       </AuthGuard>
     ),
-    children: [{ index: true, element: <Navigate to={HOMEPAGE} replace /> } as RouteType, ...permissionRoutes]
+    children: [
+      { index: true, element: <Navigate to={HOMEPAGE} replace /> } as RouteType,
+      ...permissionRoutes
+    ]
   }
 
   const router = createHashRouter([...BasicRoutes, MainRoutes] as unknown as RouteObject[])
