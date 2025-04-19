@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { WagmiProvider } from 'wagmi'
 
+import TransactionForm from './components/TransactionForm'
+import TransactionHistory from './components/TransactionHistory'
 import { config } from './config'
 // 组件
 import {
@@ -18,10 +20,8 @@ import {
   theme,
   Title,
   WalletConnectContainer
-} from './styled'
-import TransactionForm from './TransactionForm'
-import TransactionHistory from './TransactionHistory'
-import { TransactionType } from './types'
+} from './config/styled'
+import { TransactionType } from './config/types'
 
 const queryClient = new QueryClient()
 

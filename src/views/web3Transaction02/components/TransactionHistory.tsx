@@ -21,8 +21,8 @@ import {
   TransactionTime,
   TransactionTitle,
   TransactionTitleContainer
-} from './styled'
-import { TransactionType } from './types'
+} from '../config/styled'
+import { TransactionType } from '../config/types'
 
 interface TransactionHistoryProps {
   transactions: TransactionType[]

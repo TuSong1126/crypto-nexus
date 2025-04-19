@@ -13,8 +13,8 @@ import {
   InfoAlert,
   PrimaryButton,
   WarningAlert
-} from './styled'
-import { TransactionType } from './types'
+} from '../config/styled'
+import { TransactionType } from '../config/types'
 
 interface TransactionFormProps {
   addTransaction: (transaction: TransactionType) => void
