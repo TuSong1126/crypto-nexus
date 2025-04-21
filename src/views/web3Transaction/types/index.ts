@@ -19,7 +19,6 @@ export interface TransactionContextProps {
     keyword: string
     message: string
   }
-  transactionCount: number | null
   accountBalance: string
   getAccountBalance: () => Promise<void>
   copyToClipboard: (text: string) => void
