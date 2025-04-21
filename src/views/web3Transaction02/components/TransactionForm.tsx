@@ -1,7 +1,9 @@
+import { ethers } from 'ethers'
 import { useState } from 'react'
 import { parseEther } from 'viem'
 import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 
+import { contractABI, contractAddress } from '../../web3Transaction/utils/constants'
 import {
   Card,
   CardTitle,
@@ -20,7 +22,8 @@ interface TransactionFormProps {
   addTransaction: (transaction: TransactionType) => void
 }
 
-const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
+// 内部组件，使用 Wagmi hooks
+const TransactionFormInner = ({ addTransaction }: TransactionFormProps) => {
   const { address, isConnected } = useAccount()
   const { data: balance } = useBalance({
     address
@@ -29,10 +32,25 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
   const [recipient, setRecipient] = useState('')
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
+  const [keyword, setKeyword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   const { sendTransactionAsync, isPending } = useSendTransaction()
+
+  const createEthereumContract = async () => {
+    const { ethereum } = window as any
+    if (!ethereum) return null
+
+    try {
+      const provider = new ethers.BrowserProvider(ethereum)
+      const signer = await provider.getSigner()
+      return new ethers.Contract(contractAddress, contractABI, signer)
+    } catch (error) {
+      console.error('创建合约实例失败:', error)
+      return null
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -77,10 +95,32 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
 
         addTransaction(newTransaction)
 
+        // 记录交易到区块链
+        try {
+          const contract = await createEthereumContract()
+          if (contract) {
+            // 将交易记录到区块链
+            const addToBlockchainTx = await contract.addToBlockchain(
+              recipient,
+              amountInWei,
+              description || '',
+              keyword || 'transfer',
+              txHash
+            )
+            console.log('交易记录中...', addToBlockchainTx.hash)
+            await addToBlockchainTx.wait()
+            console.log('交易已记录到区块链', addToBlockchainTx.hash)
+          }
+        } catch (contractError) {
+          console.error('记录交易到区块链失败:', contractError)
+          // 这里我们不终止整个流程，因为原始交易已经发送成功
+        }
+
         // 清空表单
         setRecipient('')
         setAmount('')
         setDescription('')
+        setKeyword('')
       }
     } catch (err) {
       console.error('交易错误:', err)
@@ -144,6 +184,17 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
           />
         </FormGroup>
 
+        <FormGroup>
+          <FormLabel>关键词 (可选)</FormLabel>
+          <FormInput
+            type="text"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="交易关键词..."
+            disabled={!isConnected || isSubmitting}
+          />
+        </FormGroup>
+
         {error && (
           <ErrorAlert>
             <span>❌ {error}</span>
@@ -162,6 +213,11 @@ const TransactionForm = ({ addTransaction }: TransactionFormProps) => {
       </Form>
     </Card>
   )
+}
+
+// 外层组件，不使用任何 Wagmi hooks
+const TransactionForm = (props: TransactionFormProps) => {
+  return <TransactionFormInner {...props} />
 }
 
 export default TransactionForm
