@@ -23,9 +23,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
   const [formData, setFormData] = useState({ addressTo: '', amount: '', keyword: '', message: '' })
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [transactionCount, setTransactionCount] = useState<number | null>(
-    Number(localStorage.getItem('transactionCount')) || null
-  )
+
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [accountBalance, setAccountBalance] = useState('0')
 
@@ -68,19 +66,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     }
   }
 
-  const checkIfTransactionsExists = async () => {
-    try {
-      if (!ethereum) return
-
-      const contract = await createEthereumContract()
-      if (!contract) return
-
-      const currentTransactionCount = await contract.getTransactionCount()
-      window.localStorage.setItem('transactionCount', currentTransactionCount.toString())
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const getAllTransactions = async () => {
     try {
       if (!ethereum) return
@@ -166,10 +151,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
       console.log(`成功 - ${addToBlockchainHash.hash}`)
       setIsLoading(false)
 
-      // 更新交易计数
-      const txCount = await contract.getTransactionCount()
-      setTransactionCount(Number(txCount))
-
       // 重置表单
       setFormData({ addressTo: '', amount: '', keyword: '', message: '' })
       // 重新获取所有交易
@@ -195,7 +176,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
   useEffect(() => {
     checkIfWalletIsConnect()
-    checkIfTransactionsExists()
   }, [])
 
   useEffect(() => {
@@ -207,7 +187,6 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
   return (
     <TransactionContext.Provider
       value={{
-        transactionCount,
         connectWallet,
         transactions,
         currentAccount,
