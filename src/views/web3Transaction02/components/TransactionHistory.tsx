@@ -24,8 +24,14 @@ import {
 } from '../config/styled'
 import { TransactionType } from '../config/types'
 
+// 扩展 TransactionType 类型以适应区块链交易数据
+interface ExtendedTransactionType extends TransactionType {
+  from?: string
+  keyword?: string
+}
+
 interface TransactionHistoryProps {
-  transactions: TransactionType[]
+  transactions: ExtendedTransactionType[]
 }
 
 const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions }) => {
@@ -70,7 +76,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions })
   return (
     <Card>
       <CardTitle>
-        <span>📜 交易历史</span>
+        <span>📜 区块链交易历史</span>
       </CardTitle>
 
       <TransactionList>
@@ -85,15 +91,29 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions })
             </TransactionHeader>
 
             <TransactionDetails>
+              {tx.from && (
+                <TransactionDetailRow>
+                  <DetailLabel>发送方:</DetailLabel>
+                  <DetailValue title={tx.from}>{tx.from}</DetailValue>
+                </TransactionDetailRow>
+              )}
+
               <TransactionDetailRow>
-                <DetailLabel>接收地址:</DetailLabel>
-                <DetailValue>{tx.to}</DetailValue>
+                <DetailLabel>接收方:</DetailLabel>
+                <DetailValue title={tx.to}>{tx.to}</DetailValue>
               </TransactionDetailRow>
 
               <TransactionDetailRow>
                 <DetailLabel>金额:</DetailLabel>
                 <DetailValue>{tx.value} ETH</DetailValue>
               </TransactionDetailRow>
+
+              {tx.keyword && (
+                <TransactionDetailRow>
+                  <DetailLabel>关键词:</DetailLabel>
+                  <DetailValue>{tx.keyword}</DetailValue>
+                </TransactionDetailRow>
+              )}
 
               <TransactionDetailRow>
                 <DetailLabel>交易哈希:</DetailLabel>
