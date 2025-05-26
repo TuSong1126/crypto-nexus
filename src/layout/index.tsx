@@ -229,27 +229,21 @@ export default function Layout() {
 
         <motion.div className="menu" variants={menuVariants}>
           {menuList.map((item) => (
-            <motion.div
-              onMouseEnter={() => (item.active = true)}
-              onMouseLeave={() => (item.active = false)}
-              key={item.path}
-              variants={menuItemVariants}
-              whileHover={{ scale: 1.05 }}
-            >
+            <motion.div key={item.path} variants={menuItemVariants} whileHover={{ scale: 1.05 }}>
               <NavLink
                 to={item.path || VITE_APP_HOMEPAGE}
                 className={({ isActive }) => classNames('menu-item', { active: isActive })}
               >
                 {item.meta?.icon && <Icon icon={item.meta.icon} className="menu-icon" />}
                 <span className="menu-text">{item.meta?.title}</span>
-                {item.active && (
+                {
                   <motion.span
                     className="menu-hover-effect"
                     initial={{ width: 0 }}
                     animate={{ width: '100%' }}
                     transition={{ duration: 0.2 }}
                   />
-                )}
+                }
               </NavLink>
             </motion.div>
           ))}

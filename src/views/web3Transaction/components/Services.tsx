@@ -214,6 +214,7 @@ interface ServiceCategory {
     variant: 'glass' | 'gradient' | 'outline'
     isNew?: boolean
     isPopular?: boolean
+    glow?: boolean
   }[]
 }
 
@@ -424,13 +425,13 @@ const Services: React.FC = () => {
                     variant={service.variant}
                     hover={true}
                     glow={service.glow}
-                    title={
+                    title={`${(
                       <>
                         {service.title}
                         {service.isNew && <FeatureBadge>新</FeatureBadge>}
                         {service.isPopular && <FeatureBadge>热门</FeatureBadge>}
                       </>
-                    }
+                    )}`}
                     subtitle={service.subtitle}
                     icon={<span style={{ fontSize: '1.5rem' }}>{service.icon}</span>}
                   >
