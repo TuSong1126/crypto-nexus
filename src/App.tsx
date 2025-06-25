@@ -7,7 +7,19 @@ import Logo from '@/assets/svg/logo.svg'
 import { MotionLazy } from '@/components/basic/animate/motion-lazy'
 import Router from '@/router/index'
 
+const { VITE_APP_SIMPLE_MODE } = import.meta.env
+
+import { useEffect } from 'react'
+
 function App() {
+  useEffect(() => {
+    if (VITE_APP_SIMPLE_MODE === 'true') {
+      document.body.classList.add('simple-mode')
+    } else {
+      document.body.classList.remove('simple-mode')
+    }
+  }, [])
+
   return (
     <HelmetProvider>
       <Suspense>
@@ -15,7 +27,7 @@ function App() {
           <AntdApp>
             <MotionLazy>
               <Helmet>
-                <title>CryptoNexus</title>
+                <title>{VITE_APP_SIMPLE_MODE === 'true' ? 'TestDemo' : 'CryptoNexus'}</title>
                 <link rel="svg" href={Logo} />
               </Helmet>
 

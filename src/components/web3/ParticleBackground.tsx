@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -15,6 +16,8 @@ interface ParticleProps {
 interface ParticleContainerProps {
   $connectParticles?: boolean
 }
+
+const { VITE_APP_SIMPLE_MODE } = import.meta.env
 
 const ParticleContainer = styled.div<ParticleContainerProps>`
   position: fixed;
@@ -41,6 +44,10 @@ const ParticleBackground = ({
   connectParticles = true,
   opacity = 0.8
 }: ParticleProps) => {
+  if (VITE_APP_SIMPLE_MODE === 'true') {
+    return null
+  }
+
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>(0)
 
