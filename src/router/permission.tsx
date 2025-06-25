@@ -6,6 +6,7 @@ import useUserInfoStore from '@/store/userInfo'
 import businessRoutes from './routes'
 
 type dealDataType = (data: RouteType[]) => RouteType[]
+const { VITE_APP_SIMPLE_MODE } = import.meta.env
 
 // 进行权限过滤所有的业务路由
 export default function usePermissionRoutes(): RouteType[] {
@@ -36,7 +37,8 @@ export default function usePermissionRoutes(): RouteType[] {
       })
     }
 
-    const filterRoutes = dealDataFunc(businessRoutes)
+    const filterRoutes =
+      VITE_APP_SIMPLE_MODE === 'true' ? businessRoutes : dealDataFunc(businessRoutes)
 
     return filterRoutes
   }, [permssion.routes])

@@ -12,7 +12,7 @@ import Web3Button from '@/components/web3/Web3Button'
 import { useRouter } from '@/hooks/basic/useRouter'
 import useUserInfoStore from '@/store/userInfo'
 
-const { VITE_APP_HOMEPAGE } = import.meta.env
+const { VITE_APP_HOMEPAGE, VITE_APP_SIMPLE_MODE } = import.meta.env
 
 const Login = () => {
   const userInfoStore = useUserInfoStore()
@@ -43,8 +43,12 @@ const Login = () => {
         routes: perm.routes
       })
 
-      message.success('登录成功，欢迎回来！')
-      router.replace(VITE_APP_HOMEPAGE)
+      if (VITE_APP_SIMPLE_MODE === 'true') {
+        router.replace('/testA')
+      } else {
+        message.success('登录成功，欢迎回来！')
+        router.replace(VITE_APP_HOMEPAGE)
+      }
     } catch (error) {
       message.error('登录失败，请检查账号和密码')
     } finally {
@@ -125,7 +129,13 @@ const Login = () => {
     }
   }
 
-  return (
+  return VITE_APP_SIMPLE_MODE === 'true' ? (
+    <div className="flex items-center justify-center h-screen">
+      <h1 className="text-2xl font-bold cursor-pointer" onClick={handleLogin}>
+        点击登录
+      </h1>
+    </div>
+  ) : (
     <div className="web3-login-wrapper">
       <ParticleBackground
         color="#6c5ce7"

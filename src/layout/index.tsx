@@ -12,7 +12,7 @@ import { useRouter } from '@/hooks/basic/useRouter'
 import businessRoutes from '@/router/routes/index'
 import useUserInfoStore from '@/store/userInfo'
 
-const { VITE_APP_HOMEPAGE, VITE_STYLE_MODE } = import.meta.env
+const { VITE_APP_HOMEPAGE, VITE_APP_SIMPLE_MODE } = import.meta.env
 
 export default function Layout() {
   // 首页不在菜单中展示(注意斜杠)
@@ -172,10 +172,10 @@ export default function Layout() {
     }
   }
 
-  return (
-    <div
-      className={classNames('web3-layout-wrapper', { 'style-mode': VITE_STYLE_MODE === 'true' })}
-    >
+  return VITE_APP_SIMPLE_MODE === 'true' ? (
+    <Outlet />
+  ) : (
+    <div className={classNames('web3-layout-wrapper')}>
       <ParticleBackground
         count={100}
         connectParticles={true}

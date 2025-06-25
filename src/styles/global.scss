@@ -23,9 +23,13 @@ body {
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
-  background: $bg-dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+// 主要是为了登录页的背景色，layout其实不需要(本身已写)
+body:not(.simple-mode) {
+  background: $bg-dark;
 }
 
 // 全局滚动条样式
