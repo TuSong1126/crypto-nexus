@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { Icon } from '@iconify/react'
+import { Divider } from 'antd'
 import classNames from 'classnames'
 import { motion } from 'framer-motion'
 import { Suspense, useEffect, useRef, useState } from 'react'
@@ -173,7 +174,28 @@ export default function Layout() {
   }
 
   return VITE_APP_SIMPLE_MODE === 'true' ? (
-    <Outlet />
+    <div className="w-full h-full flex gap-[24px] p-[24px]">
+      <div className="h-full bg-red-500 flex flex-col gap-[24px]">
+        {menuList.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              classNames(
+                'w-[100px] text-center p-[6px] border-[1px] rounded-[8px] border-[#ededed]',
+                { ['border-[#1677ff]!']: isActive }
+              )
+            }
+          >
+            {item.meta?.title}
+          </NavLink>
+        ))}
+      </div>
+      <Divider type="vertical" className="h-full" />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+    </div>
   ) : (
     <div className={classNames('web3-layout-wrapper')}>
       <ParticleBackground
