@@ -9,7 +9,7 @@ type Props = {
 export function MotionLazy({ children }: Props) {
   return (
     <LazyMotion features={domMax}>
-      <m.div style={{ height: '100%' }}> {children} </m.div>
+      <m.div style={{ height: '100vh' }}> {children} </m.div>
     </LazyMotion>
   )
 }
