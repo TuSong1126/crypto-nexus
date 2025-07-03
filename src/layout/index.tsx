@@ -182,7 +182,7 @@ export default function Layout() {
             to={item.path}
             className={({ isActive }) =>
               classNames(
-                'w-[100px] text-center p-[6px] border-[1px] rounded-[8px] border-[#ededed]',
+                'w-[100px] text-center p-[6px] border-[1px] rounded-[8px] border-[#dedffb]',
                 { ['border-[#1677ff]!']: isActive }
               )
             }
@@ -192,7 +192,7 @@ export default function Layout() {
         ))}
       </div>
       <Divider type="vertical" className="h-full" />
-      <div className="flex-1">
+      <div className="flex-1 p-[16px] bg-[#fff] rounded-[8px]">
         <Outlet />
       </div>
     </div>
