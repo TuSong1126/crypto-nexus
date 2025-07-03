@@ -3,10 +3,11 @@ import styled, { keyframes } from 'styled-components'
 import Button from '@/components/common/Button'
 import { useRouter } from '@/hooks/basic/useRouter'
 
+const { VITE_APP_SIMPLE_MODE } = import.meta.env
+
 export default function ErrorPage() {
   const router = useRouter()
-
-  const goToHome = () => router.push('/home')
+  const goToHome = () => (VITE_APP_SIMPLE_MODE ? router.push('/base') : router.push('/home'))
   const refreshPage = () => window.location.reload()
 
   return (

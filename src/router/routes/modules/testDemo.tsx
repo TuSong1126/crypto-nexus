@@ -2,14 +2,14 @@ import { lazy } from 'react'
 
 const testDemoRoutes: RouteType[] = [
   {
-    path: 'testA',
-    Component: lazy(() => import('@/views/testDemo/testA')),
-    meta: { title: 'testA', permissionKey: 'testA', icon: '' }
+    path: 'base',
+    Component: lazy(() => import('@/views/testDemo/base')),
+    meta: { title: 'base', permissionKey: 'base', icon: '' }
   },
   {
-    path: 'testB',
-    Component: lazy(() => import('@/views/testDemo/testB')),
-    meta: { title: 'testB', permissionKey: 'testB', icon: '' }
+    path: 'hooks',
+    Component: lazy(() => import('@/views/testDemo/hooks/index')),
+    meta: { title: 'hooks', permissionKey: 'hooks', icon: '' }
   }
 ]
 

@@ -1,0 +1,19 @@
+{
+  "React Page with TypeScript": {
+    "prefix": "rpage",
+    "body": [
+      "import React from 'react';",
+      "",
+      "const ${1:Page}: React.FC = () => {",
+      "  return (",
+      "    <main>",
+      "      <h1>${1:Page}...</h1>",
+      "    </main>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:Page};"
+    ],
+    "description": "Creates a TypeScript React Page Component"
+  }
+}
