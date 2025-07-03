@@ -1,14 +1,14 @@
 {
-"React Functional Component with TypeScript": {
-    "prefix": "rfct",
+  "React Functional Component with TypeScript": {
+    "prefix": "rcomp",
     "body": [
       "import React from 'react';",
       "",
-      "interface ${1:ComponentName}Props {",
+      "interface ${1:Component}Props {",
       "  ${2:propName}: ${3:string};",
       "}",
       "",
-      "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = ({ ${2:propName} }) => {",
+      "const ${1:Component}: React.FC<${1:Component}Props> = ({ ${2:propName} }) => {",
       "  return (",
       "    <div>",
       "      {${2:propName}}",
@@ -16,7 +16,7 @@
       "  );",
       "};",
       "",
-      "export default ${1:ComponentName};"
+      "export default ${1:Component};"
     ],
     "description": "Creates a TypeScript React Functional Component"
   },
