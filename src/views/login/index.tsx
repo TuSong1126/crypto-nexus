@@ -44,7 +44,7 @@ const Login = () => {
       })
 
       if (VITE_APP_SIMPLE_MODE === 'true') {
-        router.replace('/testA')
+        router.replace('/base')
       } else {
         message.success('登录成功，欢迎回来！')
         router.replace(VITE_APP_HOMEPAGE)
