@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     if (VITE_APP_SIMPLE_MODE === 'true') {
       document.body.classList.add('simple-mode')
+      document.body.classList.add('bg-[#F5F5F8]')
     } else {
       document.body.classList.remove('simple-mode')
     }
