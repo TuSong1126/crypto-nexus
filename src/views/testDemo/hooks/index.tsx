@@ -28,70 +28,60 @@ const HOOKS_LIST = [
     label: 'useState',
     value: 'useState',
     component: <UseStateDemo />,
-    color: 'red',
     desc: '管理组件内部状态。'
   },
   {
     label: 'useRef',
     value: 'useRef',
     component: <UseRefDemo />,
-    color: 'red',
     desc: '获取 DOM 或保存可变数据，数据变化时不会引发重新渲染。'
   },
   {
     label: 'useImperativeHandle',
     value: 'useImperativeHandle',
     component: <UseImperativeHandleDemo />,
-    color: 'red',
     desc: '自定义暴露给父组件的实例方法或者数据。'
   },
   {
     label: 'useEffect',
     value: 'useEffect',
     component: <UseEffectDemo />,
-    color: 'red',
     desc: '【执行时机：组件渲染完毕后-不会阻塞浏览器绘制】三种依赖项、return函数在组件卸载时清除副作用'
   },
   {
     label: 'useLayoutEffect',
     value: 'useLayoutEffect',
     component: <UseLayoutEffectDemo />,
-    color: 'none',
     desc: '【执行时机：组件开始渲染时-阻塞浏览器绘制(处理闪烁)】'
   },
   {
     label: 'useReducer',
     value: 'useReducer',
     component: <UseReducerDemo />,
-    color: 'red',
     desc: '管理复杂状态，useState->useReducer->zustand。'
   },
   {
     label: 'useContext',
     value: 'useContext',
     component: <UseContextDemo />,
-    color: 'red',
     desc: '跨组件共享数据。'
   },
   {
     label: 'useMemo',
     value: 'useMemo',
     component: <UseMemoDemo />,
-    color: 'red',
     desc: '缓存计算结果，类似于Vue的计算属性，优化性能。'
   },
   {
     label: 'useCallback',
     value: 'useCallback',
     component: <UseCallbackDemo />,
-    color: 'red',
     desc: '缓存函数，减少不必要的子组件渲染。'
   },
   {
     label: 'useTransition',
     value: 'useTransition',
     component: <UseTransitionDemo />,
-    color: 'none',
     desc: '区分高低优先级更新,注意：传递给 startTransition 的函数必须是同步的。',
     href: 'https://x.com/i/grok?conversation=1941423503141413368'
   },
@@ -99,7 +89,6 @@ const HOOKS_LIST = [
     label: 'useDeferredValue',
     value: 'useDeferredValue',
     component: <UseDeferredValueDemo />,
-    color: 'none',
     desc: '延迟不重要的 UI 更新。',
     href: 'https://x.com/i/grok?conversation=1941423503141413368'
   },
@@ -107,72 +96,63 @@ const HOOKS_LIST = [
     label: 'useDebugValue',
     value: 'useDebugValue',
     component: <UseDebugValueDemo />,
-    color: 'none',
     desc: '自定义 Hook 调试信息。'
-  },
-  {
-    label: 'useId',
-    value: 'useId',
-    component: <UseIdDemo />,
-    color: 'none',
-    desc: '生成唯一 id。'
   },
   {
     label: 'useSyncExternalStore',
     value: 'useSyncExternalStore',
     component: <UseSyncExternalStoreDemo />,
-    color: 'none',
     desc: '订阅外部 store。'
   },
   {
     label: 'useInsertionEffect',
     value: 'useInsertionEffect',
     component: <UseInsertionEffectDemo />,
-    color: 'none',
     desc: 'DOM 插入前执行副作用。'
   },
   {
-    label: 'use',
-    value: 'use',
-    component: <UseDemo />,
-    color: 'none',
-    desc: '直接调用异步资源。'
+    label: 'useId',
+    value: 'useId',
+    component: <UseIdDemo />,
+    desc: '生成唯一 id。'
   },
+
   {
-    label: 'useActionState',
+    label: 'useActionState-【v19】',
     value: 'useActionState',
     component: <UseActionStateDemo />,
-    color: 'none',
     desc: '管理异步 action 状态。'
   },
   {
-    label: 'useFormStatus',
-    value: 'useFormStatus',
-    component: <UseFormStatusDemo />,
-    color: 'none',
-    desc: '获取表单提交状态。'
-  },
-  {
-    label: 'useOptimistic',
+    label: 'useOptimistic-【v19】',
     value: 'useOptimistic',
     component: <UseOptimisticDemo />,
-    color: 'none',
     desc: '实现乐观 UI 更新。'
   },
-
-  // 非hooks
   {
-    label: 'forwardRef-[非hooks]',
+    label: 'useFormStatus-【v19】-[ReactDom Hook]',
+    value: 'useFormStatus',
+    component: <UseFormStatusDemo />,
+    desc: '获取表单提交状态。'
+  },
+
+  // API函数
+  {
+    label: 'use-【v19】-[API函数]',
+    value: 'use',
+    component: <UseDemo />,
+    desc: '直接调用异步资源。'
+  },
+  {
+    label: 'forwardRef-[API函数]',
     value: 'forwardRef',
     component: <ForwardRefDemo />,
-    color: 'none',
     desc: '让父组件获取子组件 ref。'
   },
   {
-    label: 'React.memo-[非hooks]',
+    label: 'React.memo-[API函数]',
     value: 'reactMemo',
     component: <ReactMemoDemo />,
-    color: 'red',
     desc: '缓存组件，避免重复渲染。'
   }
 ]
@@ -195,7 +175,7 @@ export default function HooksPage() {
             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
           }
           optionRender={(option, { index }) => (
-            <span style={{ color: option.data.color }}>
+            <span>
               {index + 1}、{option.label}
             </span>
           )}
