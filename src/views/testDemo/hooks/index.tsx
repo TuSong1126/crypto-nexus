@@ -38,13 +38,14 @@ const HOOKS_LIST = [
     color: 'none'
   },
   {
-    label: 'useEffect(三种依赖项、return函数在组件卸载时清除副作用)',
+    label:
+      'useEffect(【执行时机：组件渲染完毕后-不会阻塞浏览器绘制】三种依赖项、return函数在组件卸载时清除副作用)',
     value: 'useEffect',
     component: <UseEffectDemo />,
     color: 'none'
   },
   {
-    label: 'useLayoutEffect',
+    label: 'useLayoutEffect(【执行时机：组件开始渲染时-阻塞浏览器绘制(处理闪烁)】)',
     value: 'useLayoutEffect',
     component: <UseLayoutEffectDemo />,
     color: 'none'
