@@ -32,17 +32,17 @@ const HOOKS_LIST = [
     color: 'none'
   },
   {
-    label: 'useImperativeHandle(配合forwardRef使用)',
+    label: 'useImperativeHandle(配合forwardRef使用,v19移除forwardRef后，配合普通ref的prop使用)',
     value: 'useImperativeHandle',
     component: <UseImperativeHandleDemo />,
-    color: 'none'
+    color: 'red'
   },
   {
     label:
       'useEffect(【执行时机：组件渲染完毕后-不会阻塞浏览器绘制】三种依赖项、return函数在组件卸载时清除副作用)',
     value: 'useEffect',
     component: <UseEffectDemo />,
-    color: 'none'
+    color: 'red'
   },
   {
     label: 'useLayoutEffect(【执行时机：组件开始渲染时-阻塞浏览器绘制(处理闪烁)】)',
@@ -50,9 +50,14 @@ const HOOKS_LIST = [
     component: <UseLayoutEffectDemo />,
     color: 'none'
   },
-  { label: 'useReducer', value: 'useReducer', component: <UseReducerDemo />, color: 'none' },
-  { label: 'useContext', value: 'useContext', component: <UseContextDemo />, color: 'none' },
-  { label: 'useMemo', value: 'useMemo', component: <UseMemoDemo />, color: 'none' },
+  {
+    label: 'useReducer(useState->useReducer->zustand)',
+    value: 'useReducer',
+    component: <UseReducerDemo />,
+    color: 'red'
+  },
+  { label: 'useContext', value: 'useContext', component: <UseContextDemo />, color: 'red' },
+  { label: 'useMemo', value: 'useMemo', component: <UseMemoDemo />, color: 'red' },
   { label: 'useCallback', value: 'useCallback', component: <UseCallbackDemo />, color: 'none' },
   {
     label: 'useTransition',
