@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // 1、state变化会导致组件刷新
-function Page1() {
+const Page1: React.FC = () => {
   const [count, setCount] = useState(0)
 
   return (
@@ -15,7 +15,7 @@ function Page1() {
 }
 
 // 2、函数形式赋初始值（函数仅在初始化时执行）
-function Page2() {
+const Page2: React.FC = () => {
   const [date] = useState(() => new Date().getTime())
   const [count, setCount] = useState(0)
 
@@ -28,7 +28,7 @@ function Page2() {
 }
 
 // 3、useState 是异步变更状态的(无法立即拿到最新的状态)
-function Page3() {
+const Page3: React.FC = () => {
   const [count, setCount] = useState(0)
 
   const add = () => {
@@ -56,7 +56,7 @@ function Page3() {
 }
 
 // 4、【注意事项】更新对象类型的值，要用新对象覆盖旧对象
-function Page4() {
+const Page4: React.FC = () => {
   const [obj, setObj] = useState({
     a: 1,
     b: 2
@@ -83,7 +83,7 @@ function Page4() {
 }
 
 // 5、【注意事项】解决值更新不及时的 Bug
-function Page5() {
+const Page5: React.FC = () => {
   const [count, setCount] = useState(0)
 
   // 预期是一次性加2，实际上不行
@@ -107,7 +107,7 @@ function Page5() {
 }
 
 // 6、【注意事项】使用 setState 模拟组件的强制刷新---算是reload
-function Page6() {
+const Page6: React.FC = () => {
   const [, setState] = useState({})
 
   return (
