@@ -1,6 +1,7 @@
 import { Divider, Select } from 'antd'
 import { useState } from 'react'
 
+import ForwardRefDemo from './components/ForwardRefDemo'
 import UseActionStateDemo from './components/UseActionStateDemo'
 import UseCallbackDemo from './components/UseCallbackDemo'
 import UseContextDemo from './components/UseContextDemo'
@@ -23,7 +24,13 @@ import UseTransitionDemo from './components/UseTransitionDemo'
 
 const HOOKS_LIST = [
   { label: 'useState', value: 'useState', component: <UseStateDemo />, color: 'red' },
-  { label: 'useRef', value: 'useRef', component: <UseRefDemo />, color: 'none' },
+  { label: 'useRef', value: 'useRef', component: <UseRefDemo />, color: 'red' },
+  {
+    label: 'forwardRef(非hooksAPI,React函数,解决FC不可被ref引用的问题,配套useImperativeHandle使用)',
+    value: 'forwardRef',
+    component: <ForwardRefDemo />,
+    color: 'none'
+  },
   {
     label: 'useImperativeHandle',
     value: 'useImperativeHandle',
@@ -103,7 +110,7 @@ export default function HooksPage() {
         <div className="text-[16px] font-bold w-[100px]">选择hooks：</div>
         <Select
           defaultValue={curHook}
-          style={{ width: 200 }}
+          style={{ width: '60%' }}
           onChange={handleChange}
           options={HOOKS_LIST}
           showSearch
