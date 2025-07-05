@@ -5,6 +5,7 @@ const Child = React.memo(({ count }: { count: number }) => {
   console.log('Child 渲染')
   return <div>子组件 count: {count}</div>
 })
+Child.displayName = 'Child'
 
 const ReactMemoDemo: React.FC = () => {
   const [count, setCount] = useState(0)

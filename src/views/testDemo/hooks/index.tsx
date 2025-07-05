@@ -85,7 +85,7 @@ const HOOKS_LIST = [
     value: 'useCallback',
     component: <UseCallbackDemo />,
     color: 'none',
-    desc: '缓存函数，优化子组件渲染。'
+    desc: '缓存函数，减少不必要的子组件渲染。'
   },
   {
     label: 'useTransition',
