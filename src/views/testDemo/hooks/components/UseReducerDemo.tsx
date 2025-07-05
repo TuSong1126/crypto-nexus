@@ -1,5 +1,7 @@
 import { Dispatch, useReducer } from 'react'
 
+import { useImmerReducer } from 'use-immer'
+
 // const [state, dispatch] = useReducer(reducer, initState, initAction?)
 
 // 1. reducer 按条件处理state的函数。
@@ -28,6 +30,25 @@ function reducer(state: State, action: Action): State {
       return { ...state, age: state.age + 1 }
     case 'decAge':
       return { ...state, age: state.age - 1 }
+    default:
+      return state
+  }
+}
+
+function immerReducer(state: State, action: Action) {
+  switch (action.type) {
+    case 'setName':
+      state.name = action.payload
+      break
+    case 'setAge':
+      state.age = action.payload
+      break
+    case 'incAge':
+      state.age += 1
+      break
+    case 'decAge':
+      state.age -= 1
+      break
     default:
       return state
   }
@@ -63,7 +84,8 @@ const Child: React.FC<State & { dispatch: Dispatch<Action> }> = (
 }
 
 export default function UseReducerDemo() {
-  const [state, dispatch] = useReducer(reducer, { name: '', age: 0 }, init)
+  // const [state, dispatch] = useReducer(reducer, { name: '', age: 0 }, init)
+  const [state, dispatch] = useImmerReducer(immerReducer, { name: '', age: 0 }, init)
   return (
     <div>
       <p>{JSON.stringify(state)}</p>
