@@ -32,12 +32,17 @@ const HOOKS_LIST = [
     color: 'none'
   },
   {
-    label: 'useImperativeHandle',
+    label: 'useImperativeHandle(配合forwardRef使用)',
     value: 'useImperativeHandle',
     component: <UseImperativeHandleDemo />,
     color: 'none'
   },
-  { label: 'useEffect', value: 'useEffect', component: <UseEffectDemo />, color: 'none' },
+  {
+    label: 'useEffect(三种依赖项、return函数在组件卸载时清除副作用)',
+    value: 'useEffect',
+    component: <UseEffectDemo />,
+    color: 'none'
+  },
   {
     label: 'useLayoutEffect',
     value: 'useLayoutEffect',
