@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { useCountDown } from '../config/useCountDown'
+import { useMousePosition } from '../config/useMousePosition'
+
 // 常规使用
 const Page1: React.FC = () => {
   const [count, setCount] = useState(0)
@@ -83,42 +86,23 @@ const Page2: React.FC = () => {
 
 // demo示例
 const Child3: React.FC = () => {
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0
-  })
-
-  useEffect(() => {
-    let timer: null | NodeJS.Timeout = null
-    const handleMove = (e: MouseEvent) => {
-      if (timer) return
-
-      timer = setTimeout(() => {
-        console.log('窗口大小变化', e)
-        setPosition({ x: e.clientX, y: e.clientY })
-
-        timer = null
-      }, 500)
-    }
-
-    window.addEventListener('mousemove', handleMove)
-
-    // 清理函数：组件卸载时移除事件监听
-    return () => {
-      console.log(111, '销毁时,先执行清理函数,移除窗口大小变化的监听')
-      window.removeEventListener('mousemove', handleMove)
-    }
-  }, [])
-
+  const position = useMousePosition(666)
   return <>我是子组件，演示下清除副作用{JSON.stringify(position)}</>
 }
 const Page3: React.FC = () => {
   const [flag, setFlag] = useState(true)
 
+  const { count, disabled } = useCountDown(7)
+
   return (
     <>
       <button onClick={() => setFlag((pre) => !pre)}>显示或者隐藏子组件</button>
       {flag && <Child3 />}
+
+      <br />
+      <button disabled={disabled} onClick={() => console.log('协议生效！')}>
+        {disabled ? `请阅读${count}s` : '确认'}
+      </button>
     </>
   )
 }
