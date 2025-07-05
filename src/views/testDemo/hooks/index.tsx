@@ -2,6 +2,7 @@ import { Divider, Select } from 'antd'
 import { useState } from 'react'
 
 import ForwardRefDemo from './components/ForwardRefDemo'
+import ReactMemoDemo from './components/ReactMemoDemo'
 import UseActionStateDemo from './components/UseActionStateDemo'
 import UseCallbackDemo from './components/UseCallbackDemo'
 import UseContextDemo from './components/UseContextDemo'
@@ -57,16 +58,28 @@ const HOOKS_LIST = [
     color: 'red'
   },
   { label: 'useContext', value: 'useContext', component: <UseContextDemo />, color: 'red' },
-  { label: 'useMemo', value: 'useMemo', component: <UseMemoDemo />, color: 'red' },
-  { label: 'useCallback', value: 'useCallback', component: <UseCallbackDemo />, color: 'none' },
+
   {
-    label: 'useTransition',
+    label: 'React.memo(性能优化-非hooks)',
+    value: 'reactMemo',
+    component: <ReactMemoDemo />,
+    color: 'red'
+  },
+  { label: 'useMemo(性能优化)', value: 'useMemo', component: <UseMemoDemo />, color: 'red' },
+  {
+    label: 'useCallback(性能优化)',
+    value: 'useCallback',
+    component: <UseCallbackDemo />,
+    color: 'none'
+  },
+  {
+    label: 'useTransition(性能优化)',
     value: 'useTransition',
     component: <UseTransitionDemo />,
     color: 'none'
   },
   {
-    label: 'useDeferredValue',
+    label: 'useDeferredValue(性能优化)',
     value: 'useDeferredValue',
     component: <UseDeferredValueDemo />,
     color: 'none'
