@@ -39,7 +39,7 @@ const SearchBox2: React.FC = () => {
   }
 
   return (
-    <div style={{ height: 500 }}>
+    <div style={{ height: 500, opacity: deferredKw === kw ? '1' : '0.3' }}>
       <input type="text" className="bg-[#eded]" value={kw} onChange={onInputChange} />
       <hr />
       {/* 3. 将延迟版的 kw 值，传递给子组件使用 */}

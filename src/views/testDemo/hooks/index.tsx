@@ -92,14 +92,16 @@ const HOOKS_LIST = [
     value: 'useTransition',
     component: <UseTransitionDemo />,
     color: 'none',
-    desc: '【延迟状态更新!!!】区分高低优先级更新,注意：传递给 startTransition 的函数必须是同步的。'
+    desc: '区分高低优先级更新,注意：传递给 startTransition 的函数必须是同步的。',
+    href: 'https://x.com/i/grok?conversation=1941423503141413368'
   },
   {
     label: 'useDeferredValue',
     value: 'useDeferredValue',
     component: <UseDeferredValueDemo />,
     color: 'none',
-    desc: '【延迟值得更新，从而UI更新!!!】延迟不重要的 UI 更新。'
+    desc: '延迟不重要的 UI 更新。',
+    href: 'https://x.com/i/grok?conversation=1941423503141413368'
   },
   {
     label: 'useDebugValue',
@@ -222,6 +224,10 @@ export default function HooksPage() {
 
       <div className="text-[14px] bg-[#ddd] text-gray-600 mb-2 min-h-[32px] p-[8px] rounded-[8px]">
         {HOOKS_LIST.find((item) => item.value === curHook)?.desc}
+        <hr />
+        <a className="text-[blue]" href={HOOKS_LIST.find((item) => item.value === curHook)?.href}>
+          {HOOKS_LIST.find((item) => item.value === curHook)?.href}
+        </a>
       </div>
 
       <br />
