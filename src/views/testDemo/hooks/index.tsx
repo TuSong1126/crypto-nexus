@@ -92,14 +92,14 @@ const HOOKS_LIST = [
     value: 'useTransition',
     component: <UseTransitionDemo />,
     color: 'none',
-    desc: '区分高低优先级更新。'
+    desc: '【延迟状态更新!!!】区分高低优先级更新,注意：传递给 startTransition 的函数必须是同步的。'
   },
   {
     label: 'useDeferredValue',
     value: 'useDeferredValue',
     component: <UseDeferredValueDemo />,
     color: 'none',
-    desc: '延迟不重要的 UI 更新。'
+    desc: '【延迟值得更新，从而UI更新!!!】延迟不重要的 UI 更新。'
   },
   {
     label: 'useDebugValue',

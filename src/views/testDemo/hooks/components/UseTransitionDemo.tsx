@@ -85,6 +85,6 @@ const AboutTab: React.FC = () => {
 // 如果在其执行期间，尝试稍后执行状态更新（例如在一个定时器中执行状态更新），这些状态更新不会被标记为 transition；
 // 2. 标记为 transition 的状态更新将被其他状态更新打断。
 // 例如在 transition 中更新图表组件，并在图表组件仍在重新渲染时继续在输入框中输入，React 将首先处理输入框的更新，之后再重新启动对图表组件的渲染工作；
-// 3. transition 更新不能用于控制文本输入。
+// 3. transition 更新不能用于控制文本输入这个时候就要用到useDeferredValue。
 
 export default TabsContainer
