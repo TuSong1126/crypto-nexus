@@ -35,6 +35,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'zustandRecoil',
     Component: lazy(() => import('@/views/testDemo/zustandRecoil/index')),
     meta: { title: 'zustandRecoil', permissionKey: 'zustandRecoil', icon: '' }
+  },
+  {
+    path: 'zod',
+    Component: lazy(() => import('@/views/testDemo/zod/index')),
+    meta: { title: 'zod', permissionKey: 'zod', icon: '' }
   }
 ]
 
