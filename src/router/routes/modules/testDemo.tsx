@@ -25,6 +25,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'virtualTable',
     Component: lazy(() => import('@/views/testDemo/virtualTable/index')),
     meta: { title: 'virtualTable', permissionKey: 'virtualTable', icon: '' }
+  },
+  {
+    path: 'reactQuery',
+    Component: lazy(() => import('@/views/testDemo/reactQuery/index')),
+    meta: { title: 'reactQuery', permissionKey: 'reactQuery', icon: '' }
   }
 ]
 
