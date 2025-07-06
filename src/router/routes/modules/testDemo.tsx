@@ -20,6 +20,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'IntersectionObserver',
     Component: lazy(() => import('@/views/testDemo/IntersectionObserver/index')),
     meta: { title: 'IntersectionObserver', permissionKey: 'hooks', icon: '' }
+  },
+  {
+    path: 'virtualTable',
+    Component: lazy(() => import('@/views/testDemo/virtualTable/index')),
+    meta: { title: 'virtualTable', permissionKey: 'hooks', icon: '' }
   }
 ]
 
