@@ -45,6 +45,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'indexedDB',
     Component: lazy(() => import('@/views/testDemo/indexedDB/index')),
     meta: { title: 'indexedDB', permissionKey: 'indexedDB', icon: '' }
+  },
+  {
+    path: 'graph',
+    Component: lazy(() => import('@/views/testDemo/graph/index')),
+    meta: { title: 'graph', permissionKey: 'graph', icon: '' }
   }
 ]
 
