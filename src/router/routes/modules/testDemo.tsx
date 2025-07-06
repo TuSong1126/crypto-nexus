@@ -10,6 +10,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'hooks',
     Component: lazy(() => import('@/views/testDemo/hooks/index')),
     meta: { title: 'hooks', permissionKey: 'hooks', icon: '' }
+  },
+  {
+    path: 'webworker',
+    Component: lazy(() => import('@/views/testDemo/webworker/index')),
+    meta: { title: 'webworker', permissionKey: 'hooks', icon: '' }
   }
 ]
 
