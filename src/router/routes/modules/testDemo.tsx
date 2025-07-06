@@ -14,17 +14,17 @@ const testDemoRoutes: RouteType[] = [
   {
     path: 'webworker',
     Component: lazy(() => import('@/views/testDemo/webworker/index')),
-    meta: { title: 'webworker', permissionKey: 'hooks', icon: '' }
+    meta: { title: 'webworker', permissionKey: 'webworker', icon: '' }
   },
   {
     path: 'IntersectionObserver',
     Component: lazy(() => import('@/views/testDemo/IntersectionObserver/index')),
-    meta: { title: 'IntersectionObserver', permissionKey: 'hooks', icon: '' }
+    meta: { title: 'IntersectionObserver', permissionKey: 'IntersectionObserver', icon: '' }
   },
   {
     path: 'virtualTable',
     Component: lazy(() => import('@/views/testDemo/virtualTable/index')),
-    meta: { title: 'virtualTable', permissionKey: 'hooks', icon: '' }
+    meta: { title: 'virtualTable', permissionKey: 'virtualTable', icon: '' }
   }
 ]
 
