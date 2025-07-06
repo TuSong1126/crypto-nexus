@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from 'react'
 
+// 基于 React 18 useSyncExternalStore，实现组件级精准订阅与快照管理。
+// 支持 localStorage、WebSocket、IndexedDB 等原生事件驱动的高性能实时同步，兼容并发渲染，提升系统响应与一致性。
 import { dataStore } from './config/dataStore'
 
 export default function UseSyncExternalStoreDemo() {
