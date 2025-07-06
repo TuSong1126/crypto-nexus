@@ -40,6 +40,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'zod',
     Component: lazy(() => import('@/views/testDemo/zod/index')),
     meta: { title: 'zod', permissionKey: 'zod', icon: '' }
+  },
+  {
+    path: 'indexedDB',
+    Component: lazy(() => import('@/views/testDemo/indexedDB/index')),
+    meta: { title: 'indexedDB', permissionKey: 'indexedDB', icon: '' }
   }
 ]
 
