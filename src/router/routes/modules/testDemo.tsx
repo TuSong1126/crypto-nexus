@@ -30,6 +30,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'reactQuery',
     Component: lazy(() => import('@/views/testDemo/reactQuery/index')),
     meta: { title: 'reactQuery', permissionKey: 'reactQuery', icon: '' }
+  },
+  {
+    path: 'zustandRecoil',
+    Component: lazy(() => import('@/views/testDemo/zustandRecoil/index')),
+    meta: { title: 'zustandRecoil', permissionKey: 'zustandRecoil', icon: '' }
   }
 ]
 
