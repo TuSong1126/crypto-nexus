@@ -5,6 +5,8 @@ import Button from '@/components/common/Button'
 import { ConstEnum } from '@/enums'
 import { useRouter } from '@/hooks/basic/useRouter'
 
+const { VITE_APP_SIMPLE_MODE } = import.meta.env
+
 export default function NotFound() {
   const router = useRouter()
 
@@ -17,7 +19,7 @@ export default function NotFound() {
     }
   }, [router])
 
-  const goToHome = () => router.push('/home')
+  const goToHome = () => (VITE_APP_SIMPLE_MODE ? router.push('/base') : router.push('/home'))
   const goBack = () => router.back()
 
   return (

@@ -182,7 +182,7 @@ export default function Layout() {
             to={item.path}
             className={({ isActive }) =>
               classNames(
-                'w-[100px] text-center p-[6px] border-[1px] rounded-[8px] border-[#dedffb]',
+                'w-[180px] text-center p-[6px] border-[1px] rounded-[8px] border-[#dedffb]',
                 { ['border-[#1677ff]!']: isActive }
               )
             }

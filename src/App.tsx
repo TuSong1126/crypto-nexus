@@ -1,5 +1,7 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { App as AntdApp, ConfigProvider as AntdConfigProvider } from 'antd'
 import { Suspense } from 'react'
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { HelmetProvider } from 'react-helmet-async'
 
@@ -8,8 +10,8 @@ import { MotionLazy } from '@/components/basic/animate/motion-lazy'
 import Router from '@/router/index'
 
 const { VITE_APP_SIMPLE_MODE } = import.meta.env
-
-import { useEffect } from 'react'
+// 创建 QueryClient 实例
+const queryClient = new QueryClient()
 
 function App() {
   useEffect(() => {
@@ -24,18 +26,20 @@ function App() {
   return (
     <HelmetProvider>
       <Suspense>
-        <AntdConfigProvider>
-          <AntdApp>
-            <MotionLazy>
-              <Helmet>
-                <title>{VITE_APP_SIMPLE_MODE === 'true' ? 'TestDemo' : 'CryptoNexus'}</title>
-                <link rel="svg" href={Logo} />
-              </Helmet>
+        <QueryClientProvider client={queryClient}>
+          <AntdConfigProvider>
+            <AntdApp>
+              <MotionLazy>
+                <Helmet>
+                  <title>{VITE_APP_SIMPLE_MODE === 'true' ? 'TestDemo' : 'CryptoNexus'}</title>
+                  <link rel="svg" href={Logo} />
+                </Helmet>
 
-              <Router />
-            </MotionLazy>
-          </AntdApp>
-        </AntdConfigProvider>
+                <Router />
+              </MotionLazy>
+            </AntdApp>
+          </AntdConfigProvider>
+        </QueryClientProvider>
       </Suspense>
     </HelmetProvider>
   )
