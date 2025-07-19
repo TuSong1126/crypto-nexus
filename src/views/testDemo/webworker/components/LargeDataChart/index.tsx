@@ -56,6 +56,7 @@ const LargeDataChart: React.FC = () => {
       }
       if (done) {
         setLoading(false)
+        // 关闭webworker
         workerRef.current?.terminate()
       }
     }

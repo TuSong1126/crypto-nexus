@@ -12,6 +12,9 @@ self.onmessage = (event: MessageEvent) => {
   let index = 0
   const sendChunk = () => {
     if (index < chunks.length) {
+      // if (index > 2) {
+      //   self.close() // Worker 内部关闭自身
+      // }
       self.postMessage({ chunk: chunks[index], index })
       index++
       setTimeout(sendChunk, 100) // 模拟逐步发送
