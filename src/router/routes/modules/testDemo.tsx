@@ -50,6 +50,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'graph',
     Component: lazy(() => import('@/views/testDemo/graph/index')),
     meta: { title: 'graph', permissionKey: 'graph', icon: '' }
+  },
+  {
+    path: 'vDom',
+    Component: lazy(() => import('@/views/testDemo/vDom/index')),
+    meta: { title: 'vDom', permissionKey: 'vDom', icon: '' }
   }
 ]
 
