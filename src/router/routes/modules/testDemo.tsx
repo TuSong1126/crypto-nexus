@@ -52,9 +52,14 @@ const testDemoRoutes: RouteType[] = [
     meta: { title: 'graph', permissionKey: 'graph', icon: '' }
   },
   {
-    path: 'vDom',
-    Component: lazy(() => import('@/views/testDemo/vDom/index')),
-    meta: { title: 'vDom', permissionKey: 'vDom', icon: '' }
+    path: 'vDomFiberDiff',
+    Component: lazy(() => import('@/views/testDemo/vDomFiberDiff/index')),
+    meta: { title: 'vDom、fiber、diff', permissionKey: 'vDom、fiber、diff', icon: '' }
+  },
+  {
+    path: 'requestIdleCallback',
+    Component: lazy(() => import('@/views/testDemo/requestIdleCallback/index')),
+    meta: { title: 'requestIdleCallback', permissionKey: 'requestIdleCallback', icon: '' }
   }
 ]
 
