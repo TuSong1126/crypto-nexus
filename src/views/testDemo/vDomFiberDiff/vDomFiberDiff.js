@@ -331,5 +331,6 @@ const demoData = React.createElement(
     )
   )
 )
+console.log('demoData', demoData)
 
 render(demoData, document.getElementById('root'))
