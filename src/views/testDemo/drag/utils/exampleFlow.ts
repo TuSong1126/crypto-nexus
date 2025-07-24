@@ -1,7 +1,18 @@
-import { Graph } from '@antv/x6'
+import { Graph, Node } from '@antv/x6'
+import { registerCustomNode } from '../components/nodes/CustomNodeRegistry'
 
 // 创建示例流程图
 export const createExampleFlow = (graph: Graph) => {
+  // 确保自定义节点已注册
+  try {
+    if (!Node.registry.exist('custom-node')) {
+      console.log('在createExampleFlow中注册自定义节点')
+      registerCustomNode()
+    }
+  } catch (error) {
+    console.error('检查节点注册状态时出错，尝试强制注册:', error)
+    registerCustomNode()
+  }
   // 创建节点
   const startNode = graph.addNode({
     shape: 'custom-node',

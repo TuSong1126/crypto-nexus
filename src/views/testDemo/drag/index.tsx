@@ -13,6 +13,9 @@ import PropertyPanel from './components/PropertyPanel'
 import { createExampleFlow } from './utils/exampleFlow'
 import { exportFlow, importFlow, validateFlow } from './utils/flowUtils'
 
+// 立即注册自定义节点，确保在组件渲染前就已注册
+registerCustomNode()
+
 const { Header, Sider, Content } = Layout
 
 const Page: React.FC = () => {
@@ -21,10 +24,10 @@ const Page: React.FC = () => {
   const [dnd, setDnd] = useState<Dnd | null>(null)
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
 
-  // 初始化自定义节点
-  useEffect(() => {
-    registerCustomNode()
-  }, [])
+  // 自定义节点已在文件顶部注册
+  // useEffect(() => {
+  //   registerCustomNode()
+  // }, [])
 
   // 处理节点选择
   const handleNodeSelected = (node: Node) => {
@@ -173,7 +176,7 @@ const Page: React.FC = () => {
     console.log('DND实例已设置到state:', dndInstance)
 
     // 创建示例流程图
-    // createExampleFlow(graphInstance)
+    createExampleFlow(graphInstance)
   }, []) // 空依赖数组，确保回调函数只创建一次
 
   return (

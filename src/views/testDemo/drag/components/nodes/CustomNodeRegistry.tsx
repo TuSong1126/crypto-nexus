@@ -7,7 +7,15 @@ import { CustomNodeComponent } from './CustomNodeComponent'
 
 // 注册自定义节点
 export const registerCustomNode = () => {
-  if (Node.registry.exist('custom-node')) return
+  // 检查自定义节点是否已注册
+  try {
+    if (Node.registry.exist('custom-node')) {
+      console.log('自定义节点已注册，无需重复注册')
+      return
+    }
+  } catch (error) {
+    console.error('检查节点注册状态时出错:', error)
+  }
 
   register({
     shape: 'custom-node',
@@ -84,8 +92,13 @@ export const createCustomNode = ({
   ports?: { id: string; group: string }[]
 }) => {
   // 确保自定义节点已注册
-  if (!Node.registry.exist('custom-node')) {
-    console.log('自定义节点未注册，正在注册...')
+  try {
+    if (!Node.registry.exist('custom-node')) {
+      console.log('自定义节点未注册，正在注册...')
+      registerCustomNode()
+    }
+  } catch (error) {
+    console.error('检查节点注册状态时出错，尝试强制注册:', error)
     registerCustomNode()
   }
 
