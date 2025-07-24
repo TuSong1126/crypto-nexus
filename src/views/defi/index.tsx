@@ -117,7 +117,9 @@ const Defi = () => {
                 <div className="market-cell">{item.name}</div>
                 <div className="market-cell price">{item.price}</div>
                 <div
-                  className={`market-cell change ${item.change.startsWith('+') ? 'positive' : 'negative'}`}
+                  className={`market-cell change ${
+                    item.change.startsWith('+') ? 'positive' : 'negative'
+                  }`}
                 >
                   {item.change}
                 </div>

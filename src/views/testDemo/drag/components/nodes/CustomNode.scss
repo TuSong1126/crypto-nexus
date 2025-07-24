@@ -1,0 +1,248 @@
+.custom-node {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+
+  &-header {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+  }
+
+  &-title {
+    flex: 1;
+    overflow: hidden;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-body {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  &-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  // 不同类型节点的样式
+  &-form {
+    border-color: #1890ff;
+
+    .custom-node-header {
+      background-color: rgb(24 144 255 / 10%);
+      border-color: #1890ff;
+    }
+
+    .form-indicator {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background-color: rgb(24 144 255 / 20%);
+      border-radius: 2px;
+
+      &::before,
+      &::after {
+        position: absolute;
+        left: 5px;
+        height: 2px;
+        background-color: #1890ff;
+        content: '';
+      }
+
+      &::before {
+        top: 6px;
+        width: 30px;
+      }
+
+      &::after {
+        top: 12px;
+        width: 20px;
+      }
+    }
+  }
+
+  &-approval {
+    border-color: #52c41a;
+
+    .custom-node-header {
+      background-color: rgb(82 196 26 / 10%);
+      border-color: #52c41a;
+    }
+
+    .approval-indicator {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #52c41a;
+      border-radius: 50%;
+
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 4px;
+        border-bottom: 2px solid #52c41a;
+        border-left: 2px solid #52c41a;
+        transform: translate(-50%, -70%) rotate(-45deg);
+        content: '';
+      }
+    }
+  }
+
+  &-process {
+    border-color: #fa8c16;
+
+    .custom-node-header {
+      background-color: rgb(250 140 22 / 10%);
+      border-color: #fa8c16;
+    }
+
+    .process-indicator {
+      position: relative;
+      width: 24px;
+      height: 24px;
+
+      &::before,
+      &::after {
+        position: absolute;
+        background-color: #fa8c16;
+        content: '';
+      }
+
+      &::before {
+        top: 0;
+        left: 10px;
+        width: 4px;
+        height: 24px;
+      }
+
+      &::after {
+        top: 10px;
+        left: 0;
+        width: 24px;
+        height: 4px;
+      }
+    }
+  }
+
+  &-condition {
+    border-color: #722ed1;
+
+    .custom-node-header {
+      background-color: rgb(114 46 209 / 10%);
+      border-color: #722ed1;
+    }
+
+    .condition-indicator {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      transform: rotate(45deg);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #722ed1;
+        content: '';
+      }
+    }
+  }
+
+  &-subprocess {
+    border-color: #eb2f96;
+
+    .custom-node-header {
+      background-color: rgb(235 47 150 / 10%);
+      border-color: #eb2f96;
+    }
+
+    .subprocess-indicator {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #eb2f96;
+      border-radius: 2px;
+
+      &::before,
+      &::after {
+        position: absolute;
+        background-color: #eb2f96;
+        content: '';
+      }
+
+      &::before {
+        top: 5px;
+        left: 5px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  &-trigger {
+    border-color: #13c2c2;
+
+    .custom-node-header {
+      background-color: rgb(19 194 194 / 10%);
+      border-color: #13c2c2;
+    }
+
+    .trigger-indicator {
+      position: relative;
+      width: 24px;
+      height: 24px;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-left: 20px solid #13c2c2;
+        content: '';
+      }
+    }
+  }
+
+  // 添加过渡效果
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+    transform: translateY(-2px);
+  }
+}

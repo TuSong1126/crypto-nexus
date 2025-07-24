@@ -1,0 +1,39 @@
+.flow-graph {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+
+  .x6-graph-scroller {
+    width: 100%;
+    height: 100%;
+  }
+
+  .x6-node {
+    &.x6-node-selected {
+      box-shadow: 0 0 0 2px #1890ff;
+    }
+  }
+
+  .x6-edge {
+    &.x6-edge-selected {
+      path {
+        stroke: #1890ff;
+        stroke-width: 2px;
+      }
+    }
+  }
+
+  .x6-port-body {
+    fill: #fff;
+    stroke: #1890ff;
+    stroke-width: 1px;
+
+    &:hover {
+      fill: #1890ff;
+      stroke: #1890ff;
+    }
+  }
+}

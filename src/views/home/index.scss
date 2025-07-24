@@ -1673,9 +1673,6 @@
         mask:
           linear-gradient(#fff 0 0) content-box,
           linear-gradient(#fff 0 0);
-        mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
         mask-composite: xor;
         mask-composite: exclude;
       }
@@ -1907,9 +1904,6 @@
           border-radius: 15px;
           content: '';
           inset: 0;
-          mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
           mask:
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);

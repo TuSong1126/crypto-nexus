@@ -60,6 +60,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'requestIdleCallback',
     Component: lazy(() => import('@/views/testDemo/requestIdleCallback/index')),
     meta: { title: 'requestIdleCallback', permissionKey: 'requestIdleCallback', icon: '' }
+  },
+  {
+    path: 'drag',
+    Component: lazy(() => import('@/views/testDemo/drag/index')),
+    meta: { title: 'drag', permissionKey: 'drag', icon: '' }
   }
 ]
 
