@@ -246,16 +246,90 @@ function commitWork(fiber) {
   commitWork(fiber.sibling)
 }
 
-render(
-  React.createElement('div', { id: 'root' }, React.createElement('span', null, '小满zs')),
-  document.getElementById('root')
+// render(
+//   React.createElement('div', { id: 'root' }, React.createElement('span', null, '小满zs')),
+//   document.getElementById('root')
+// )
+
+// setTimeout(() => {
+//   console.log('------------------新的格局开始了--------------------')
+
+//   render(
+//     React.createElement('div', { id: 'root' }, React.createElement('p', null, '新元素')),
+//     document.getElementById('root')
+//   )
+// }, 2000)
+
+const demoData = React.createElement(
+  'div',
+  { id: 'root' },
+  React.createElement(
+    'ul',
+    null,
+    React.createElement(
+      'li',
+      null,
+      '父节点1',
+      React.createElement(
+        'ul',
+        null,
+        React.createElement(
+          'li',
+          null,
+          '子节点1-1',
+          React.createElement(
+            'ul',
+            null,
+            React.createElement('li', null, '子节点1-1-1'),
+            React.createElement(
+              'li',
+              null,
+              '子节点1-1-2',
+              React.createElement(
+                'ul',
+                null,
+                React.createElement('li', null, '子节点1-1-2-1'),
+                React.createElement('li', null, '子节点1-1-2-2')
+              )
+            )
+          )
+        ),
+        React.createElement('li', null, '子节点1-2')
+      )
+    ),
+    React.createElement(
+      'li',
+      null,
+      '父节点2',
+      React.createElement(
+        'ul',
+        null,
+        React.createElement(
+          'li',
+          null,
+          '子节点2-1',
+          React.createElement('ul', null, React.createElement('li', null, '子节点2-1-1'))
+        ),
+        React.createElement('li', null, '子节点2-2')
+      )
+    ),
+    React.createElement(
+      'li',
+      null,
+      '父节点3',
+      React.createElement(
+        'ul',
+        null,
+        React.createElement('li', null, '子节点3-1'),
+        React.createElement(
+          'li',
+          null,
+          '子节点3-2',
+          React.createElement('ul', null, React.createElement('li', null, '子节点3-2-1'))
+        )
+      )
+    )
+  )
 )
 
-setTimeout(() => {
-  console.log('------------------新的格局开始了--------------------')
-
-  render(
-    React.createElement('div', { id: 'root' }, React.createElement('p', null, '新元素')),
-    document.getElementById('root')
-  )
-}, 2000)
+render(demoData, document.getElementById('root'))
