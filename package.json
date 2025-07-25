@@ -21,6 +21,7 @@
     "@antv/x6-plugin-selection": "^2.2.2",
     "@antv/x6-plugin-snapline": "^2.1.7",
     "@antv/x6-plugin-transform": "^2.1.8",
+    "@antv/x6-react-components": "^2.0.9",
     "@antv/x6-react-shape": "^2.2.3",
     "@iconify/react": "^5.0.2",
     "@rainbow-me/rainbowkit": "^2.2.4",

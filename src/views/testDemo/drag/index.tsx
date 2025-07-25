@@ -3,13 +3,13 @@ import './index.scss'
 import { Cell, Edge, Graph, Node } from '@antv/x6'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { Layout, message, Modal } from 'antd'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import FlowGraph from './components/FlowGraph'
 import NodePanel from './components/NodePanel'
 import { registerCustomNode } from './components/nodes/CustomNodeRegistry'
 import PropertyPanel from './components/PropertyPanel'
-// import Toolbar from './components/Toolbar'
+import Toolbar from './components/Toolbar'
 import { createExampleFlow } from './utils/exampleFlow'
 import { exportFlow, importFlow, validateFlow } from './utils/flowUtils'
 
@@ -23,11 +23,6 @@ const Page: React.FC = () => {
   const [graph, setGraph] = useState<Graph | null>(null)
   const [dnd, setDnd] = useState<Dnd | null>(null)
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
-
-  // 自定义节点已在文件顶部注册
-  // useEffect(() => {
-  //   registerCustomNode()
-  // }, [])
 
   // 处理节点选择
   const handleNodeSelected = (node: Node) => {
@@ -157,11 +152,6 @@ const Page: React.FC = () => {
     input.click()
   }
 
-  // const [aaa, setAaa] = useState(false)
-  // setTimeout(() => {
-  //   setAaa(true)
-  // }, 2000)
-
   // 处理FlowGraph初始化完成 - 使用useCallback避免重复创建函数
   const handleFlowGraphInitialized = useCallback((graphInstance: Graph, dndInstance: Dnd) => {
     console.log('FlowGraph初始化完成回调触发')
@@ -183,12 +173,12 @@ const Page: React.FC = () => {
     <Layout className="flow-designer">
       <Header className="flow-designer-header">
         <div className="logo">流程设计器</div>
-        {/* <Toolbar
+        <Toolbar
           graph={graph}
           onSave={handleSave}
           onExport={handleExport}
           onImport={handleImport}
-        /> */}
+        />
       </Header>
       <Layout>
         <Sider width={240} theme="light" className="flow-designer-sider left">
