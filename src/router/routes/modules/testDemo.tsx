@@ -65,6 +65,11 @@ const testDemoRoutes: RouteType[] = [
     path: 'drag',
     Component: lazy(() => import('@/views/testDemo/drag/index')),
     meta: { title: 'drag', permissionKey: 'drag', icon: '' }
+  },
+  {
+    path: 'dynamicForm',
+    Component: lazy(() => import('@/views/testDemo/dynamicForm/index')),
+    meta: { title: 'dynamicForm', permissionKey: 'dynamicForm', icon: '' }
   }
 ]
 

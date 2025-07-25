@@ -1,0 +1,338 @@
+// 动态表单样式
+
+.dynamic-form-builder {
+  display: flex;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  background-color: #f5f7fa;
+
+  // 拖拽相关样式
+  .drag-handle {
+    color: #8c8c8c;
+    cursor: move;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .drag-over-field {
+    background-color: rgb(24 144 255 / 10%) !important;
+    border-color: #1890ff !important;
+    box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+  }
+
+  // 字段库样式
+  .field-library {
+    width: 260px;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: white;
+    border-right: 1px solid #e6e9ed;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+    h3 {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      color: #1f2937;
+      font-weight: 600;
+      font-size: 18px;
+      border-bottom: 2px solid #f0f2f5;
+    }
+
+    .field-item {
+      margin-bottom: 10px;
+      overflow: hidden;
+      border-radius: 6px;
+      transition: all 0.3s;
+
+      &:hover {
+        border-color: #4096ff;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+        transform: translateY(-2px);
+      }
+
+      .ant-card-body {
+        padding: 12px;
+      }
+    }
+  }
+
+  // 表单设计器样式
+  .form-designer {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+
+    .drop-area {
+      min-height: 600px;
+      padding: 24px;
+      background-color: white;
+      border: 2px dashed #d9d9d9;
+      border-radius: 8px;
+      transition: all 0.3s;
+
+      &.drag-over {
+        background-color: #e6f4ff;
+        border-color: #4096ff;
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+      }
+    }
+
+    .field-item {
+      position: relative;
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: grab;
+      transition: all 0.3s;
+
+      &:hover {
+        border-color: #4096ff;
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      &.selected {
+        background-color: #e6f7ff;
+        border-color: #1890ff;
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+      }
+
+      .field-actions {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
+        padding: 2px;
+        background-color: rgb(255 255 255 / 90%);
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      &:hover .field-actions {
+        opacity: 1;
+      }
+    }
+
+    .container-field {
+      min-height: 120px;
+      padding: 16px;
+      border: 2px dashed #d9d9d9;
+      border-radius: 6px;
+      transition: all 0.3s;
+
+      &.drag-over {
+        background-color: #e6f4ff;
+        border-color: #4096ff;
+      }
+
+      .container-title {
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        color: #1f2937;
+        font-weight: 600;
+        font-size: 16px;
+        border-bottom: 1px solid #f0f2f5;
+      }
+
+      .empty-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+        color: #a0aec0;
+        background-color: #f9fafb;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  // 属性面板样式
+  .property-panel {
+    width: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: white;
+    border-left: 1px solid #e6e9ed;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+    h3 {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      color: #1f2937;
+      font-weight: 600;
+      font-size: 18px;
+      border-bottom: 2px solid #f0f2f5;
+    }
+
+    .property-form {
+      .ant-form-item {
+        margin-bottom: 16px;
+      }
+
+      .ant-form-item-label > label {
+        color: #4b5563;
+        font-weight: 500;
+      }
+
+      .width-selector {
+        .ant-select-selector {
+          border-radius: 4px;
+        }
+      }
+
+      .options-config {
+        .option-item {
+          margin-bottom: 8px;
+          padding: 8px;
+          background-color: #f9fafb;
+          border-radius: 4px;
+          transition: all 0.3s;
+
+          &:hover {
+            background-color: #f0f2f5;
+          }
+
+          .remove-option-btn {
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+        }
+
+        .add-option-btn {
+          width: 100%;
+          color: #4096ff;
+          border-style: dashed;
+        }
+      }
+
+      .container-title-field {
+        .ant-input {
+          font-weight: 500;
+        }
+      }
+
+      .ant-divider {
+        margin: 12px 0;
+      }
+    }
+
+    .empty-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #a0aec0;
+      text-align: center;
+
+      .anticon {
+        margin-bottom: 12px;
+        color: #d1d5db;
+        font-size: 32px;
+      }
+    }
+  }
+
+  // 预览抽屉样式
+  .preview-drawer {
+    .ant-drawer-header {
+      border-bottom: 1px solid #f0f2f5;
+    }
+
+    .preview-form {
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+      .ant-form-item {
+        margin-bottom: 24px;
+      }
+
+      .ant-form-item-label > label {
+        color: #4b5563;
+        font-weight: 500;
+      }
+
+      .preview-container {
+        margin-bottom: 32px;
+        padding: 16px;
+        background-color: #f9fafb;
+        border-radius: 8px;
+
+        .container-title {
+          margin-bottom: 16px;
+          padding-bottom: 8px;
+          color: #1f2937;
+          font-weight: 600;
+          font-size: 16px;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .container-content {
+          padding-left: 8px;
+        }
+      }
+
+      .submit-btn {
+        width: 100%;
+        margin-top: 24px;
+      }
+    }
+  }
+
+  // 表单字段样式
+  .field-input,
+  .field-select,
+  .field-datepicker {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .field-checkbox-group,
+  .field-radio-group {
+    width: 100%;
+
+    .field-checkbox,
+    .field-radio {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  .field-upload {
+    .ant-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 4px;
+      transition: all 0.3s;
+
+      &:hover {
+        border-color: #4096ff;
+      }
+    }
+  }
+
+  .field-container {
+    min-height: 120px;
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 2px dashed #d9d9d9;
+    border-radius: 6px;
+    transition: all 0.3s;
+
+    &.drag-over {
+      background-color: #e6f4ff;
+      border-color: #4096ff;
+    }
+  }
+}
