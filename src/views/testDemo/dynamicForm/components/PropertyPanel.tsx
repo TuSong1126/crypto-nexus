@@ -8,6 +8,13 @@ import { PropertyPanelProps } from '../types'
 const PropertyPanel: React.FC<PropertyPanelProps> = ({ field, onUpdate }) => {
   const [form] = useForm()
 
+  // 当字段变化时重置表单
+  React.useEffect(() => {
+    if (field) {
+      form.setFieldsValue(field)
+    }
+  }, [field, form])
+
   const handleFieldChange = (changedValues: any) => {
     const updatedField = { ...field, ...changedValues }
     onUpdate(updatedField)

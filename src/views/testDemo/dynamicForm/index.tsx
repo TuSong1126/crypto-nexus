@@ -1,9 +1,9 @@
 // 导入样式
 import './styles.scss'
 
-import { EyeOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
-import React, { useCallback, useState } from 'react'
+import { ClearOutlined, EyeOutlined, SaveOutlined } from '@ant-design/icons'
+import { Button, message } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
 
 // 导入组件
 import FieldLibrary from './components/FieldLibrary'
@@ -15,6 +15,8 @@ import PropertyPanel from './components/PropertyPanel'
 import { FormField } from './types'
 import { generateId } from './utils'
 
+const FORM_CONFIG_KEY = 'dynamic_form_config'
+
 const DynamicFormBuilder: React.FC = () => {
   // 状态管理
   const [formFields, setFormFields] = useState<FormField[]>([])
@@ -22,6 +24,38 @@ const DynamicFormBuilder: React.FC = () => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [draggedField, setDraggedField] = useState<FormField | null>(null)
   const [dragOverContainer, setDragOverContainer] = useState<string | null>(null)
+
+  // 从localStorage加载表单配置
+  useEffect(() => {
+    try {
+      const savedConfig = localStorage.getItem(FORM_CONFIG_KEY)
+      if (savedConfig) {
+        const parsedConfig = JSON.parse(savedConfig)
+        setFormFields(parsedConfig)
+      }
+    } catch (error) {
+      console.error('加载表单配置失败:', error)
+    }
+  }, [])
+
+  // 保存表单配置到localStorage
+  const saveFormConfig = useCallback(() => {
+    try {
+      localStorage.setItem(FORM_CONFIG_KEY, JSON.stringify(formFields))
+      message.success('表单配置已保存')
+    } catch (error) {
+      console.error('保存表单配置失败:', error)
+      message.error('保存表单配置失败')
+    }
+  }, [formFields])
+
+  // 清空表单配置
+  const clearFormConfig = useCallback(() => {
+    setFormFields([])
+    setSelectedField(null)
+    localStorage.removeItem(FORM_CONFIG_KEY)
+    message.success('表单配置已清空')
+  }, [])
 
   // 拖拽开始
   const handleDragStart = useCallback((field: FormField) => {
@@ -177,15 +211,28 @@ const DynamicFormBuilder: React.FC = () => {
   return (
     <div className="h-screen flex bg-gray-100 overflow-hidden dynamic-form-builder">
       {/* 左侧字段库 */}
-      <FieldLibrary onDragStart={handleDragStart} onDragEnd={handleDragEnd} />
+      <div className="left-panel">
+        <div className="panel-header">
+          <h2 className="text-xl font-semibold text-gray-800">字段库</h2>
+        </div>
+        <FieldLibrary onDragStart={handleDragStart} onDragEnd={handleDragEnd} />
+      </div>
 
       {/* 中间表单区域 */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
-        <div className="flex justify-between items-center p-4 bg-white border-b border-gray-200">
+      <div className="flex-1 flex flex-col h-full overflow-hidden center-panel">
+        <div className="flex justify-between items-center p-4 bg-white border-b border-gray-200 panel-header">
           <h2 className="text-xl font-semibold text-gray-800">动态表单设计器</h2>
-          <Button type="primary" icon={<EyeOutlined />} onClick={() => setPreviewVisible(true)}>
-            预览表单
-          </Button>
+          <div className="flex space-x-2">
+            <Button type="default" icon={<SaveOutlined />} onClick={saveFormConfig}>
+              保存配置
+            </Button>
+            <Button danger icon={<ClearOutlined />} onClick={clearFormConfig}>
+              清空配置
+            </Button>
+            <Button type="primary" icon={<EyeOutlined />} onClick={() => setPreviewVisible(true)}>
+              预览表单
+            </Button>
+          </div>
         </div>
 
         <FormDesigner
@@ -205,16 +252,21 @@ const DynamicFormBuilder: React.FC = () => {
       </div>
 
       {/* 右侧属性配置 */}
-      <div className="w-80 bg-white border-l border-gray-200 h-full overflow-hidden">
-        {selectedField ? (
-          <PropertyPanel field={selectedField} onUpdate={handleUpdateField} />
-        ) : (
-          <div className="h-full flex items-center justify-center text-gray-400 p-4">
-            <div className="text-center">
-              <p>请选择一个字段进行配置</p>
+      <div className="right-panel">
+        <div className="panel-header">
+          <h2 className="text-xl font-semibold text-gray-800">属性配置</h2>
+        </div>
+        <div className="panel-content">
+          {selectedField ? (
+            <PropertyPanel field={selectedField} onUpdate={handleUpdateField} />
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-400 p-4">
+              <div className="text-center">
+                <p>请选择一个字段进行配置</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* 预览抽屉 */}
