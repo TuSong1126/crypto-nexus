@@ -175,7 +175,7 @@ export default function Layout() {
 
   return VITE_APP_SIMPLE_MODE === 'true' ? (
     <div className="w-full h-full flex gap-[24px] p-[24px]">
-      <div className="h-full bg-red-500 flex flex-col gap-[24px]">
+      <div className="h-full bg-red-500 flex flex-col gap-[24px] overflow-auto p-[16px]">
         {menuList.map((item) => (
           <NavLink
             key={item.path}
